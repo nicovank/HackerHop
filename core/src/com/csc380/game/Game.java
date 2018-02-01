@@ -13,12 +13,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Game extends ApplicationAdapter {
 
-	// We will have this TAG in every tag to easily use LibGDX's logging system.
+	// We will have this TAG in every class to easily use LibGDX's logging system.
 	private static final String TAG = Game.class.getName();
 
 	private final SpriteBatch batch = new SpriteBatch();
 
-	
+
 	@Override
 	public void create () {
 
@@ -33,8 +33,11 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		// Clear frame
 		Gdx.gl.glClearColor(1, .5f, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// Draw next frame
 		batch.begin();
 		// Draw sprites and textures (or the scene) to the batch.
 		batch.end();
