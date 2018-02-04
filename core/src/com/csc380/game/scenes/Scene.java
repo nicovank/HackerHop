@@ -5,4 +5,6 @@ package com.csc380.game.scenes;
  */
 public abstract class Scene {
 
+    private static final String TAG = Scene.class.getName();
+
 }
