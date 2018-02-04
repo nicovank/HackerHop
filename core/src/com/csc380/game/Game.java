@@ -16,13 +16,15 @@ public class Game extends ApplicationAdapter {
 	// We will have this TAG in every class to easily use LibGDX's logging system.
 	private static final String TAG = Game.class.getName();
 
-	private final SpriteBatch batch = new SpriteBatch();
+	private SpriteBatch batch;
 
 
 	@Override
 	public void create () {
 
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+		batch = new SpriteBatch();
 
 		// To log information or errors use:
 
