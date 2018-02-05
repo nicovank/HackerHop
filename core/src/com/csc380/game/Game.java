@@ -33,7 +33,7 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		// Start the game with the menu
-		currentScene = new Menu();
+		currentScene = new Menu(this);
 
 		// To log information or errors use:
 
