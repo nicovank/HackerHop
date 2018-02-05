@@ -2,6 +2,7 @@ package com.csc380.game.scenes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.csc380.game.Game;
 
 /**
  * This class is an interface for creating more scenes.
@@ -9,6 +10,12 @@ import com.badlogic.gdx.utils.Disposable;
 public abstract class Scene implements Disposable {
 
     private static final String TAG = Scene.class.getName();
+
+    private Game controller;
+
+    public Scene(Game controller) {
+        this.controller = controller;
+    }
 
     /**
      * Updates the physics, character positions, etc.
