@@ -19,7 +19,7 @@ and anything else life in _SUNY Oswego_ throws at him. The Obstacles he faces wi
     continue game progression. If the player comes in contact with a “Student Loan” 
     the game is over. 
     
- - **Lake Effect Weather** Further into the game, the player will come across weather 
+ - **Lake Effect Weather:** Further into the game, the player will come across weather 
     hazard signs. These will indicate that a gust of wind will push the player to either 
     the left or right side of the screen. This can knock the player off his platform, 
     ending the game. 
