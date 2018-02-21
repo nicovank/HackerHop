@@ -23,22 +23,6 @@
 				<version>1.2.0</version>
 			</dependency>
 
-			<!-- android-specific dependencies -->
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-backend-android</artifactId>
-				<version>1.2.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-platform</artifactId>
-				<version>1.2.0</version>
-				<classifier>natives-armeabi</classifier>
-				<scope>provided</scope>
-			</dependency>
-
-
 			<!-- desktop-specific dependencies -->
 			<dependency>
 				<groupId>com.badlogicgames.gdx</groupId>
