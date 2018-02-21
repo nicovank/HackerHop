@@ -9,6 +9,7 @@ public class Position {
 
     /**
      * Creates a new position, storing both coordinates.
+     *
      * @param x The x position of this element.
      * @param y The y position of this element.
      */
@@ -18,6 +19,7 @@ public class Position {
 
     /**
      * Sets the position to new coordinates.
+     *
      * @param x The new x position of this element.
      * @param y The new y position of this element.
      */
@@ -28,6 +30,7 @@ public class Position {
 
     /**
      * Returns the x position of the element.
+     *
      * @return the x position of the element.
      */
     public double getX() {
@@ -36,6 +39,7 @@ public class Position {
 
     /**
      * Returns the y position of the element.
+     *
      * @return the y position of the element.
      */
     public double getY() {
@@ -44,6 +48,7 @@ public class Position {
 
     /**
      * Sets the x coordinate of the position to a new value.
+     *
      * @param x the new x coordinate.
      */
     public void setX(double x) {
@@ -52,6 +57,7 @@ public class Position {
 
     /**
      * Sets the y coordinate of the position to a new value.
+     *
      * @param y the new y coordinate.
      */
     public void setY(double y) {
