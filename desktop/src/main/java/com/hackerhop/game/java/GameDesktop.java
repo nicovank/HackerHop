@@ -11,5 +11,6 @@ public class GameDesktop {
 		config.height = 720;
 		config.width = 540;
 		new LwjglApplication(new Game(), config);
+
 	}
 }
