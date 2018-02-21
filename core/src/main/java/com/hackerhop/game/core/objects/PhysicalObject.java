@@ -15,16 +15,6 @@ public abstract class PhysicalObject implements Disposable {
     private Body body;
 
     /**
-     * Forces the subclasses to implement a constructor that takes a world,
-     * and thus allowing to create a body for the object.
-     *
-     * @param world the Box2D world.
-     */
-    public PhysicalObject(World world) {
-
-    }
-
-    /**
      * Returns the physical body of this object.
      *
      * @return the physical body of the object.
