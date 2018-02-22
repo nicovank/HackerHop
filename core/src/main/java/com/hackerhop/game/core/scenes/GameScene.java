@@ -2,13 +2,22 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
 
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
  */
 public class GameScene extends Scene {
+
+    //ShapeRenderer
+    ShapeRenderer renderer = new ShapeRenderer();
+
+    private Array<Platform> platforms;
+
 
     // Our physics world
     private World world;
@@ -20,6 +29,8 @@ public class GameScene extends Scene {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 2;
     private static final int POSITION_ITERATIONS = 6;
+
+
 
     /**
      * Creates a new Game Scene.
@@ -56,6 +67,17 @@ public class GameScene extends Scene {
      */
     @Override
     public void render(SpriteBatch batch) {
+
+        platforms = new Array<Platform>();
+        platforms.add(new Platform(70, 20, 10, 10));
+
+        //Rectangles are filled shapes
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        //Render each platform in the platform array
+        for(Platform p: platforms){
+            p.rectRender(renderer);
+        }
+        renderer.end();
 
     }
 
