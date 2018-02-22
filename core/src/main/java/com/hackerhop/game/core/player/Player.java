@@ -1,8 +1,6 @@
 package com.hackerhop.game.core.player;
 
-import com.badlogic.gdx.InputProcessor;
 import com.hackerhop.game.core.utils.Direction;
-import com.hackerhop.game.core.utils.Position;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -21,6 +19,12 @@ public class Player {
         return body;
     }
 
+    /**
+     * Creates a new player in the given world.
+     *
+     * @param world    the physics world where the player will be.
+     * @param position the initial position of the player.
+     */
     public Player(World world, Vec2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DYNAMIC;
