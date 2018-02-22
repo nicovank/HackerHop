@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.scenes;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.hackerhop.game.core.Game;
@@ -7,7 +8,7 @@ import com.hackerhop.game.core.Game;
 /**
  * This class is an interface for creating more scenes.
  */
-public abstract class Scene implements Disposable {
+public abstract class Scene implements Disposable, InputProcessor {
 
     private static final String TAG = Scene.class.getName();
 
