@@ -23,7 +23,7 @@ public class GameScene extends Scene {
     private Array<Platform> platforms;
 
     // Our physics world
-    private World world;
+    World world = new World(new Vec2(0, -10));
 
     // Frame time accumulator
     private float accumulator = 0.0f;

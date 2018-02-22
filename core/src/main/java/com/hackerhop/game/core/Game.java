@@ -5,11 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
-import com.hackerhop.game.core.objects.Platform;
 import com.hackerhop.game.core.scenes.GameScene;
-import com.hackerhop.game.core.scenes.Menu;
 import com.hackerhop.game.core.scenes.Scene;
 
 /**
