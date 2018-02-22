@@ -37,5 +37,5 @@ public abstract class PhysicalObject implements Disposable {
      *
      * @param batch where the object will be rendered
      */
-    public abstract void render(SpriteBatch batch);
+
 }
