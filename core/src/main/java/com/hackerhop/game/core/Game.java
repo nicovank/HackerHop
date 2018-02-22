@@ -5,6 +5,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.hackerhop.game.core.objects.Platform;
+import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.scenes.Menu;
 import com.hackerhop.game.core.scenes.Scene;
 
@@ -17,8 +21,10 @@ public class Game extends ApplicationAdapter {
     // We will have this TAG in every class to easily use LibGDX's logging system.
     private static final String TAG = Game.class.getName();
 
+    //private Array<Platform> platforms;
     private SpriteBatch batch;
     private Scene currentScene;
+    //private ShapeRenderer renderer;
 
     /**
      * Entry point of the application.
@@ -31,8 +37,14 @@ public class Game extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
+        //renderer = new ShapeRenderer();
+
+        //Initialize array of platforms, and add just one for now
+        //platforms = new Array<Platform>();
+        //platforms.add(new Platform(70, 20, 10, 10));
+
         // Start the game with the menu
-        currentScene = new Menu(this);
+        currentScene = new GameScene(this);
 
         // To log information or errors use:
 
