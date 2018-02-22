@@ -71,7 +71,7 @@ public class GameScene extends Scene {
     public void render(SpriteBatch batch) {
 
         platforms = new Array<Platform>();
-        platforms.add(new Platform(70, 20, 10, 10));
+        platforms.add(new Platform(70, 60, 20, 20));
 
         //Rectangles are filled shapes
         renderer.begin(ShapeRenderer.ShapeType.Filled);

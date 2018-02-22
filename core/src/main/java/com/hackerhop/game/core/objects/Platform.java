@@ -29,7 +29,7 @@ public class Platform {
         float height = top - bottom;
 
         r.rect(leftEdge, bottom, width, height);
-        r.setColor(Color.TEAL);
+        r.setColor(Color.MAROON);
 
 
     }
