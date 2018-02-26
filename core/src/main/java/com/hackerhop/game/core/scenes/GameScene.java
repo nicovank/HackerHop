@@ -11,6 +11,10 @@ import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
 
+import java.util.HashSet;
+import java.util.Random;
+
+
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
  */
@@ -20,7 +24,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private Array<Platform> platforms;
+    private HashSet<Platform> platforms = genPlats(7);
 
     // Our physics world
     World world = new World(new Vec2(0, -10));
@@ -70,8 +74,9 @@ public class GameScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
 
-        platforms = new Array<Platform>();
-        platforms.add(new Platform(70, 60, 20, 20));
+
+//        platforms = new HashSet<Platform>();
+//        platforms.add(new Platform(70, 60, 20, 20));
 
         //Rectangles are filled shapes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -81,6 +86,22 @@ public class GameScene extends Scene {
         }
         renderer.end();
 
+    }
+
+    /**
+     * Randomly generates HashSet of n platforms.
+     * @param n The number of platforms to be generated.
+     */
+    private HashSet<Platform> genPlats(int n){
+        HashSet<Platform> plat = new HashSet<Platform>();
+        Random r = new Random();
+        while (n > 0){
+            Platform e = new Platform((70+r.nextInt(650)), 60, 20, (1+r.nextInt(480)));
+            if (plat.add(e)) {
+                --n;
+            }
+        }
+        return plat;
     }
 
     /**
