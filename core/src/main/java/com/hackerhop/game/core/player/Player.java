@@ -14,11 +14,8 @@ import org.jbox2d.collision.shapes.PolygonShape;
 public class Player {
     private Body body;
     private Direction direction;
-    public Sprite playerSprite;
-    public SpriteBatch batch;
+    public Texture texture;
     private OrthographicCamera camera;
-
-
 
 
     /**
@@ -49,18 +46,11 @@ public class Player {
         rectangle.setAsBox(100, 100);
         fixtureDef.shape = rectangle;
         body.createFixture(fixtureDef);
+
+        texture = new Texture("player/rob.png");
     }
 
-//Should create sprite and render it, Currently not working
-    public void create(){
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        playerSprite = new Sprite(new Texture("rob.png"));
-        batch = new SpriteBatch();
-    }
-    public void render(){
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        playerSprite.draw(batch);
-        batch.end();
+    public void render(SpriteBatch batch) {
+        batch.draw(texture, body.getPosition().x, body.getPosition().y);
     }
 }

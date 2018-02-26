@@ -64,12 +64,8 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, .5f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Draw next frame
-        batch.begin();
-        // Draw sprites and textures (or the scene) to the batch.
-        // Draws the current scene.
+        // Draw next frame (current scene)
         currentScene.render(batch);
-        batch.end();
     }
 
     /**
