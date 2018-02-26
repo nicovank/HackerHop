@@ -1,5 +1,11 @@
 package com.hackerhop.game.core.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.utils.Direction;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
@@ -8,6 +14,9 @@ import org.jbox2d.collision.shapes.PolygonShape;
 public class Player {
     private Body body;
     private Direction direction;
+    public Texture texture;
+    private OrthographicCamera camera;
+
 
     /**
      * Returns the player's physics body.
@@ -37,5 +46,11 @@ public class Player {
         rectangle.setAsBox(100, 100);
         fixtureDef.shape = rectangle;
         body.createFixture(fixtureDef);
+
+        texture = new Texture("player/rob.png");
+    }
+
+    public void render(SpriteBatch batch) {
+        batch.draw(texture, body.getPosition().x, body.getPosition().y);
     }
 }

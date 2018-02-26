@@ -12,6 +12,7 @@ import com.hackerhop.game.core.Game;
  */
 public class Menu extends Scene implements InputProcessor {
 
+
     private static final String TAG = Scene.class.getName();
 
     public Menu(Game controller) {
