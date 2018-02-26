@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.scenes.Scene;
 
@@ -20,6 +21,8 @@ public class Game extends ApplicationAdapter {
     //private Array<Platform> platforms;
     private SpriteBatch batch;
     private Scene currentScene;
+    private Player player;
+
     //private ShapeRenderer renderer;
 
     /**

@@ -18,6 +18,7 @@ public class GameScene extends Scene {
 
     private Player player;
 
+
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
     private Array<Platform> platforms;
