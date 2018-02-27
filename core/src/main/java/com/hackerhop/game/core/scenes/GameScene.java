@@ -104,7 +104,7 @@ public class GameScene extends Scene {
         HashSet<Platform> plat = new HashSet<Platform>();
         Random r = new Random();
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(600)), 60, 20, (1+r.nextInt(450)));
+            Platform e = new Platform((70+r.nextInt(300)), 60, 20, (1+r.nextInt(300)));
             if (plat.add(e)) {
                 --n;
             }
