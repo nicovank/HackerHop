@@ -81,5 +81,17 @@ public class Platform {
         return i;
     }
 
+//    @Override
+//    public boolean equals(Object o){
+//        if (o instanceof Platform){
+//            int threshold = 500;
+//            Platform that = (Platform) o;
+//            int i = this.distanceTo(that);
+//            return i < threshold;
+//        } else {
+//            return false;
+//        }
+//    }
+
 
 }

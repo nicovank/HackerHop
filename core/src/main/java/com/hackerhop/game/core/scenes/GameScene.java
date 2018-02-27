@@ -25,7 +25,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(11);
+    private HashSet<Platform> platforms = genPlats(7);
 
 
     // Our physics world
@@ -103,6 +103,7 @@ public class GameScene extends Scene {
         // use custom HashSet
         HashSet<Platform> plat = new HashSet<Platform>();
         Random r = new Random();
+
         while (n > 0){
             Platform e = new Platform((70+r.nextInt(300)), 60, 20, (1+r.nextInt(300)));
             if (plat.add(e)) {
