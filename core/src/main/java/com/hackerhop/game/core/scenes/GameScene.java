@@ -5,14 +5,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
-
 import java.util.Random;
+import java.util.HashSet;
+
 
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
@@ -25,8 +25,8 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    //Array of game platforms
-    private Array<Platform> platforms;
+    private HashSet<Platform> platforms = genPlats(11);
+
 
     // Our physics world
     World world = new World(new Vec2(0, -25));
@@ -38,6 +38,8 @@ public class GameScene extends Scene {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 2;
     private static final int POSITION_ITERATIONS = 6;
+
+
 
 
     /**
@@ -80,11 +82,6 @@ public class GameScene extends Scene {
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(camera.combined);
 
-        platforms = new Array<Platform>();
-        Platform plat = new Platform();
-        platforms.add(plat);
-
-
         //Rectangles are filled shapes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         //Render each platform in the platform array
@@ -96,6 +93,23 @@ public class GameScene extends Scene {
         batch.begin();
         player.render(batch);
         batch.end();
+    }
+
+    /**
+     * Randomly generates HashSet of n platforms.
+     * @param n The number of platforms to be generated.
+     */
+    private HashSet<Platform> genPlats(int n){
+        // use custom HashSet
+        HashSet<Platform> plat = new HashSet<Platform>();
+        Random r = new Random();
+        while (n > 0){
+            Platform e = new Platform((70+r.nextInt(300)), 60, 20, (1+r.nextInt(300)));
+            if (plat.add(e)) {
+                --n;
+            }
+        }
+        return plat;
     }
 
     /**
