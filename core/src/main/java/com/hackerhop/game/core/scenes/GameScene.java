@@ -2,6 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -18,7 +19,9 @@ import java.util.Random;
  */
 public class GameScene extends Scene {
 
-    private Player player;
+    private final OrthographicCamera camera;
+    private final Player player;
+
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
@@ -37,7 +40,6 @@ public class GameScene extends Scene {
     private static final int POSITION_ITERATIONS = 6;
 
 
-
     /**
      * Creates a new Game Scene.
      * TODO: Instantiate a new player, some platforms, etc.
@@ -46,6 +48,9 @@ public class GameScene extends Scene {
      */
     public GameScene(Game controller) {
         super(controller);
+
+        player = new Player(world, new Vec2(100,300));
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     /**
@@ -72,6 +77,7 @@ public class GameScene extends Scene {
      */
     @Override
     public void render(SpriteBatch batch) {
+        batch.setProjectionMatrix(camera.combined);
 
         platforms = new Array<Platform>();
         Platform plat = new Platform();
@@ -81,11 +87,14 @@ public class GameScene extends Scene {
         //Rectangles are filled shapes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         //Render each platform in the platform array
-        for(Platform p: platforms){
-            plat.rectRender(renderer);
+        for (Platform p : platforms) {
+            p.rectRender(renderer);
         }
         renderer.end();
 
+        batch.begin();
+        player.render(batch);
+        batch.end();
     }
 
     /**
@@ -151,7 +160,7 @@ public class GameScene extends Scene {
      * @param screenX the x-coordinate.
      * @param screenY the y-coordinate.
      * @param pointer the pointer for the event.
-     * @param button which button was pressed.
+     * @param button  which button was pressed.
      * @return whether the input was processed.
      */
     @Override
@@ -165,7 +174,7 @@ public class GameScene extends Scene {
      * @param screenX the x-coordinate.
      * @param screenY the y-coordinate.
      * @param pointer the pointer for the event.
-     * @param button which button was pressed.
+     * @param button  which button was pressed.
      * @return whether the input was processed.
      */
     @Override

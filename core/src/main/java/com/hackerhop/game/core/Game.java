@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.scenes.Scene;
 
@@ -20,6 +21,8 @@ public class Game extends ApplicationAdapter {
     //private Array<Platform> platforms;
     private SpriteBatch batch;
     private Scene currentScene;
+    private Player player;
+
     //private ShapeRenderer renderer;
 
     /**
@@ -61,12 +64,8 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, .5f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Draw next frame
-        batch.begin();
-        // Draw sprites and textures (or the scene) to the batch.
-        // Draws the current scene.
+        // Draw next frame (current scene)
         currentScene.render(batch);
-        batch.end();
     }
 
     /**

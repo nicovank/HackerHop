@@ -27,7 +27,7 @@ public class Platform {
     public void rectRender(ShapeRenderer renderer){
         top = r.nextFloat() * (tmax - tmin) + tmin;
         leftEdge = r.nextFloat() * (lmax - lmin) + lmin;
-        renderer.rect(top, leftEdge, width, height);
+        renderer.rect(100, 100, width, height);
         renderer.setColor(Color.MAROON);
     }
 
