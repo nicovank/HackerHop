@@ -129,11 +129,11 @@ public class GameScene extends Scene {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(-5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(-500f, 0f));
         }
 
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            player.getBody().applyForceToCenter(new Vec2(5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(500f, 0f));
         }
 
         return true;

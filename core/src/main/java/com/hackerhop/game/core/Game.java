@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.scenes.Scene;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Input;
 
 /**
  * "Main" class, used by DesktopLauncher and AndroidLauncher.
@@ -63,9 +65,11 @@ public class Game extends ApplicationAdapter {
         // Clear frame
         Gdx.gl.glClearColor(1, .5f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         // Draw next frame (current scene)
         currentScene.render(batch);
+
+
+
     }
 
     /**

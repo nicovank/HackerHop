@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,6 +18,7 @@ public abstract class Scene implements Disposable, InputProcessor {
 
     public Scene(Game controller) {
         this.controller = controller;
+        Gdx.input.setInputProcessor(this);
     }
 
     /**
