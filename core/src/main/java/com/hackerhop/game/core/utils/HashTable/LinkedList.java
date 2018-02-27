@@ -74,7 +74,6 @@ public class LinkedList {
          *
          * @param p the platform object to be added
          * @return <code>true</code> if a new Node was created, <code>false</code> if otherwise
-         * @see com.hackerhop.game.core.objects.Platform#distanceTo(Platform)
          */
         boolean add(Platform p) {
             if (this.platform.distanceTo(p) > 250) {     // p is outside distance threshold

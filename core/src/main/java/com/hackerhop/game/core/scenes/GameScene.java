@@ -22,14 +22,12 @@ public class GameScene extends Scene {
     private final OrthographicCamera camera;
     private final Player player;
 
+    // Our physics world
+    World world = new World(new Vec2(0, -50));
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
     private HashSet<Platform> platforms = genPlats(7);
-
-
-    // Our physics world
-    World world = new World(new Vec2(0, -50));
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -105,7 +103,7 @@ public class GameScene extends Scene {
         Random r = new Random();
 
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(300)), 60, 20, (1+r.nextInt(300)));
+            Platform e = new Platform((70+r.nextInt(600)), (1+r.nextInt(450)), world);
             if (plat.add(e)) {
                 --n;
             }
@@ -136,6 +134,9 @@ public class GameScene extends Scene {
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
             player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
         }
+        if(keycode ==Input.Keys.SPACE){
+            player.getBody().applyForceToCenter(new Vec2(0f,5000f));
+        }
 
         return true;
     }
@@ -158,6 +159,8 @@ public class GameScene extends Scene {
 
         return true;
     }
+
+
 
     /**
      * Called when a key is typed.
