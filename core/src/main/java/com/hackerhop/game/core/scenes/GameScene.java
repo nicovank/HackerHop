@@ -27,7 +27,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(11);
+    private HashSet<Platform> platforms = genPlats(7);
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -101,6 +101,7 @@ public class GameScene extends Scene {
         // use custom HashSet
         HashSet<Platform> plat = new HashSet<Platform>();
         Random r = new Random();
+
         while (n > 0){
             Platform e = new Platform((70+r.nextInt(600)), (1+r.nextInt(450)), world);
             if (plat.add(e)) {

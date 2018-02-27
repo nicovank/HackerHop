@@ -76,15 +76,15 @@ public class LinkedList {
          * @return <code>true</code> if a new Node was created, <code>false</code> if otherwise
          */
         boolean add(Platform p) {
-            if (this.platform.distanceTo(p) > 250) {   // p is outside distance threshold
-                if (next != null) {     // Node has child
+            if (this.platform.distanceTo(p) > 250) {     // p is outside distance threshold
+                if (next != null) {         // Node has child
                     return next.add(p);// attempt add on child
                 } else {                    // Node has no child
                     next = new Node(p);
-                    return true;    // add p, add successful
+                    return true;       // add p, add successful
                 }
             } else {                                // p is inside distance threshold
-                return false;       // add failed
+                return false;                            // add failed
             }
         }
 
