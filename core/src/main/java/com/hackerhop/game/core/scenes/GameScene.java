@@ -23,12 +23,11 @@ public class GameScene extends Scene {
     private final Player player;
 
     // Our physics world
-    World world = new World(new Vec2(0, -25));
+    World world = new World(new Vec2(0, -50));
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
     private HashSet<Platform> platforms = genPlats(11);
-
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -51,7 +50,7 @@ public class GameScene extends Scene {
         super(controller);
 
         player = new Player(world, new Vec2(10,0));
-        player.getBody().applyLinearImpulse(new Vec2(0, 40), player.getBody().getLocalCenter());
+        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -128,11 +127,11 @@ public class GameScene extends Scene {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(-5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
         }
 
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            player.getBody().applyForceToCenter(new Vec2(5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
         }
 
         return true;
@@ -147,11 +146,11 @@ public class GameScene extends Scene {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
         }
 
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            player.getBody().applyForceToCenter(new Vec2(-5f, 0f));
+            player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
         }
 
         return true;
