@@ -51,6 +51,6 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(texture, body.getPosition().x, body.getPosition().y);
+        batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10);
     }
 }

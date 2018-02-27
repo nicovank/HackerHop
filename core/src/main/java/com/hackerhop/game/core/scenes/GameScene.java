@@ -29,7 +29,7 @@ public class GameScene extends Scene {
     private Array<Platform> platforms;
 
     // Our physics world
-    World world = new World(new Vec2(0, -10));
+    World world = new World(new Vec2(0, -25));
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -49,7 +49,8 @@ public class GameScene extends Scene {
     public GameScene(Game controller) {
         super(controller);
 
-        player = new Player(world, new Vec2(100,300));
+        player = new Player(world, new Vec2(10,0));
+        player.getBody().applyLinearImpulse(new Vec2(0, 40), player.getBody().getLocalCenter());
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
