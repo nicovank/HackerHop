@@ -22,14 +22,13 @@ public class GameScene extends Scene {
     private final OrthographicCamera camera;
     private final Player player;
 
+    // Our physics world
+    World world = new World(new Vec2(0, -25));
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
     private HashSet<Platform> platforms = genPlats(11);
 
-
-    // Our physics world
-    World world = new World(new Vec2(0, -25));
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -104,7 +103,7 @@ public class GameScene extends Scene {
         HashSet<Platform> plat = new HashSet<Platform>();
         Random r = new Random();
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(600)), 60, 20, (1+r.nextInt(450)));
+            Platform e = new Platform((70+r.nextInt(600)), (1+r.nextInt(450)), world);
             if (plat.add(e)) {
                 --n;
             }
