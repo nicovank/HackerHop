@@ -27,7 +27,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(7);
+    private HashSet<Platform> platforms = genPlats(11);
 
     // Our physics world
     World world = new World(new Vec2(0, -10));
@@ -39,6 +39,8 @@ public class GameScene extends Scene {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 2;
     private static final int POSITION_ITERATIONS = 6;
+
+
 
 
     /**
@@ -102,10 +104,11 @@ public class GameScene extends Scene {
      * @param n The number of platforms to be generated.
      */
     private HashSet<Platform> genPlats(int n){
+        // use custom HashSet
         HashSet<Platform> plat = new HashSet<Platform>();
         Random r = new Random();
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(650)), 60, 20, (1+r.nextInt(480)));
+            Platform e = new Platform((70+r.nextInt(300)), 60, 20, (1+r.nextInt(300)));
             if (plat.add(e)) {
                 --n;
             }
