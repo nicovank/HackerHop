@@ -64,9 +64,8 @@ public class Platform {
      * @return Euclidean distance between <code>this</code> and <code>p</code>
      */
     public int distanceTo(Platform p){
-        int a = (int) this.x;
-        int b = (int) this.y;
-
+       int a = (int) p.x;
+       int b = (int) p.y;
         return (int) Math.sqrt((a * a) + (b * b));
     }
 

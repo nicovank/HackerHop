@@ -110,7 +110,7 @@ public class GameScene extends Scene {
         Random r = new Random();
 
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(420)), (1+r.nextInt(700)), world);
+            Platform e = new Platform((70+r.nextInt(450)), (1+r.nextInt(600)), world);
 
             if (l.add(e)) {
                 plat.add(e);
