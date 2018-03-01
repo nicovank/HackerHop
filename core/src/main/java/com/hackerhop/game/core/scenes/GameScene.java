@@ -3,12 +3,14 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import com.hackerhop.game.core.utils.HashTable.LinkedList;
 
@@ -83,12 +85,14 @@ public class GameScene extends Scene {
         batch.setProjectionMatrix(camera.combined);
 
         //Rectangles are filled shapes
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
+       // renderer.begin(ShapeRenderer.ShapeType.Filled);
         //Render each platform in the platform array
+       batch.begin();
         for (Platform p : platforms) {
-            p.rectRender(renderer);
+          p.rectRender(batch);
         }
-        renderer.end();
+       // renderer.end();
+        batch.end();
 
         batch.begin();
         player.render(batch);
