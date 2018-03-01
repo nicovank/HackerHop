@@ -1,12 +1,8 @@
 package com.hackerhop.game.core.objects;
 
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
@@ -50,11 +46,7 @@ public class Platform {
      * Color currently gets set to Teal--obviously this can be changed
      **/
     public void rectRender(SpriteBatch batch) {
-
         batch.draw(texture, body.getPosition().x , body.getPosition().y , WIDTH, HEIGHT);
-       // r.rect(x, y, WIDTH, HEIGHT);
-       // r.setColor(Color.MAROON);
-
     }
 
     /**
