@@ -29,7 +29,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(7);
+    private HashSet<Platform> platforms = genPlats(2);
 
     // Frame time accumulator
     private float accumulator = 0.0f;
