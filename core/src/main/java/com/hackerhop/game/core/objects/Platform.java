@@ -47,6 +47,12 @@ public class Platform {
 
     }
 
+    /**
+     * Calculates the Euclidean distance from this Platform to Platform <code>p</code>.
+     *
+     * @param p the target Platform
+     * @return Euclidean distance between <code>this</code> and <code>p</code>
+     */
     public int distanceTo(Platform p){
         int a = (int) this.x;
         int b = (int) this.y;
