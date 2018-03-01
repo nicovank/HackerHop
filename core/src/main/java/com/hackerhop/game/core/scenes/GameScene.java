@@ -12,6 +12,8 @@ import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import com.hackerhop.game.core.utils.HashTable.LinkedList;
+
 import java.util.Random;
 import java.util.HashSet;
 
@@ -29,7 +31,7 @@ public class GameScene extends Scene {
 
     //ShapeRenderer
     ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(11);
+    private HashSet<Platform> platforms = genPlats(7);
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -104,10 +106,14 @@ public class GameScene extends Scene {
     private HashSet<Platform> genPlats(int n){
         // use custom HashSet
         HashSet<Platform> plat = new HashSet<Platform>();
+        LinkedList l = new LinkedList();
         Random r = new Random();
+
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(600)), (1+r.nextInt(450)), world);
-            if (plat.add(e)) {
+            Platform e = new Platform((70+r.nextInt(420)), (1+r.nextInt(700)), world);
+
+            if (l.add(e)) {
+                plat.add(e);
                 --n;
             }
         }
