@@ -28,9 +28,8 @@ public class GameScene extends Scene {
     // Our physics world
     World world = new World(new Vec2(0, -50));
 
-    //ShapeRenderer
-    ShapeRenderer renderer = new ShapeRenderer();
-    private HashSet<Platform> platforms = genPlats(2);
+    //Platform HashSet
+    private HashSet<Platform> platforms = genPlats(1);
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -83,14 +82,10 @@ public class GameScene extends Scene {
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(camera.combined);
 
-        //Rectangles are filled shapes
-       // renderer.begin(ShapeRenderer.ShapeType.Filled);
-        //Render each platform in the platform array
        batch.begin();
         for (Platform p : platforms) {
           p.rectRender(batch);
         }
-       // renderer.end();
         batch.end();
 
         batch.begin();
@@ -109,8 +104,7 @@ public class GameScene extends Scene {
         Random r = new Random();
 
         while (n > 0){
-            Platform e = new Platform((r.nextInt(Gdx.graphics.getWidth())), (r.nextInt(Gdx.graphics.getHeight())), world);
-
+            Platform e = new Platform(r.nextInt(Gdx.graphics.getWidth()), r.nextInt(Gdx.graphics.getHeight()), world);
             if (l.add(e)) {
                 plat.add(e);
                 --n;
