@@ -29,7 +29,7 @@ public class GameScene extends Scene {
     World world = new World(new Vec2(0, -50));
 
     //Platform HashSet
-    private HashSet<Platform> platforms = genPlats(1);
+    private HashSet<Platform> platforms = genPlats(5);
 
     // Frame time accumulator
     private float accumulator = 0.0f;
@@ -104,11 +104,11 @@ public class GameScene extends Scene {
         Random r = new Random();
 
         while (n > 0){
-            Platform e = new Platform(r.nextInt(Gdx.graphics.getWidth()), r.nextInt(Gdx.graphics.getHeight()), world);
-            if (l.add(e)) {
+            Platform e = new Platform(r.nextInt(200), r.nextInt(260), world);
+          //  if (l.add(e)) {
                 plat.add(e);
                 --n;
-            }
+          //  }
         }
         return plat;
     }
