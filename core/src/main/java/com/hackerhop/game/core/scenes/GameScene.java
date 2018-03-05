@@ -52,7 +52,7 @@ public class GameScene extends Scene {
     public GameScene(Game controller) {
         super(controller);
 
-        player = new Player(world, new Vec2(10,0));
+        player = new Player(world, new Vec2(0,10));
         player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
@@ -109,7 +109,7 @@ public class GameScene extends Scene {
         Random r = new Random();
 
         while (n > 0){
-            Platform e = new Platform((70+r.nextInt(450)), (1+r.nextInt(600)), world);
+            Platform e = new Platform((r.nextInt(Gdx.graphics.getWidth())), (r.nextInt(Gdx.graphics.getHeight())), world);
 
             if (l.add(e)) {
                 plat.add(e);

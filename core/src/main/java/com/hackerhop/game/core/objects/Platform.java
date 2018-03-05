@@ -50,15 +50,15 @@ public class Platform {
     }
 
     /**
-     * Calculates the Euclidean distance from this Platform to Platform <code>p</code>.
+     * Calculates the distance between two Platforms <code>p</code>.
      *
      * @param p the target Platform
-     * @return Euclidean distance between <code>this</code> and <code>p</code>
+     * @return distance between <code>this</code> and <code>p</code>
      */
     public int distanceTo(Platform p){
        int a = (int) p.x;
        int b = (int) p.y;
-        return (int) Math.sqrt((a * a) + (b * b));
+        return (int) Math.sqrt(Math.pow((this.x - a), 2) + Math.pow((this.y - b), 2));
     }
 
 }
