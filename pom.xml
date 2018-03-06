@@ -53,6 +53,14 @@
 			<classifier>natives-armeabi-v7a</classifier>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-commons</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 
@@ -69,16 +77,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4</version>
