@@ -1,4 +1,4 @@
-package com.hackerhop.game.java;
+package com.hackerhop.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

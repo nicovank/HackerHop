@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hackerhop.game</groupId>
 	<artifactId>hackerhop</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>Game Parent</name>
+	<packaging>jar</packaging>
+	<name>HackerHop</name>
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
@@ -14,46 +14,46 @@
 		<gwt.version>2.6.0</gwt.version>
 		<gwt.maven.version>2.6.0</gwt.maven.version>
 
+		<mainClass>com.hackerhop.game.desktop.GameDesktop</mainClass>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<!-- core dependencies -->
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx</artifactId>
-				<version>1.2.0</version>
-			</dependency>
+	<dependencies>
+		<!-- core dependencies -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx</artifactId>
+			<version>1.2.0</version>
+		</dependency>
 
-			<dependency>
-				<groupId>org.jbox2d</groupId>
-				<artifactId>jbox2d-library</artifactId>
-				<version>2.2.1.1</version>
-			</dependency>
+		<dependency>
+			<groupId>org.jbox2d</groupId>
+			<artifactId>jbox2d-library</artifactId>
+			<version>2.2.1.1</version>
+		</dependency>
 
-			<!-- desktop-specific dependencies -->
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-backend-lwjgl</artifactId>
-				<version>1.2.0</version>
-			</dependency>
+		<!-- desktop-specific dependencies -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-backend-lwjgl</artifactId>
+			<version>1.2.0</version>
+		</dependency>
 
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-platform</artifactId>
-				<version>1.2.0</version>
-				<classifier>natives-desktop</classifier>
-			</dependency>
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-platform</artifactId>
+			<version>1.2.0</version>
+			<classifier>natives-desktop</classifier>
+		</dependency>
 
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-platform</artifactId>
-				<version>1.2.0</version>
-				<classifier>natives-armeabi-v7a</classifier>
-				<scope>provided</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-platform</artifactId>
+			<version>1.2.0</version>
+			<classifier>natives-armeabi-v7a</classifier>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 
 	<repositories>
@@ -78,19 +78,30 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>desktop</id>
-			<modules>
-				<module>desktop</module>
-			</modules>
-		</profile>
-	</profiles>
-
-	<modules>
-		<module>core</module>
-	</modules>
 </project>
