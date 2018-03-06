@@ -5,7 +5,7 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.contacts.Contact;
 
-public class ContactHandler implements ContactListener{
+public class ContactHandler implements ContactListener {
 //TODO: Start making bodies handle collisions
     @Override
     public void beginContact(Contact contact) {

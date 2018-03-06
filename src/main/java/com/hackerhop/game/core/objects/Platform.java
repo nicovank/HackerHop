@@ -29,7 +29,7 @@ public class Platform {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape rectangle = new PolygonShape();
-        rectangle.setAsBox(100, 100);
+        rectangle.setAsBox(3, -1);
         fixtureDef.shape = rectangle;
         body.createFixture(fixtureDef);
 
@@ -46,7 +46,7 @@ public class Platform {
      * Color currently gets set to Teal--obviously this can be changed
      **/
     public void rectRender(SpriteBatch batch) {
-        batch.draw(texture, body.getPosition().x , body.getPosition().y , WIDTH, HEIGHT);
+        batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10, WIDTH, HEIGHT);
     }
 
     /**

@@ -103,13 +103,17 @@ public class GameScene extends Scene {
         LinkedList l = new LinkedList();
         Random r = new Random();
 
-        while (n > 0){
-            Platform e = new Platform(r.nextInt(200), r.nextInt(260), world);
-          //  if (l.add(e)) {
-                plat.add(e);
-                --n;
-          //  }
-        }
+//        while (n > 0){
+//            Platform e = new Platform(r.nextInt(20), r.nextInt(26  ), world);
+//          //  if (l.add(e)) {
+//                plat.add(e);
+//                --n;
+//          //  }
+//        }
+
+        Platform e = new Platform(1, 1, world);
+        plat.add(e);
+
         return plat;
     }
 
@@ -161,7 +165,6 @@ public class GameScene extends Scene {
 
         return true;
     }
-
 
 
     /**

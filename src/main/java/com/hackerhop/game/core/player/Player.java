@@ -43,7 +43,7 @@ public class Player {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape rectangle = new PolygonShape();
-        rectangle.setAsBox(100, 100);
+        rectangle.setAsBox(3, 3);
         fixtureDef.shape = rectangle;
         body.createFixture(fixtureDef);
 
