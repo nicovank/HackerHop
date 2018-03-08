@@ -12,11 +12,11 @@ public class PlatformManager {
     private static final String TAG = PlatformManager.class.getName();
     // Number of units between each platform
     // (something with the camera is limiting it to only 20, 75 or greater is desired)
-    private static final float gridSeparation = 20;
+    private static final float gridSeparation = 16;
 
     // Number of platforms that can fit in the scene vertically and horizontally
     // at the given separation
-    private static final int xCount = (int) Math.floor(60/gridSeparation);
+    private static final int xCount = (int) Math.floor(50/gridSeparation);
     private static final int yCount = (int) Math.floor(80/gridSeparation);
 
     // Maximum deviation from grid center
@@ -41,7 +41,7 @@ public class PlatformManager {
 
             for (int j = 0; j < xCount; ++j){
                 if (r.nextBoolean()) {
-                    Platform p = new Platform( (gridSeparation * (j)) + 3.5f + r.nextInt(wiggleroom),
+                    Platform p = new Platform( (gridSeparation * (j)) + r.nextInt(wiggleroom),
                             gridSeparation * (i) + r.nextInt(wiggleroom), w);
                     h.add(p);
                 }
