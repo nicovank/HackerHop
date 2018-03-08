@@ -14,7 +14,7 @@ public class Platform {
     private static final float WIDTH = 60;
     private static final float HEIGHT = 20;
     private Body body;
-    public Texture texture = new Texture("platform/bricks.png");
+    private Texture texture = new Texture("platform/bricks.png");
 
     public Platform(float x, float y, World world) {
 
