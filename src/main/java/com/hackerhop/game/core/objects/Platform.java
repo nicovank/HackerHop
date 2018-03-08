@@ -55,10 +55,10 @@ public class Platform {
      * @param p the target Platform
      * @return distance between <code>this</code> and <code>p</code>
      */
-    public int distanceTo(Platform p){
-       int a = (int) p.x;
-       int b = (int) p.y;
-        return (int) Math.sqrt(Math.pow((this.x - a), 2) + Math.pow((this.y - b), 2));
+    public double distanceTo(Platform p){
+       float a = p.x;
+       float b = p.y;
+        return Math.sqrt(Math.pow((this.x - a), 2) + Math.pow((this.y - b), 2));
     }
 
 }
