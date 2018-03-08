@@ -2,8 +2,11 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
@@ -24,6 +27,9 @@ public class GameScene extends Scene {
 
     private final OrthographicCamera camera;
     private final Player player;
+
+    private Texture texture = new Texture("background/ShinemanPixel.png");
+    private TextureRegion background = new TextureRegion(texture);
 
     // Our physics world
     World world = new World(new Vec2(0, -50));
@@ -80,15 +86,21 @@ public class GameScene extends Scene {
      */
     @Override
     public void render(SpriteBatch batch) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
         batch.setProjectionMatrix(camera.combined);
 
        batch.begin();
+       batch.draw(background,0,0);
+
         for (Platform p : platforms) {
           p.rectRender(batch);
         }
         batch.end();
 
         batch.begin();
+
         player.render(batch);
         batch.end();
     }
