@@ -137,7 +137,7 @@ public class GameScene extends Scene {
 		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
 		}
-		if (keycode == Input.Keys.SPACE) {
+		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
 		}
 
