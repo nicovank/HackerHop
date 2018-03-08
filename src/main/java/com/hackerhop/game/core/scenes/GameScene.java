@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.utils.PlatformManager;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
@@ -25,7 +26,11 @@ public class GameScene extends Scene {
 	World world = new World(new Vec2(0, -50));
 
 	//Platform HashSet
-	private HashSet<Platform> platforms = genPlats(5);
+//	private HashSet<Platform> platforms = genPlats(5);
+
+	private PlatformManager pm = new PlatformManager();
+
+	private HashSet<Platform> platforms = pm.generatePlatforms(world);
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
