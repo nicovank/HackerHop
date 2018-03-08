@@ -2,14 +2,11 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import com.hackerhop.game.core.utils.HashTable.LinkedList;
 
@@ -22,86 +19,81 @@ import java.util.HashSet;
  */
 public class GameScene extends Scene {
 
-    private final OrthographicCamera camera;
-    private final Player player;
+	private final Player player;
 
-    // Our physics world
-    World world = new World(new Vec2(0, -50));
+	// Our physics world
+	World world = new World(new Vec2(0, -50));
 
-    //Platform HashSet
-    private HashSet<Platform> platforms = genPlats(5);
+	//Platform HashSet
+	private HashSet<Platform> platforms = genPlats(5);
 
-    // Frame time accumulator
-    private float accumulator = 0.0f;
+	// Frame time accumulator
+	private float accumulator = 0.0f;
 
-    // Some world constants
-    private static final float TIME_STEP = 1 / 60f;
-    private static final int VELOCITY_ITERATIONS = 2;
-    private static final int POSITION_ITERATIONS = 6;
-
+	// Some world constants
+	private static final float TIME_STEP = 1 / 60f;
+	private static final int VELOCITY_ITERATIONS = 2;
+	private static final int POSITION_ITERATIONS = 6;
 
 
+	/**
+	 * Creates a new Game Scene.
+	 * TODO: Instantiate a new player, some platforms, etc.
+	 *
+	 * @param controller The Game controller. Used when we need to change scenes for example.
+	 */
+	public GameScene(Game controller) {
+		super(controller);
 
-    /**
-     * Creates a new Game Scene.
-     * TODO: Instantiate a new player, some platforms, etc.
-     *
-     * @param controller The Game controller. Used when we need to change scenes for example.
-     */
-    public GameScene(Game controller) {
-        super(controller);
+		player = new Player(world, new Vec2(0, 10));
+		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
+	}
 
-        player = new Player(world, new Vec2(0,10));
-        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    }
+	/**
+	 * Runs Box2D's physics step, making the objects move if needed.
+	 * See https://github.com/libgdx/libgdx/wiki/box2d#stepping-the-simulation
+	 */
+	@Override
+	public void update() {
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		float frameTime = Math.min(deltaTime, 0.25f);
+		accumulator += frameTime;
 
-    /**
-     * Runs Box2D's physics step, making the objects move if needed.
-     * See https://github.com/libgdx/libgdx/wiki/box2d#stepping-the-simulation
-     */
-    @Override
-    public void update() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        float frameTime = Math.min(deltaTime, 0.25f);
-        accumulator += frameTime;
+		while (accumulator > TIME_STEP) {
+			world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+			accumulator -= TIME_STEP;
+		}
+	}
 
-        while (accumulator > TIME_STEP) {
-            world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            accumulator -= TIME_STEP;
-        }
-    }
+	/**
+	 * We basically need to render each body in the game, as well as a background,
+	 * and other UI elements (score, lives, etc.)
+	 *
+	 * @param batch where the scene will be rendered
+	 */
+	@Override
+	public void render(SpriteBatch batch) {
+		batch.begin();
+		for (Platform p : platforms) {
+			p.rectRender(batch);
+		}
+		batch.end();
 
-    /**
-     * We basically need to render each body in the game, as well as a background,
-     * and other UI elements (score, lives, etc.)
-     *
-     * @param batch where the scene will be rendered
-     */
-    @Override
-    public void render(SpriteBatch batch) {
-        batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		player.render(batch);
+		batch.end();
+	}
 
-       batch.begin();
-        for (Platform p : platforms) {
-          p.rectRender(batch);
-        }
-        batch.end();
-
-        batch.begin();
-        player.render(batch);
-        batch.end();
-    }
-
-    /**
-     * Randomly generates HashSet of n platforms.
-     * @param n The number of platforms to be generated.
-     */
-    private HashSet<Platform> genPlats(int n){
-        // use custom HashSet
-        HashSet<Platform> plat = new HashSet<Platform>();
-        LinkedList l = new LinkedList();
-        Random r = new Random();
+	/**
+	 * Randomly generates HashSet of n platforms.
+	 *
+	 * @param n The number of platforms to be generated.
+	 */
+	private HashSet<Platform> genPlats(int n) {
+		// use custom HashSet
+		HashSet<Platform> plat = new HashSet<Platform>();
+		LinkedList l = new LinkedList();
+		Random r = new Random();
 
 //        while (n > 0){
 //            Platform e = new Platform(r.nextInt(20), r.nextInt(26  ), world);
@@ -111,134 +103,134 @@ public class GameScene extends Scene {
 //          //  }
 //        }
 
-        Platform e = new Platform(1, 1, world);
-        plat.add(e);
+		Platform e = new Platform(0, 0, world);
+		plat.add(e);
 
-        return plat;
-    }
+		return plat;
+	}
 
-    /**
-     * Disposes of all the textures and other objects used in the scene.
-     */
-    @Override
-    public void dispose() {
+	/**
+	 * Disposes of all the textures and other objects used in the scene.
+	 */
+	@Override
+	public void dispose() {
 
-    }
+	}
 
-    /**
-     * Called when a key is pressed.
-     *
-     * @param keycode The code of the pressed key.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
-        }
+	/**
+	 * Called when a key is pressed.
+	 *
+	 * @param keycode The code of the pressed key.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
+		}
 
-        if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
-        }
-        if(keycode ==Input.Keys.SPACE){
-            player.getBody().applyForceToCenter(new Vec2(0f,5000f));
-        }
+		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
+		}
+		if (keycode == Input.Keys.SPACE) {
+			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * Called when a key is released.
-     *
-     * @param keycode The code of the released key.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
-        }
+	/**
+	 * Called when a key is released.
+	 *
+	 * @param keycode The code of the released key.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean keyUp(int keycode) {
+		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
+		}
 
-        if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
-        }
+		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
+		}
 
-        return true;
-    }
+		return true;
+	}
 
 
-    /**
-     * Called when a key is typed.
-     *
-     * @param character The character typed.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+	/**
+	 * Called when a key is typed.
+	 *
+	 * @param character The character typed.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
 
-    /**
-     * Called when the screen was touched or a mouse button was pressed.
-     *
-     * @param screenX the x-coordinate.
-     * @param screenY the y-coordinate.
-     * @param pointer the pointer for the event.
-     * @param button  which button was pressed.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+	/**
+	 * Called when the screen was touched or a mouse button was pressed.
+	 *
+	 * @param screenX the x-coordinate.
+	 * @param screenY the y-coordinate.
+	 * @param pointer the pointer for the event.
+	 * @param button  which button was pressed.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
 
-    /**
-     * Called when the screen was touched or a mouse button was released.
-     *
-     * @param screenX the x-coordinate.
-     * @param screenY the y-coordinate.
-     * @param pointer the pointer for the event.
-     * @param button  which button was pressed.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+	/**
+	 * Called when the screen was touched or a mouse button was released.
+	 *
+	 * @param screenX the x-coordinate.
+	 * @param screenY the y-coordinate.
+	 * @param pointer the pointer for the event.
+	 * @param button  which button was pressed.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
 
-    /**
-     * Called when a finger or the mouse was dragged.
-     *
-     * @param screenX the x-coordinate.
-     * @param screenY the y-coordinate.
-     * @param pointer the pointer for the event.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+	/**
+	 * Called when a finger or the mouse was dragged.
+	 *
+	 * @param screenX the x-coordinate.
+	 * @param screenY the y-coordinate.
+	 * @param pointer the pointer for the event.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
 
-    /**
-     * Called when the mouse was moved without any buttons being pressed. Will not be called on iOS.
-     *
-     * @param screenX the x-coordinate.
-     * @param screenY the y-coordinate.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
+	/**
+	 * Called when the mouse was moved without any buttons being pressed. Will not be called on iOS.
+	 *
+	 * @param screenX the x-coordinate.
+	 * @param screenY the y-coordinate.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
 
-    /**
-     * Called when the mouse wheel was scrolled. Will not be called on iOS.
-     *
-     * @param amount the scroll amount, -1 or 1 depending on the direction the wheel was scrolled.
-     * @return whether the input was processed.
-     */
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
+	/**
+	 * Called when the mouse wheel was scrolled. Will not be called on iOS.
+	 *
+	 * @param amount the scroll amount, -1 or 1 depending on the direction the wheel was scrolled.
+	 * @return whether the input was processed.
+	 */
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
 }
