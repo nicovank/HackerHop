@@ -2,17 +2,13 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import com.hackerhop.game.core.utils.HashTable.LinkedList;
 
@@ -24,8 +20,6 @@ import java.util.HashSet;
  * This scene is the "main" game, with the scrolling platforms and the player.
  */
 public class GameScene extends Scene {
-
-    private final OrthographicCamera camera;
     private final Player player;
 
     private Texture texture = new Texture("background/ShinemanPixel.png");
@@ -59,7 +53,6 @@ public class GameScene extends Scene {
 
         player = new Player(world, new Vec2(0,10));
         player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     /**
@@ -86,11 +79,6 @@ public class GameScene extends Scene {
      */
     @Override
     public void render(SpriteBatch batch) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-
        batch.begin();
        batch.draw(background,0,0);
 
