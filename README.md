@@ -83,8 +83,6 @@ The team developing this project consists of:
 
 ### StartGame (UC-1)
 
-
-
 <table>
 	<tr>
 		<td><b>Initiating actor</b></td>
