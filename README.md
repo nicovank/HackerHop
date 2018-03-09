@@ -39,7 +39,8 @@ and more hazards for the player to avoid.
   - Robert Sgroi
   - Nicolas Van Kempen
 
-### System Requirements
+
+## System Requirements
 
 | Identifier 	| Priority 	| Requirements                                                                                                                 	|
 |------------	|----------	|------------------------------------------------------------------------------------------------------------------------------	|
@@ -55,7 +56,8 @@ and more hazards for the player to avoid.
 | QUA-6      	| 2        	| The theme of the game should be a parody of the experience of a typical Oswego Computer Science/Software Engineering Student 	|
 | QUA-7      	| 0        	| There is a character selection menu before starting the game, each character having different characteristics and bonuses.   	|
 
-### User Stories
+
+## User Stories
 
 | Identifier 	| User Story                                                                                                	| Size      	|
 |------------	|-----------------------------------------------------------------------------------------------------------	|-----------	|
@@ -65,3 +67,88 @@ and more hazards for the player to avoid.
 | ST-4       	| As a player, I want obstacles and random events that make gameplay more challenging.                      	| 7 points  	|
 | ST-5       	| As a player, I want to be able to compare my high score to others using a leaderboard.                    	| 2 points  	|
 | ST-6       	| As a player, I want to be able to advance through game levels, accumulating more points.                  	| 8 points  	|
+
+
+## Use cases
+
+| Actor  | Actor's goal                                                              | Use case                          |
+|--------|---------------------------------------------------------------------------|-----------------------------------|
+| Player | Choose a character to use in game play.                                   | CharacterSelection (UC-4)         |
+| Player | Starting on the ground, jump up platforms going into the sky, earn points | StartGame (UC-1), Gameplay (UC-2) |
+| Player | Use a leaderboard to compare high scores                                  | Leaderboard (UC-5)                |
+| Player | Die                                                                       | Die (UC-6)                        |
+| Game   | Generate obstacles that the player will the need to avoid                 | Obstacles (UC-3)                  |
+| Game   | Update leaderboards                                                       | Leaderboard (UC-5)                |
+| Server | Store and keep track of the highest scores                                | Leaderboard (UC-5)                |
+
+### StartGame (UC-1)
+
+<table>
+	<tr>
+		<td><b>Initiating actor</b></td>
+		<td>Player</td>
+	</tr>
+	<tr>
+    	<td><b>Actor's goals</b></td>
+    	<td>Start a new game.</td>
+    </tr>
+	<tr>
+    	<td><b>Participating actors</b></td>
+    	<td>Game</td>
+    </tr>
+	<tr>
+    	<td><b>Pre-conditions</b></td>
+    	<td>The player has selected a character.</td>
+    </tr>
+	<tr>
+    	<td><b>Post-conditions</b></td>
+    	<td>The game has been initialized in such a way that the player is resting on the ground, 
+    		and there are enough platforms to allow him to go up.</td>
+    </tr>
+    <tr>
+    	<td><b>Flow of events</b></td>
+    	<td>
+    		<ol>
+    			<li>The player clicks the “Start new game button”.</li>
+    			<li>The game generates platforms and initializes the game to an initial state (score of zero, initial background, etc…).</li>
+    		</ol>
+    	</td>
+    </tr>
+</table>
+
+### Gameplay (UC-2)
+
+<table>
+	<tr>
+		<td><b>Initiating actor</b></td>
+		<td>Player</td>
+	</tr>
+	<tr>
+    	<td><b>Actor's goals</b></td>
+    	<td>Avoid obstacles, progress upwards, earn points, be able to jump on platforms.</td>
+    </tr>
+	<tr>
+    	<td><b>Participating actors</b></td>
+    	<td>Game</td>
+    </tr>
+	<tr>
+    	<td><b>Pre-conditions</b></td>
+    	<td>The game already started.</td>
+    </tr>
+	<tr>
+    	<td><b>Post-conditions</b></td>
+    	<td>The player is in control of the character on screen and the game updates the score, obstacles, ...</td>
+    </tr>
+    <tr>
+    	<td><b>Flow of events</b></td>
+    	<td>
+    		<ol>
+    			<li>The player can press LEFT, RIGHT (or A / D) and SPACE (or W or UP) to move the character on screen.</li>
+    			<li>The game updates the score depending on how much altitude the player was able to go to, 
+    				and generates platforms and obstacles.</li>
+    			<li>If the player hits an obstacles or misses a platform and falls below the last platform he jumped on, 
+    				he <i>dies</i> (see UC-6).</li>
+    		</ol>
+    	</td>
+    </tr>
+</table>
