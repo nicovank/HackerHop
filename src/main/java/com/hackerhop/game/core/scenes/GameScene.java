@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.utils.PlatformManager;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
@@ -20,88 +21,86 @@ import java.util.HashSet;
  * This scene is the "main" game, with the scrolling platforms and the player.
  */
 public class GameScene extends Scene {
-    private final Player player;
 
-    private Texture texture = new Texture("background/ShinemanPixel.png");
-    private TextureRegion background = new TextureRegion(texture);
+	private final Player player;
 
-    // Our physics world
-    World world = new World(new Vec2(0, -50));
+	// Our physics world
+	World world = new World(new Vec2(0, -50));
 
-    //Platform HashSet
-    private HashSet<Platform> platforms = genPlats(5);
+	//Platform HashSet
+//	private HashSet<Platform> platforms = genPlats(5);
 
-    // Frame time accumulator
-    private float accumulator = 0.0f;
+	private PlatformManager pm = new PlatformManager();
 
-    // Some world constants
-    private static final float TIME_STEP = 1 / 60f;
-    private static final int VELOCITY_ITERATIONS = 2;
-    private static final int POSITION_ITERATIONS = 6;
+	private HashSet<Platform> platforms = pm.generatePlatforms(world);
+
+	// Frame time accumulator
+	private float accumulator = 0.0f;
+
+	// Some world constants
+	private static final float TIME_STEP = 1 / 60f;
+	private static final int VELOCITY_ITERATIONS = 2;
+	private static final int POSITION_ITERATIONS = 6;
 
 
+	/**
+	 * Creates a new Game Scene.
+	 * TODO: Instantiate a new player, some platforms, etc.
+	 *
+	 * @param controller The Game controller. Used when we need to change scenes for example.
+	 */
+	public GameScene(Game controller) {
+		super(controller);
 
+		player = new Player(world, new Vec2(0, 10));
+		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
+	}
 
-    /**
-     * Creates a new Game Scene.
-     * TODO: Instantiate a new player, some platforms, etc.
-     *
-     * @param controller The Game controller. Used when we need to change scenes for example.
-     */
-    public GameScene(Game controller) {
-        super(controller);
+	/**
+	 * Runs Box2D's physics step, making the objects move if needed.
+	 * See https://github.com/libgdx/libgdx/wiki/box2d#stepping-the-simulation
+	 */
+	@Override
+	public void update() {
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		float frameTime = Math.min(deltaTime, 0.25f);
+		accumulator += frameTime;
 
-        player = new Player(world, new Vec2(0,10));
-        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
-    }
+		while (accumulator > TIME_STEP) {
+			world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+			accumulator -= TIME_STEP;
+		}
+	}
 
-    /**
-     * Runs Box2D's physics step, making the objects move if needed.
-     * See https://github.com/libgdx/libgdx/wiki/box2d#stepping-the-simulation
-     */
-    @Override
-    public void update() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        float frameTime = Math.min(deltaTime, 0.25f);
-        accumulator += frameTime;
+	/**
+	 * We basically need to render each body in the game, as well as a background,
+	 * and other UI elements (score, lives, etc.)
+	 *
+	 * @param batch where the scene will be rendered
+	 */
+	@Override
+	public void render(SpriteBatch batch) {
+		batch.begin();
+		for (Platform p : platforms) {
+			p.rectRender(batch);
+		}
+		batch.end();
 
-        while (accumulator > TIME_STEP) {
-            world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            accumulator -= TIME_STEP;
-        }
-    }
+		batch.begin();
+		player.render(batch);
+		batch.end();
+	}
 
-    /**
-     * We basically need to render each body in the game, as well as a background,
-     * and other UI elements (score, lives, etc.)
-     *
-     * @param batch where the scene will be rendered
-     */
-    @Override
-    public void render(SpriteBatch batch) {
-       batch.begin();
-       batch.draw(background,0,0);
-
-        for (Platform p : platforms) {
-          p.rectRender(batch);
-        }
-        batch.end();
-
-        batch.begin();
-
-        player.render(batch);
-        batch.end();
-    }
-
-    /**
-     * Randomly generates HashSet of n platforms.
-     * @param n The number of platforms to be generated.
-     */
-    private HashSet<Platform> genPlats(int n){
-        // use custom HashSet
-        HashSet<Platform> plat = new HashSet<Platform>();
-        LinkedList l = new LinkedList();
-        Random r = new Random();
+	/**
+	 * Randomly generates HashSet of n platforms.
+	 *
+	 * @param n The number of platforms to be generated.
+	 */
+	private HashSet<Platform> genPlats(int n) {
+		// use custom HashSet
+		HashSet<Platform> plat = new HashSet<Platform>();
+		LinkedList l = new LinkedList();
+		Random r = new Random();
 
 //        while (n > 0){
 //            Platform e = new Platform(r.nextInt(20), r.nextInt(26  ), world);
@@ -140,7 +139,7 @@ public class GameScene extends Scene {
 		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
 		}
-		if (keycode == Input.Keys.SPACE) {
+		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
 		}
 
@@ -240,5 +239,6 @@ public class GameScene extends Scene {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+		}
 	}
 }

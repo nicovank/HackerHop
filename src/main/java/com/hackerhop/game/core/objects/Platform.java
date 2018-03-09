@@ -10,8 +10,10 @@ import org.jbox2d.dynamics.*;
 
 public class Platform {
 
+
+    private static final String TAG = Platform.class.getName();
     private float x, y;
-    private static final float WIDTH = 60;
+    private float WIDTH;
     private static final float HEIGHT = 20;
     private Body body;
     public Texture texture = new Texture("platform/bricks.png");
@@ -20,6 +22,7 @@ public class Platform {
 
         this.x = x;
         this.y = y;
+        WIDTH = 60;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.STATIC;
@@ -33,6 +36,27 @@ public class Platform {
         fixtureDef.shape = rectangle;
         body.createFixture(fixtureDef);
 
+    }
+
+    /**
+     * Separate constructor the base platform
+     */
+    public Platform(World world) {
+        this.x = 0;
+        this.y = 0;
+        WIDTH = 540;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyType.STATIC;
+        bodyDef.position.set(new Vec2(x, y));
+
+        body = world.createBody(bodyDef);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        PolygonShape rectangle = new PolygonShape();
+        rectangle.setAsBox(50, -1);
+        fixtureDef.shape = rectangle;
+        body.createFixture(fixtureDef);
     }
 
     public Body getBody() {
