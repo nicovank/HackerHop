@@ -14,7 +14,7 @@ import org.jbox2d.collision.shapes.PolygonShape;
 public class Player {
     private Body body;
     private Direction direction;
-    public Texture texture;
+    private Texture texture;
     private OrthographicCamera camera;
 
 
@@ -52,5 +52,6 @@ public class Player {
 
     public void render(SpriteBatch batch) {
         batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10);
+
     }
 }
