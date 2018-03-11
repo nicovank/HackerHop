@@ -293,3 +293,22 @@ The team developing this project consists of:
     	</td>
     </tr>
 </table>
+
+# Traceability Matrix
+
+|**Requirement**|**PW**|**UC-1**|**UC-2**|**UC-3**|**UC-4**|**UC-5**|**UC-6**|
+| :---:         |:---: |:---:   |:---:   |:---:   |:---:   |:---:   |:---:   |
+| FUNC-1        | 10   | X      | X      |        |        |        |        |
+| FUNC-2        | 10   | X      | X      |        |        |        | X      |
+| FUNC-3        | 9    | X      | X      |        |        |        |        |
+| FUNC-4        | 8    |        |        |        |        | X      |        |
+| QUA-1         | 1    |        | X      |        |        | X      |        |
+| QUA-2         | 7    |        | X      | X      |        |        | X      |
+| QUA-3         | 6    |        | X      | X      |        |        |        |
+| QUA-4         | 4    |        |        |        |        | X      |        |
+| QUA-5         | 5    |        | X      | X      |        |        | X      |
+| QUA-6         | 2    |        |        |        |        |        |        |
+| QUA-7         | 0    |        |        |        | X      |        |        |
+| **MAX PW**    |      | 10     | 10     | 7      |  0     |  8     | 10     |
+| **TOTAL PW**  |      | 29     | 38     | 18     |  0     | 13     | 22     |
+
