@@ -33,11 +33,11 @@ the harder gameplay will become. This entails increased speed of gameplay, faste
 and more hazards for the player to avoid.
 
   
-  The Team Developing this Project Consists of:
-  - Katie Gordon
-  - Ye Bhone Myat
-  - Robert Sgroi
-  - Nicolas Van Kempen
+The team developing this project consists of:
+ - Katie Gordon
+ - Ye Bhone Myat
+ - Robert Sgroi
+ - Nicolas Van Kempen
 
 
 ## System Requirements
@@ -182,7 +182,9 @@ and more hazards for the player to avoid.
     	<td><b>Flow of events</b></td>
     	<td>
     		<ol>
-    			<!-- TODO: had flow of events -->
+    			<li>The player passes the previous section of obstacles.</li>
+    			<li>The game generates new obstacles above the player, taht will come on screen with the camera scroll.</li>
+    			<li>The game removes the previous obstacles once they go out of bounds.</li>
     		</ol>
     	</td>
     </tr>
@@ -240,17 +242,20 @@ and more hazards for the player to avoid.
     </tr>
 	<tr>
     	<td><b>Pre-conditions</b></td>
-    	<td><!-- TODO --></td>
+    	<td>There is no game currently running, the player is in the menu. Alternatively the player just ended a game.</td>
     </tr>
 	<tr>
     	<td><b>Post-conditions</b></td>
-    	<td><!-- TODO --></td>
+    	<td>The player can see his score in a table with the other high scores.</td>
     </tr>
     <tr>
     	<td><b>Flow of events</b></td>
     	<td>
     		<ol>
-    			<!-- TODO -->
+    			<li>The player clicks the "Leaderboard" button or finishes a game.</li>
+    			<li>The game sends the player's high score to the server.</li>
+    			<li>The server records that high score, and returns a list of the closest scores and the highest scores.</li>
+    			<li>The game displays the highest scores to the player.</li>
     		</ol>
     	</td>
     </tr>
