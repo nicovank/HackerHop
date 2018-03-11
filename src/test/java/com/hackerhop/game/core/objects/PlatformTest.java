@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlatformTest {
-  /*  @Test
+  //TODO: Figure out null pointer exception when instantiating a platform
+      @Test
     void distanceTest() {
-        World w = new World(new Vec2(0, -50));
+        Vec2 worldVec = new Vec2(0, -50);
+        World w = new World(worldVec);
         float x1 = 10;
         float y1 = 20;
         float x2 = 30;
@@ -17,5 +19,5 @@ public class PlatformTest {
         Platform a = new Platform(x1, y1, w);
         double distance = Math.sqrt(Math.pow((30 - 10), 2) + Math.pow((40 - 20), 2));
         assertEquals(distance, b.distanceTo(a));
-    }*/
+    }
 }
