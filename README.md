@@ -294,7 +294,7 @@ The team developing this project consists of:
     </tr>
 </table>
 
-# Traceability Matrix
+## Traceability Matrix
 
 |**Requirement**|**PW**|**UC-1**|**UC-2**|**UC-3**|**UC-4**|**UC-5**|**UC-6**|
 | :---:         |:---: |:---:   |:---:   |:---:   |:---:   |:---:   |:---:   |
@@ -309,6 +309,6 @@ The team developing this project consists of:
 | QUA-5         | 5    |        | X      | X      |        |        | X      |
 | QUA-6         | 2    |        |        |        |        |        |        |
 | QUA-7         | 0    |        |        |        | X      |        |        |
-| **MAX PW**    |      | 10     | 10     | 7      |  0     |  8     | 10     |
-| **TOTAL PW**  |      | 29     | 38     | 18     |  0     | 13     | 22     |
+| **MAX PW**    |      | 10     | 10     | 7      | 0      | 8      | 10     |
+| **TOTAL PW**  |      | 29     | 38     | 18     | 0      | 13     | 22     |
 
