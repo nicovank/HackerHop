@@ -47,8 +47,11 @@ public class Platforms implements GraphicsElement {
 	private static HashSet<Platform> generatePlatforms(World w) {
 		HashSet<Platform> h = new HashSet<>();
 		Random r = new Random();
-		Platform base = new Platform(0, 0, w);
-		h.add(base);
+		// "hacky", floor creation, let's find a better way later.
+		for (int i = 0; i < 54; i += 6) {
+			Platform base = new Platform(i, 0, w);
+			h.add(base);
+		}
 
 		for (int i = 1; i < yCount; ++i) {
 
@@ -76,10 +79,6 @@ public class Platforms implements GraphicsElement {
 		for (Platform p : platforms) {
 			p.dispose();
 		}
-	}
-
-	public HashSet<Platform> getPlatforms() {
-		return platforms;
 	}
 
 	public void render(SpriteBatch batch) {
