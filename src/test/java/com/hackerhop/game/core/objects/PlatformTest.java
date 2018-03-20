@@ -29,6 +29,7 @@ public class PlatformTest {
 
     @Test
     void distanceTest() {
+        setUp();
         assertEquals(distance, b.distanceTo(a));
     }
 }
