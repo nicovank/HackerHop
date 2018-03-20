@@ -10,12 +10,8 @@ public class PlatformTest {
   //TODO: Figure out null pointer exception when instantiating a platform
     Vec2 worldVec;
     World w;
-    float x1;
-    float y1;
-    float x2;
-    float y2;
-    Platform b;
-    Platform a;
+    float x1, y1, x2, y2;
+    Platform a, b;
     double distance;
 
     @Before
