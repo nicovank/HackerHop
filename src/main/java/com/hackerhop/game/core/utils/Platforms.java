@@ -1,15 +1,17 @@
 package com.hackerhop.game.core.utils;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
 
 import java.util.HashSet;
 import java.util.Random;
 
-public class PlatformManager {
+public class Platforms implements GraphicsElement {
 
+	private static final String TAG = Platforms.class.getName();
 
-	private static final String TAG = PlatformManager.class.getName();
 	// Number of units between each platform
 	// (something with the camera is limiting it to only 20, 75 or greater is desired)
 	private static final float gridSeparation = 20;
@@ -22,7 +24,16 @@ public class PlatformManager {
 	// Maximum deviation from grid center
 	private static final int wiggleroom = 7;
 
-	public PlatformManager() {
+	// Set of platforms
+	HashSet<Platform> platforms;
+
+	/**
+	 * Creates a new set of platforms, generating initial ones randomly.
+	 *
+	 * @param world The Box2D world of the platforms.
+	 */
+	public Platforms(World world) {
+		platforms = generatePlatforms(world);
 	}
 
 	/**
@@ -33,11 +44,10 @@ public class PlatformManager {
 	 * @param w world
 	 * @return HashSet containing Platform objects
 	 */
-	public HashSet<Platform> generatePlatforms(World w) {
+	private static HashSet<Platform> generatePlatforms(World w) {
 		HashSet<Platform> h = new HashSet<>();
 		Random r = new Random();
 		Platform base = new Platform(0, 0, w);
-		base.loadGraphics();
 		h.add(base);
 
 		for (int i = 1; i < yCount; ++i) {
@@ -46,7 +56,6 @@ public class PlatformManager {
 				if (r.nextBoolean()) {
 					Platform p = new Platform((gridSeparation * (j)) + 3.5f + r.nextInt(wiggleroom),
 							gridSeparation * (i) + r.nextInt(wiggleroom), w);
-					p.loadGraphics();
 					h.add(p);
 				}
 			}
@@ -55,20 +64,27 @@ public class PlatformManager {
 		return h;
 	}
 
-//    private class Grid{
-//        private float x, y;
-//        Grid(float x, float y){
-//            this.x = x;
-//            this.y = y;
-//        }
-//
-//        float getX(){
-//            return x;
-//        }
-//
-//        float getY(){
-//            return y;
-//        }
-//    }
+	@Override
+	public void loadGraphics() {
+		for (Platform p : platforms) {
+			p.loadGraphics();
+		}
+	}
 
+	@Override
+	public void dispose() {
+		for (Platform p : platforms) {
+			p.dispose();
+		}
+	}
+
+	public HashSet<Platform> getPlatforms() {
+		return platforms;
+	}
+
+	public void render(SpriteBatch batch) {
+		for (Platform p : platforms) {
+			p.rectRender(batch);
+		}
+	}
 }

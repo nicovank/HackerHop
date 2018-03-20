@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.player.Player;
 
 /**
  * This class is an interface for creating more scenes.
  */
-public abstract class Scene implements Disposable, InputProcessor {
+public abstract class Scene implements GraphicsElement, InputProcessor {
     private static final String TAG = Scene.class.getName();
 
     private Game controller;

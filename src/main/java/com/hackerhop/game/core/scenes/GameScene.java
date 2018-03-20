@@ -2,13 +2,10 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
-import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.player.Player;
-import com.hackerhop.game.core.utils.PlatformManager;
+import com.hackerhop.game.core.utils.Platforms;
 import org.jbox2d.common.Vec2;
 import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
@@ -26,14 +23,9 @@ public class GameScene extends Scene {
 	private final Player player;
 
 	// Our physics world
-	World world = new World(new Vec2(0, -50));
+	private World world = new World(new Vec2(0, -50));
 
-	//Platform HashSet
-//	private HashSet<Platform> platforms = genPlats(5);
-
-	private PlatformManager pm = new PlatformManager();
-
-	private HashSet<Platform> platforms = pm.generatePlatforms(world);
+	private Platforms platforms = new Platforms(world);
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
@@ -46,7 +38,6 @@ public class GameScene extends Scene {
 
 	/**
 	 * Creates a new Game Scene.
-	 * TODO: Instantiate a new player, some platforms, etc.
 	 *
 	 * @param controller The Game controller. Used when we need to change scenes for example.
 	 */
@@ -54,7 +45,8 @@ public class GameScene extends Scene {
 		super(controller);
 
 		player = new Player(world, new Vec2(0, 10));
-		player.loadGraphics();
+
+		// TODO: Remove that initial jump.
 		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
 	}
 
@@ -83,9 +75,7 @@ public class GameScene extends Scene {
 	@Override
 	public void render(SpriteBatch batch) {
 		batch.begin();
-		for (Platform p : platforms) {
-			p.rectRender(batch);
-		}
+		platforms.render(batch);
 		batch.end();
 
 		batch.begin();
@@ -93,29 +83,10 @@ public class GameScene extends Scene {
 		batch.end();
 	}
 
-	/**
-	 * Randomly generates HashSet of n platforms.
-	 *
-	 * @param n The number of platforms to be generated.
-	 */
-	private HashSet<Platform> genPlats(int n) {
-		// use custom HashSet
-		HashSet<Platform> plat = new HashSet<Platform>();
-		LinkedList l = new LinkedList();
-		Random r = new Random();
-
-//        while (n > 0){
-//            Platform e = new Platform(r.nextInt(20), r.nextInt(26  ), world);
-//          //  if (l.add(e)) {
-//                plat.add(e);
-//                --n;
-//          //  }
-//        }
-
-		Platform e = new Platform(0, 0, world);
-		plat.add(e);
-
-		return plat;
+	@Override
+	public void loadGraphics() {
+		player.loadGraphics();
+		platforms.loadGraphics();
 	}
 
 	/**
@@ -123,7 +94,8 @@ public class GameScene extends Scene {
 	 */
 	@Override
 	public void dispose() {
-
+		player.dispose();
+		platforms.dispose();
 	}
 
 	/**

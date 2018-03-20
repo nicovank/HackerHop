@@ -34,6 +34,12 @@ public class Menu extends Scene implements InputProcessor {
 
     }
 
+
+    @Override
+    public void loadGraphics() {
+
+    }
+
     /**
      * Called when a key is pressed.
      *

@@ -46,6 +46,7 @@ public class Game extends ApplicationAdapter {
 
 		// Start the game with the menu
 		currentScene = new GameScene(this);
+		currentScene.loadGraphics();
 
 		// To log information or errors use:
 
@@ -67,8 +68,6 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// Draw next frame (current scene)
 		currentScene.render(batch);
-
-
 	}
 
 	/**
