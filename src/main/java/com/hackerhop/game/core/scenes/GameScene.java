@@ -2,7 +2,9 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Platforms;
@@ -26,6 +28,7 @@ public class GameScene extends Scene {
 	private World world = new World(new Vec2(0, -50));
 
 	private Platforms platforms = new Platforms(world);
+	private TextureRegion background;
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
@@ -75,6 +78,7 @@ public class GameScene extends Scene {
 	@Override
 	public void render(SpriteBatch batch) {
 		batch.begin();
+		batch.draw(background, 0, 0);
 		platforms.render(batch);
 		batch.end();
 
@@ -87,6 +91,7 @@ public class GameScene extends Scene {
 	public void loadGraphics() {
 		player.loadGraphics();
 		platforms.loadGraphics();
+		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 	}
 
 	/**
