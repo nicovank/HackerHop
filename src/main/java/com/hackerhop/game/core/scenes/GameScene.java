@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.PlatformManager;
 import org.jbox2d.common.Vec2;
@@ -53,6 +54,7 @@ public class GameScene extends Scene {
 		super(controller);
 
 		player = new Player(world, new Vec2(0, 10));
+		player.loadGraphics();
 		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
 	}
 
@@ -239,6 +241,6 @@ public class GameScene extends Scene {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
-		}
 	}
+}
 

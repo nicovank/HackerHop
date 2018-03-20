@@ -17,67 +17,66 @@ import com.badlogic.gdx.Input;
  */
 public class Game extends ApplicationAdapter {
 
-    // We will have this TAG in every class to easily use LibGDX's logging system.
-    private static final String TAG = Game.class.getName();
+	// We will have this TAG in every class to easily use LibGDX's logging system.
+	private static final String TAG = Game.class.getName();
 
-    //private Array<Platform> platforms;
-    private SpriteBatch batch;
-    private Scene currentScene;
-    private Player player;
+	//private Array<Platform> platforms;
+	private SpriteBatch batch;
+	private Scene currentScene;
+	private Player player;
 
-    //private ShapeRenderer renderer;
+	//private ShapeRenderer renderer;
 
-    /**
-     * Entry point of the application.
-     */
-    @Override
-    public void create() {
+	/**
+	 * Entry point of the application.
+	 */
+	@Override
+	public void create() {
 
-        // Set application to log everything.
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		// Set application to log everything.
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        batch = new SpriteBatch();
+		batch = new SpriteBatch();
 
-        //renderer = new ShapeRenderer();
+		//renderer = new ShapeRenderer();
 
-        //Initialize array of platforms, and add just one for now
-        //platforms = new Array<Platform>();
-        //platforms.add(new Platform(70, 20, 10, 10));
+		//Initialize array of platforms, and add just one for now
+		//platforms = new Array<Platform>();
+		//platforms.add(new Platform(70, 20, 10, 10));
 
-        // Start the game with the menu
-        currentScene = new GameScene(this);
+		// Start the game with the menu
+		currentScene = new GameScene(this);
 
-        // To log information or errors use:
+		// To log information or errors use:
 
-        // Gdx.app.log(TAG, "This is an info log.");
-        // Gdx.app.debug(TAG, "This is a debug log.");
-        // Gdx.app.error(TAG, "This is an error log.");
-    }
+		// Gdx.app.log(TAG, "This is an info log.");
+		// Gdx.app.debug(TAG, "This is a debug log.");
+		// Gdx.app.error(TAG, "This is an error log.");
+	}
 
-    /**
-     * "Main" rendering, renders the current scene.
-     */
-    @Override
-    public void render() {
-        // Update current scene
-        currentScene.update();
+	/**
+	 * "Main" rendering, renders the current scene.
+	 */
+	@Override
+	public void render() {
+		// Update current scene
+		currentScene.update();
 
-        // Clear frame
-        Gdx.gl.glClearColor(1, .5f, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // Draw next frame (current scene)
-        currentScene.render(batch);
+		// Clear frame
+		Gdx.gl.glClearColor(1, .5f, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// Draw next frame (current scene)
+		currentScene.render(batch);
 
 
+	}
 
-    }
-
-    /**
-     * Disposes of the batch and the current scene.
-     */
-    @Override
-    public void dispose() {
-        batch.dispose();
-        currentScene.dispose();
-    }
+	/**
+	 * Disposes of the batch and the current scene.
+	 */
+	@Override
+	public void dispose() {
+		batch.dispose();
+		currentScene.dispose();
+	}
 }
