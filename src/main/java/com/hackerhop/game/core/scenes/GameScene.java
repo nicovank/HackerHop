@@ -2,6 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +34,8 @@ public class GameScene extends Scene {
 	// Frame time accumulator
 	private float accumulator = 0.0f;
 
+	private OrthographicCamera camera;
+
 	// Some world constants
 	private static final float TIME_STEP = 1 / 60f;
 	private static final int VELOCITY_ITERATIONS = 2;
@@ -49,6 +52,12 @@ public class GameScene extends Scene {
 
 		player = new Player(world, new Vec2(0, 10));
 
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+
+		camera = new OrthographicCamera(w, h);
+		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
 		// TODO: Remove that initial jump.
 		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
 	}
@@ -59,6 +68,8 @@ public class GameScene extends Scene {
 	 */
 	@Override
 	public void update() {
+		camera.update();
+
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		float frameTime = Math.min(deltaTime, 0.25f);
 		accumulator += frameTime;
@@ -77,6 +88,8 @@ public class GameScene extends Scene {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		batch.setProjectionMatrix(camera.combined);
+
 		batch.begin();
 		batch.draw(background, 0, 0);
 		platforms.render(batch);
