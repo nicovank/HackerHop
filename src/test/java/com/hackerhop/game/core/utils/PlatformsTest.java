@@ -25,8 +25,8 @@ public class PlatformsTest {
         for (Platform p : pm.getPlatforms()) {
             float x = p.getBody().getPosition().x;
             float y = p.getBody().getPosition().y;
-            assertTrue(x >= 0 && x <= 540);
-            assertTrue(y >= 0 && y <= 720);
+            assertTrue(x >= 0 && x <= 54);
+            assertTrue(y >= 0 && y <= 72);
         }
     }
 }
