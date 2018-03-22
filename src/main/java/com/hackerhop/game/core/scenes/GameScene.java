@@ -68,8 +68,6 @@ public class GameScene extends Scene {
 	 */
 	@Override
 	public void update() {
-		camera.update();
-
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		float frameTime = Math.min(deltaTime, 0.25f);
 		accumulator += frameTime;
@@ -78,6 +76,9 @@ public class GameScene extends Scene {
 			world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 			accumulator -= TIME_STEP;
 		}
+
+		camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
+		camera.update();
 	}
 
 	/**
