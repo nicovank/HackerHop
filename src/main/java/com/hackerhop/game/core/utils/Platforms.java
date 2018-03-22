@@ -67,6 +67,10 @@ public class Platforms implements GraphicsElement {
 		return h;
 	}
 
+	public int getCount(){
+		return platforms.size();
+	}
+
 	@Override
 	public void loadGraphics() {
 		for (Platform p : platforms) {
