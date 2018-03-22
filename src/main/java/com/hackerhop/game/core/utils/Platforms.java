@@ -67,6 +67,12 @@ public class Platforms implements GraphicsElement {
 		return h;
 	}
 
+	public Platform[] getPlatforms() {
+		Platform[] platforms = new Platform[this.platforms.size()];
+		this.platforms.toArray(platforms);
+		return platforms;
+	}
+
 	public int getCount(){
 		return platforms.size();
 	}
