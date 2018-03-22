@@ -29,7 +29,22 @@ public class PlayerTest {
         Player p = new Player(world, position);
         float x = p.getBody().getPosition().x;
         float y = p.getBody().getPosition().y;
-        assertTrue(x >= 0 && x <= 540);
-        assertTrue(y >= 0 && y <= 720);
+        assertTrue(x >= 0 && x <= 54);
+        assertTrue(y >= 0 && y <= 72);
     }
+
+    @Test
+    void floorExistsTest() {
+        World world = new World(new Vec2(0, -50));
+        Vec2 position = new Vec2(0, 10);
+
+        Player p = new Player(world, position);
+        world.step(100, 6, 2);
+
+        float x = p.getBody().getPosition().x;
+        float y = p.getBody().getPosition().y;
+        assertTrue(x >= 0 && x <= 54);
+        assertTrue(y >= 0 && y <= 72);
+    }
+
 }
