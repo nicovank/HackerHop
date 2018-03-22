@@ -25,7 +25,7 @@ public class Platforms implements GraphicsElement {
 	private static final int wiggleroom = 7;
 
 	// Set of platforms
-	HashSet<Platform> platforms;
+	private HashSet<Platform> platforms;
 
 	/**
 	 * Creates a new set of platforms, generating initial ones randomly.

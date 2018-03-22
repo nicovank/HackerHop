@@ -1,4 +1,4 @@
-package com.hackerhop.game.core.objects;
+package com.hackerhop.game.core.utils;
 
 import com.hackerhop.game.core.utils.Platforms;
 import org.jbox2d.common.Vec2;
