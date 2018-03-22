@@ -61,6 +61,10 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 		return Math.sqrt(Math.pow((this.x - a), 2) + Math.pow((this.y - b), 2));
 	}
 
+	public float getY(){
+		return y;
+	}
+
 	@Override
 	public void dispose() {
 		texture.dispose();

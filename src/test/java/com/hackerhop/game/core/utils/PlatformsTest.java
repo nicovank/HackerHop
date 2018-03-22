@@ -6,6 +6,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlatformsTest {
@@ -28,5 +30,13 @@ public class PlatformsTest {
             assertTrue(x >= 0 && x <= 540);
             assertTrue(y >= 0 && y <= 720);
         }
+    }
+
+    @Test
+    void floorTest() {
+        World world = new World(new Vec2(0, -50));
+        Platforms pm = new Platforms(world);
+        int i = (int) Arrays.stream(pm.getPlatforms()).filter(p -> p.getY() == 0).count();
+        assertTrue(i > 0 && i < 10);
     }
 }
