@@ -33,6 +33,8 @@ public class PlatformsTest {
     }
 
     @Test
+    // checks if number of platforms at the floor position are greater than 0 and less than 10
+    // Why 10? idk
     void floorTest() {
         World world = new World(new Vec2(0, -50));
         Platforms pm = new Platforms(world);
