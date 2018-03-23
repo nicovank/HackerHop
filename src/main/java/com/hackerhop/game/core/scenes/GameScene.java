@@ -7,15 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.objects.HomeworkObstacle;
+import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Platforms;
 import org.jbox2d.common.Vec2;
-import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
-import com.hackerhop.game.core.utils.HashTable.LinkedList;
-
-import java.util.Random;
-import java.util.HashSet;
 
 
 /**
@@ -30,6 +27,10 @@ public class GameScene extends Scene {
 
 	private Platforms platforms = new Platforms(world);
 	private TextureRegion background;
+
+	//Some obstacle objects
+	private HomeworkObstacle deadline = new HomeworkObstacle(world);
+	private TextbookObstacle textbook = new TextbookObstacle(world);
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
@@ -99,12 +100,23 @@ public class GameScene extends Scene {
 		batch.begin();
 		player.render(batch);
 		batch.end();
+
+		batch.begin();
+		deadline.render(batch);
+		batch.end();
+
+		batch.begin();
+		textbook.render(batch);
+		batch.end();
+
 	}
 
 	@Override
 	public void loadGraphics() {
 		player.loadGraphics();
 		platforms.loadGraphics();
+		deadline.loadGraphics();
+		textbook.loadGraphics();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 	}
 
@@ -115,6 +127,8 @@ public class GameScene extends Scene {
 	public void dispose() {
 		player.dispose();
 		platforms.dispose();
+		deadline.dispose();
+		textbook.dispose();
 	}
 
 	/**
