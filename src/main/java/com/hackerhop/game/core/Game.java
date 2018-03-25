@@ -20,12 +20,10 @@ public class Game extends ApplicationAdapter {
 	// We will have this TAG in every class to easily use LibGDX's logging system.
 	private static final String TAG = Game.class.getName();
 
-	//private Array<Platform> platforms;
 	private SpriteBatch batch;
 	private Scene currentScene;
 	private Player player;
 
-	//private ShapeRenderer renderer;
 
 	/**
 	 * Entry point of the application.
@@ -37,12 +35,6 @@ public class Game extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		batch = new SpriteBatch();
-
-		//renderer = new ShapeRenderer();
-
-		//Initialize array of platforms, and add just one for now
-		//platforms = new Array<Platform>();
-		//platforms.add(new Platform(70, 20, 10, 10));
 
 		// Start the game with the menu
 		currentScene = new GameScene(this);
@@ -78,4 +70,5 @@ public class Game extends ApplicationAdapter {
 		batch.dispose();
 		currentScene.dispose();
 	}
+
 }

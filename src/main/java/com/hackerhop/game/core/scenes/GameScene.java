@@ -271,7 +271,8 @@ public class GameScene extends Scene {
 			//Quit game if player and obstacle collide
 			if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
 					&& fixtureB.getBody() == player.getBody()){
-				System.exit(0);
+				background.setTexture(new Texture("background/GameOver.png"));
+				background.setRegionHeight(700);
 			}
 		}
 

@@ -11,6 +11,9 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
 public class TextbookObstacle extends PhysicalObject implements GraphicsElement {
+
+    private static final String TAG = TextbookObstacle.class.getName();
+
     private Texture texture;
     private float x = 25;
     private float y = 100;
