@@ -48,4 +48,5 @@ public class HomeworkObstacle extends PhysicalObject implements GraphicsElement 
     public void dispose() {
         texture.dispose();
     }
+
 }

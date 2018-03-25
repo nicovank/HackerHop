@@ -17,7 +17,6 @@ public class Player implements GraphicsElement {
 	private Direction direction;
 	private Texture texture;
 
-
 	/**
 	 * Returns the player's physics body.
 	 * Call to add forces or move the player.
@@ -48,6 +47,7 @@ public class Player implements GraphicsElement {
 		body.createFixture(fixtureDef);
 	}
 
+
 	public void render(SpriteBatch batch) {
 		batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10);
 	}
@@ -61,4 +61,7 @@ public class Player implements GraphicsElement {
 	public void dispose() {
 		texture.dispose();
 	}
+
+
 }
+

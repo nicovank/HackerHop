@@ -11,8 +11,13 @@ import com.hackerhop.game.core.objects.HomeworkObstacle;
 import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Platforms;
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
 
 
 /**
@@ -23,7 +28,8 @@ public class GameScene extends Scene {
 	private final Player player;
 
 	// Our physics world
-	private World world = new World(new Vec2(0, -50));
+	Vec2 gravity = new Vec2(0, -50);
+	private World world = new World(gravity);
 
 	private Platforms platforms = new Platforms(world);
 	private TextureRegion background;
@@ -50,6 +56,9 @@ public class GameScene extends Scene {
 	 */
 	public GameScene(Game controller) {
 		super(controller);
+
+		setWorld(world);
+		world.setContactListener(listener);
 
 		player = new Player(world, new Vec2(0, 10));
 
@@ -247,5 +256,41 @@ public class GameScene extends Scene {
 	public boolean scrolled(int amount) {
 		return false;
 	}
+
+	//Sets world
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	//Handles obstacle collision. TODO://Handle a lot more
+	ContactListener listener = new ContactListener() {
+		@Override
+		public void beginContact(Contact contact) {
+			Fixture fixtureA = contact.getFixtureA();
+			Fixture fixtureB = contact.getFixtureB();
+			//Quit game if player and obstacle collide
+			if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
+					&& fixtureB.getBody() == player.getBody()){
+				System.exit(0);
+			}
+		}
+
+		@Override
+		public void endContact(Contact contact) {
+
+		}
+
+		@Override
+		public void preSolve(Contact contact, Manifold manifold) {
+
+		}
+
+		@Override
+		public void postSolve(Contact contact, ContactImpulse contactImpulse) {
+
+		}
+	};
+
+
 }
 
