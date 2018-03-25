@@ -25,6 +25,8 @@ import org.jbox2d.dynamics.contacts.Contact;
  */
 public class GameScene extends Scene {
 
+	private static final String TAG = GameScene.class.getName();
+
 	private final Player player;
 
 	// Our physics world
@@ -271,6 +273,7 @@ public class GameScene extends Scene {
 			//Quit game if player and obstacle collide
 			if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
 					&& fixtureB.getBody() == player.getBody()){
+
 				background.setTexture(new Texture("background/GameOver.png"));
 				background.setRegionHeight(700);
 			}
