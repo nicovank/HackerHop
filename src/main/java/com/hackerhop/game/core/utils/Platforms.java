@@ -14,6 +14,7 @@ public class Platforms implements GraphicsElement {
 
     // Number of units between each platform
     // (something with the camera is limiting it to only 20, 75 or greater is desired)
+    // change value in test every time you touch this value
     private static final float gridSeparation = 20;
 
     // Number of platforms that can fit in the scene vertically and horizontally
@@ -22,6 +23,7 @@ public class Platforms implements GraphicsElement {
     private static final int yCount = (int) Math.floor(80 / gridSeparation);
 
     // Maximum deviation from grid center
+    // change value in test every time you touch this value
     private static final int wiggleroom = 7;
 
     // Set of platforms
@@ -48,7 +50,6 @@ public class Platforms implements GraphicsElement {
         HashSet<Platform> h = new HashSet<>();
         Random r = new Random();
         // "hacky", floor creation, let's find a better way later.
-//        do {
             for (int i = 0; i < 54; i += 6) {
                 Platform base = new Platform(i, 0, w);
                 h.add(base);
@@ -64,7 +65,6 @@ public class Platforms implements GraphicsElement {
                     }
                 }
             }
-//        } while (h.size() < 13);
 
         return h;
     }
