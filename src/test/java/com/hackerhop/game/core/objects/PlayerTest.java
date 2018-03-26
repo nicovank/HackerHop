@@ -1,12 +1,13 @@
 package com.hackerhop.game.core.objects;
 
+import com.badlogic.gdx.Input;
 import com.hackerhop.game.core.player.Player;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;b
 
 public class PlayerTest {
     @Test
@@ -46,5 +47,30 @@ public class PlayerTest {
         assertTrue(x >= 0 && x <= 54);
         assertTrue(y >= 0 && y <= 72);
     }
+    //testing player position at the start of the game.
+    @Test
+    void startingPositionTest(){
+        World world = new World(new Vec2(0,-50));
+        Vec2 position = new Vec2(0,10);
+        Player p = new Player(world, position);
+        float x = position.x;
+        float y = position.y;
+        assertTrue(x==0);
+        assertTrue(y==10);
+    }
+//Still in progress
+//    @Test
+//    void keyTest(){
+//        World world = new World(new Vec2(0,-50));
+//        Vec2 position = new Vec2(0,10);
+//        Player p = new Player(world, position);
+//        int keyCode = Input.Keys.LEFT;
+//        keyDown(keyCode);
+//
+//
+//    }
+
+
+
 
 }
