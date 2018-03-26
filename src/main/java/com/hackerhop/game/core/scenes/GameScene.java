@@ -60,7 +60,7 @@ public class GameScene extends Scene {
         setWorld(world);
         world.setContactListener(listener);
 
-        player = new Player(world, new Vec2(0, 3));
+        player = new Player(world, new Vec2(0, 5));
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
