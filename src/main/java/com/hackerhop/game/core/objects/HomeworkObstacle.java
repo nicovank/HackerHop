@@ -9,6 +9,8 @@ import org.jbox2d.dynamics.*;
 
 public class HomeworkObstacle extends PhysicalObject implements GraphicsElement {
 
+    private static final String TAG = HomeworkObstacle.class.getName();
+
     private Texture texture;
     private float x = 15;
     private float y = 125;

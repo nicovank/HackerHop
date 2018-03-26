@@ -66,9 +66,9 @@ public class GameScene extends Scene {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera(w, h);
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight / 2f, 0);
 
-        // TODO: Remove that initial jump.
+        //I think I fixed this?
 //        player.getBody().applyLinearImpulse(new Vec2(0, -65), player.getBody().getLocalCenter());
     }
 
@@ -87,6 +87,7 @@ public class GameScene extends Scene {
             accumulator -= TIME_STEP;
         }
 
+        // move camera only if the player is outside a threshold
         if (player.getBody().getPosition().y * 10 < camera.position.y - 300) {
             camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
         }
@@ -296,6 +297,7 @@ public class GameScene extends Scene {
 
         }
     };
+
 
 
 }
