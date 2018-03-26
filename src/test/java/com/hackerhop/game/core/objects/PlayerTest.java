@@ -7,7 +7,7 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;b
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     @Test
