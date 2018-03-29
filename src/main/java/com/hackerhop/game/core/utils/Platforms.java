@@ -37,12 +37,19 @@ public class Platforms implements GraphicsElement {
     public void update(float cameraPositionY, World world) {
         if (platformGroups[tracker].getY() <= (cameraPositionY - 370)/10) {
             float tmpY = platformGroups[tracker].getY()/20 + 4;
+            platformGroups[tracker].destroy(world);
             PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
             p.loadGraphics();
             platformGroups[tracker] = p;
 
 
             tracker = (tracker < 3) ? ++tracker : 0;
+        }
+    }
+
+    public void destroyAll(World world){
+        for (PlatformGroup p : platformGroups){
+            p.destroy(world);
         }
     }
 

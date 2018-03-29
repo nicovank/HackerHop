@@ -92,6 +92,12 @@ public class PlatformGroup implements GraphicsElement {
         }
     }
 
+    public void destroy(World world){
+        for (Platform p : platforms){
+            p.destroy(world);
+        }
+    }
+
     public void render(SpriteBatch batch) {
         for (Platform p : platforms) {
             p.rectRender(batch);
