@@ -49,8 +49,12 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 		);
 	}
 
+	public void destroy(World world){
+		world.destroyBody(super.getBody());
+	}
+
 	/**
-	 * Calculates the distance between two Platforms <code>p</code>.
+	 * Calculates the distance between two PlatformGroup <code>p</code>.
 	 *
 	 * @param p the target Platform
 	 * @return distance between <code>this</code> and <code>p</code>
