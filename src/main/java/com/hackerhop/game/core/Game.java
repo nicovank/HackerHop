@@ -37,8 +37,7 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		// Start the game with the menu
-		currentScene = new GameScene(this);
-		currentScene.loadGraphics();
+		setScene(new GameScene(this));
 
 		// To log information or errors use:
 
@@ -69,6 +68,14 @@ public class Game extends ApplicationAdapter {
 	public void dispose() {
 		batch.dispose();
 		currentScene.dispose();
+	}
+
+	public void setScene(Scene scene){
+		if(currentScene != null){
+			currentScene.dispose();
+		}
+		currentScene = scene;
+		currentScene.loadGraphics();
 	}
 
 }
