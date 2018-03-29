@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.HomeworkObstacle;
 import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
@@ -265,7 +266,8 @@ public class GameScene extends Scene {
 	}
 
 	//Handles obstacle collision. TODO://Handle a lot more
-	ContactListener listener = new ContactListener() {
+
+	ContactHandler listener = new ContactHandler(super.getController()){
 		@Override
 		public void beginContact(Contact contact) {
 			Fixture fixtureA = contact.getFixtureA();
@@ -273,9 +275,7 @@ public class GameScene extends Scene {
 			//Quit game if player and obstacle collide
 			if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
 					&& fixtureB.getBody() == player.getBody()){
-
-				background.setTexture(new Texture("background/GameOver.png"));
-				background.setRegionHeight(700);
+				getController().setScene(new GameOverScene(getController()));
 			}
 		}
 
@@ -294,6 +294,7 @@ public class GameScene extends Scene {
 
 		}
 	};
+
 
 
 }
