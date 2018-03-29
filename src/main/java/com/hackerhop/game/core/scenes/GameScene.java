@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.HomeworkObstacle;
 import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
@@ -24,6 +25,8 @@ import org.jbox2d.dynamics.contacts.Contact;
  * This scene is the "main" game, with the scrolling platforms and the player.
  */
 public class GameScene extends Scene {
+
+    private static final String TAG = GameScene.class.getName();
 
     private final Player player;
 
@@ -60,16 +63,16 @@ public class GameScene extends Scene {
         setWorld(world);
         world.setContactListener(listener);
 
-        player = new Player(world, new Vec2(0, 5));
+        player = new Player(world, new Vec2(0, 10));
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera(w, h);
-        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight / 2f, 0);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
-        //I think I fixed this?
-//        player.getBody().applyLinearImpulse(new Vec2(0, -65), player.getBody().getLocalCenter());
+        // TODO: Remove that initial jump.
+        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
     }
 
     /**
@@ -87,15 +90,7 @@ public class GameScene extends Scene {
             accumulator -= TIME_STEP;
         }
 
-        // move camera only if the player is outside a threshold
-        if (player.getBody().getPosition().y * 10 < camera.position.y - 300) {
-            camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
-        }
-
-        if (player.getBody().getPosition().y * 10 > camera.position.y + 100) {
-            camera.position.set(camera.position.x, (player.getBody().getPosition().y * 10) - 100, camera.position.z);
-            platforms.update(camera.position.y, world);
-        }
+        camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
         camera.update();
     }
 
@@ -271,15 +266,16 @@ public class GameScene extends Scene {
     }
 
     //Handles obstacle collision. TODO://Handle a lot more
-    ContactListener listener = new ContactListener() {
+
+    ContactHandler listener = new ContactHandler(super.getController()){
         @Override
         public void beginContact(Contact contact) {
             Fixture fixtureA = contact.getFixtureA();
             Fixture fixtureB = contact.getFixtureB();
             //Quit game if player and obstacle collide
-            if (fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
-                    && fixtureB.getBody() == player.getBody()) {
-                System.exit(0);
+            if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
+                    && fixtureB.getBody() == player.getBody()){
+                getController().setScene(new GameOverScene(getController()));
             }
         }
 
@@ -298,7 +294,6 @@ public class GameScene extends Scene {
 
         }
     };
-
 
 }
 
