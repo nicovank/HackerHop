@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.graphics;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -11,4 +12,11 @@ public interface GraphicsElement extends Disposable {
 	 * Will loads the graphics associated with the class.
 	 */
 	void loadGraphics();
+
+	/**
+	 * Will render the element on the screen.
+	 *
+	 * @param batch the batch where to draw the object.
+	 */
+	void render (SpriteBatch batch);
 }

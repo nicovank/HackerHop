@@ -47,7 +47,7 @@ public class Player implements GraphicsElement {
 		body.createFixture(fixtureDef);
 	}
 
-
+	@Override
 	public void render(SpriteBatch batch) {
 		batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10);
 	}

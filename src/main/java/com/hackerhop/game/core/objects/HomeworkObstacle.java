@@ -33,7 +33,7 @@ public class HomeworkObstacle extends PhysicalObject implements GraphicsElement 
         super.getBody().createFixture(fixtureDef);
     }
 
-
+    @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, super.getBody().getPosition().x * 10,
                 super.getBody().getPosition().y * 10,

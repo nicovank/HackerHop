@@ -40,7 +40,7 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 	 * libgdx uses the coordinates of bottom left corner and width and height to construct a rectangle
 	 * Color currently gets set to Teal--obviously this can be changed
 	 **/
-	public void rectRender(SpriteBatch batch) {
+	public void render(SpriteBatch batch) {
 		batch.draw(texture,
 				super.getBody().getPosition().x * 10,
 				super.getBody().getPosition().y * 10,
