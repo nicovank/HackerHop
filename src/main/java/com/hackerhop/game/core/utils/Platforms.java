@@ -2,18 +2,20 @@ package com.hackerhop.game.core.utils;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
 
-public class Platforms implements GraphicsElement{
+public class Platforms implements GraphicsElement {
 
-    GeneralPlatformGroup[] platformGroups = new GeneralPlatformGroup[4];
-    int tracker;
+    private PlatformGroup[] platformGroups = new PlatformGroup[4];
+    private int tracker;
     private static final String TAG = PlatformGroup.class.getName();
+//    private World world;
 
     // Number of units between each platform
     // (something with the camera is limiting it to only 20, 75 or greater is desired)
     // change value in test every time you touch this value
-    private static final float gridSeparation = 20;
+//    private static final float gridSeparation = 20;
 
     // Number of platforms that can fit in the scene vertically and horizontally
     // at the given separation
@@ -24,19 +26,29 @@ public class Platforms implements GraphicsElement{
     private static final int wiggleRoom = 8;
 
     public Platforms(World world) {
-        platformGroups[0] = new BaseGroup(world);
+//        this.world = world;
+        platformGroups[0] = new PlatformGroup(world, 0, wiggleRoom);
         for (int i = 1; i < 4; ++i) {
-            platformGroups[i] = new PlatformGroup(world, 20, (int) gridSeparation * i, wiggleRoom);
+            platformGroups[i] = new PlatformGroup(world, i, wiggleRoom);
         }
+        tracker = 0;
     }
 
-    public void update(){
+    public void update(float cameraPositionY, World world) {
+        if (platformGroups[tracker].getY() <= (cameraPositionY - 370)/10) {
+            float tmpY = platformGroups[tracker].getY() + 4;
+            PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
+            p.loadGraphics();
+            platformGroups[tracker] = p;
 
+
+            tracker = (tracker < 3) ? ++tracker : 0;
+        }
     }
 
     public int getCount() {
         int count = 0;
-        for(GeneralPlatformGroup g : platformGroups){
+        for (PlatformGroup g : platformGroups) {
             count += g.getCount();
         }
         return count;
@@ -44,20 +56,20 @@ public class Platforms implements GraphicsElement{
 
     @Override
     public void loadGraphics() {
-        for(GeneralPlatformGroup g : platformGroups){
-           g.loadGraphics();
+        for (PlatformGroup g : platformGroups) {
+            g.loadGraphics();
         }
     }
 
     @Override
     public void dispose() {
-        for(GeneralPlatformGroup g : platformGroups){
+        for (PlatformGroup g : platformGroups) {
             g.dispose();
         }
     }
 
     public void render(SpriteBatch batch) {
-        for(GeneralPlatformGroup g : platformGroups){
+        for (PlatformGroup g : platformGroups) {
             g.render(batch);
         }
     }

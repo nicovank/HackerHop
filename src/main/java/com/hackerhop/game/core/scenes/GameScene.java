@@ -94,6 +94,7 @@ public class GameScene extends Scene {
 
         if (player.getBody().getPosition().y * 10 > camera.position.y + 100) {
             camera.position.set(camera.position.x, (player.getBody().getPosition().y * 10) - 100, camera.position.z);
+            platforms.update(camera.position.y, world);
         }
         camera.update();
     }
