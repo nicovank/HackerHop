@@ -38,7 +38,7 @@ public class GameOverScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, 300, 540, 700 );
         batch.end();
     }
 
@@ -46,6 +46,7 @@ public class GameOverScene extends Scene {
     public boolean keyDown(int i) {
         return false;
     }
+
 
     @Override
     public boolean keyUp(int i) {
