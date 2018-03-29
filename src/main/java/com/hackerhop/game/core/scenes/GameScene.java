@@ -63,7 +63,7 @@ public class GameScene extends Scene {
         setWorld(world);
         world.setContactListener(listener);
 
-        player = new Player(world, new Vec2(0, 10));
+        player = new Player(world, new Vec2(0, 5));
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -71,8 +71,8 @@ public class GameScene extends Scene {
         camera = new OrthographicCamera(w, h);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
-        // TODO: Remove that initial jump.
-        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
+//        // TODO: Remove that initial jump.
+//        player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
     }
 
     /**
@@ -90,7 +90,15 @@ public class GameScene extends Scene {
             accumulator -= TIME_STEP;
         }
 
-        camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
+        // move camera only if the player is outside a threshold
+        if (player.getBody().getPosition().y * 10 < camera.position.y - 300) {
+            camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
+        }
+
+        if (player.getBody().getPosition().y * 10 > camera.position.y + 100) {
+            camera.position.set(camera.position.x, (player.getBody().getPosition().y * 10) - 100, camera.position.z);
+            platforms.update(camera.position.y, world);
+        }
         camera.update();
     }
 

@@ -100,7 +100,7 @@ public class PlatformGroup implements GraphicsElement {
 
     public void render(SpriteBatch batch) {
         for (Platform p : platforms) {
-            p.rectRender(batch);
+            p.render(batch);
         }
     }
 }
