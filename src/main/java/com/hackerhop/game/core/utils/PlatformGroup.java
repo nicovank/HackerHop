@@ -46,14 +46,29 @@ public class PlatformGroup implements GraphicsElement {
         platforms = generatePlatforms(world);
     }
 
+    /**
+     * <p>Generates Platform objects for this PlatformGroup object.</p>
+     * <p>If this PlatformObject is at the base position, i.e. if <code>this.y == 0</code>,
+     * 9 Platform objects are generated to be used as the base platform.
+     * </p>
+     * <p>For all other cases, a maximum of 3 Platform objects are created at random
+     * within a circle of radius <code>wiggleRoom</code>. The center of each circle is separated from
+     * another by <code>gridSeparation</code> units.
+     * </p>
+     *
+     * @param w the physics world where Platform objects are to be generated
+     * @return
+     */
     private Platform[] generatePlatforms(World w) {
         Platform[] h;
         Random r = new Random();
         if (y != 0) {
             h = new Platform[xCount];
             for (int i = 0; i < xCount; ++i) {
-                h[i] = new Platform((gridSeparation * i) + 3.5f + (wiggleRoom - r.nextInt(2 * wiggleRoom)),
-                        (y * gridSeparation) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
+                if (r.nextBoolean() || r.nextBoolean()) {
+                    h[i] = new Platform((gridSeparation * i) + 3.5f + (wiggleRoom - r.nextInt(2 * wiggleRoom)),
+                            (y * gridSeparation) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
+                }
             }
         } else {
             h = new Platform[9];
@@ -64,13 +79,16 @@ public class PlatformGroup implements GraphicsElement {
         return h;
     }
 
-    public float getY(){
+    /**
+     * Returns the y-value of the central grid
+     *
+     * @return y-value of the central grid
+     */
+    public float getY() {
         return y * gridSeparation;
     }
 
     public Platform[] getPlatforms() {
-//        Platform[] platforms = new Platform[this.platforms.size()];
-//        this.platforms.toArray(platforms);
         return platforms;
     }
 
@@ -81,26 +99,28 @@ public class PlatformGroup implements GraphicsElement {
     @Override
     public void loadGraphics() {
         for (Platform p : platforms) {
-            p.loadGraphics();
+            if (p != null) {
+                p.loadGraphics();
+            }
         }
     }
 
     @Override
     public void dispose() {
         for (Platform p : platforms) {
-            p.dispose();
+            if (p != null) p.dispose();
         }
     }
 
-    public void destroy(World world){
-        for (Platform p : platforms){
-            p.destroy(world);
+    public void destroy(World world) {
+        for (Platform p : platforms) {
+            if (p != null) p.destroy(world);
         }
     }
 
     public void render(SpriteBatch batch) {
         for (Platform p : platforms) {
-            p.render(batch);
+            if (p != null) p.render(batch);
         }
     }
 }

@@ -24,6 +24,14 @@ public abstract class PhysicalObject {
 	}
 
 	/**
+	 * Destroys this physical object from the physics world
+	 * @param world the world from which this object is to be removed
+	 */
+	public void destroy(World world){
+		world.destroyBody(this.getBody());
+	}
+
+	/**
 	 * Changes the reference to this object's body.
 	 *
 	 * @param body the new body to be stored.
