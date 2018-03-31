@@ -11,20 +11,6 @@ import java.util.Random;
 public class PlatformGroup implements GraphicsElement {
 
     private static final String TAG = PlatformGroup.class.getName();
-
-    // Number of units between each platform
-    // (something with the camera is limiting it to only 20, 75 or greater is desired)
-    // change value in test every time you touch this value
-//    private static final float gridSeparation;
-
-    // Number of platforms that can fit in the scene vertically and horizontally
-    // at the given separation
-//    private static final int xCount = (int) Math.floor(60 / gridSeparation);
-//    private static final int yCount = (int) Math.floor(80 / gridSeparation);
-
-    // Maximum deviation from grid center
-    // change value in test every time you touch this value
-//    private static final int wiggleroom = 8;
     private static final float gridSeparation = 20;
 
     // Set of platforms

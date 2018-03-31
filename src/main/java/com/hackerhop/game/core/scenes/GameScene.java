@@ -2,13 +2,17 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.HomeworkObstacle;
+import com.hackerhop.game.core.objects.Platform;
 import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Platforms;
@@ -99,6 +103,7 @@ public class GameScene extends Scene {
             camera.position.set(camera.position.x, (player.getBody().getPosition().y * 10) - 100, camera.position.z);
             platforms.update(camera.position.y, world);
         }
+
         camera.update();
     }
 
@@ -113,7 +118,7 @@ public class GameScene extends Scene {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, camera.position.y - 360);
         platforms.render(batch);
         batch.end();
 
@@ -286,12 +291,12 @@ public class GameScene extends Scene {
                 world.destroyBody(player.getBody());
                 world.destroyBody(fixtureA.getBody());
                 getController().setScene(new GameOverScene(getController()));
+                camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
             }
         }
 
         @Override
         public void endContact(Contact contact) {
-
         }
 
         @Override

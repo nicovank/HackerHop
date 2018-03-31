@@ -9,9 +9,9 @@ public class Platforms implements GraphicsElement {
     // only 4 PlatformGroup objects, cycled through as player advances
     private PlatformGroup[] platformGroups = new PlatformGroup[4];
     // used in update(World world) method
-    private static final int THRESHOLD = 400;
+    private static final int THRESHOLD = 420;   //blaze it
     // tracks lowest PlatformGroup
-    private int tracker;
+    private static int tracker;
     private static final String TAG = PlatformGroup.class.getName();
     // change value in test every time you touch this value
     private static final int wiggleRoom = 8;
@@ -54,6 +54,7 @@ public class Platforms implements GraphicsElement {
 
     /**
      * Does what it says on the tin - destroys all physical objects from <code>world</code>.
+     *
      * @param world the world where physical objects reside
      */
     public void destroyAll(World world) {
@@ -64,6 +65,7 @@ public class Platforms implements GraphicsElement {
 
     /**
      * Counts the total number of Platform objects in the world
+     *
      * @return number of Platform objects in the physics world
      */
     public int getCount() {
