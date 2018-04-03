@@ -4,17 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.handlers.ContactHandler;
+import com.hackerhop.game.core.player.Player;
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
+
+import javax.xml.soap.Text;
+
 
 public class MainMenu extends Scene{
 
     Game Game;
+    private static final String TAG = MainMenu.class.getName();
 
     //Main Screen Textures
-    Texture logo;
-    Texture background;
+    Texture logo = new Texture("mainScreen/Logo.png");
+    Texture background = new Texture("background/ShinemanPixel.png");
     Texture sprite1;
     Texture sprite2;
     Texture sprite3;
@@ -22,19 +34,19 @@ public class MainMenu extends Scene{
     Texture highScoreButton;
     Texture textDisplay;
 
+    Vec2 gravity = new Vec2(0, -50);
+    private World world = new World(gravity);
 
+    private OrthographicCamera camera;
     public MainMenu(Game controller) {
         super(controller);
-        this.Game = Game;
-        logo = new Texture("mainScreen/Logo.png");
-        background = new Texture("background/ShinemanPixel.png");
-        sprite1 = new Texture("");
-        sprite2 = new Texture("");
-        sprite3 = new Texture("");
-        sprite4 = new Texture("");
-        highScoreButton = new Texture("");
-        textDisplay = new Texture("");
 
+        setWorld(world);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(w, h);
+        camera = new OrthographicCamera(w, h);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
     }
 
     @Override
@@ -44,7 +56,14 @@ public class MainMenu extends Scene{
 
     @Override
     public void loadGraphics() {
-
+//        background = new Texture("background/ShinemanPixel.png");
+//        logo = new Texture("mainScreen/Logo.png");
+//        sprite1 = new Texture("");
+//        sprite2 = new Texture("");
+//        sprite3 = new Texture("");
+//        sprite4 = new Texture("");
+//        highScoreButton = new Texture("");
+//        textDisplay = new Texture("");
     }
 
     @Override
@@ -64,6 +83,11 @@ public class MainMenu extends Scene{
 //        batch.end();
 
     }
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    //Handles obstacle collision. TODO://Handle a lot more
 
     @Override
     public boolean keyDown(int i) {
