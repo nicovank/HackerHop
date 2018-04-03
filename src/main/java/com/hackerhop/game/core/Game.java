@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameScene;
+import com.hackerhop.game.core.scenes.MainMenu;
 import com.hackerhop.game.core.scenes.Scene;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input;
@@ -37,7 +38,7 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		// Start the game with the menu
-		setScene(new GameScene(this));
+		setScene(new MainMenu(this));
 
 		// To log information or errors use:
 
