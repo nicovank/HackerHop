@@ -5,43 +5,30 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.hackerhop.game.core.MainController;
 
 
-public class MainMenu extends Scene{
+public class MainMenu extends Scene {
 
-    MainController controller;
     private static final String TAG = MainMenu.class.getName();
 
     //Main Screen Textures
-    Texture logo = new Texture("mainScreen/Logo.png");
-    Texture background = new Texture("background/ShinemanPixel.png");
-    Texture sprite1 = new Texture("player/rob.png");
-    Texture sprite2 = new Texture("player/Nick.png");
-    Texture sprite3 = new Texture("player/Katie.png");
-    Texture sprite4 = new Texture("player/Ye.png");
-    Texture highScoreButton = new Texture("mainScreen/HighScoreButton.png");
-    Texture gitHubButton = new Texture("mainScreen/GitHubButton.png");
-    Texture textDisplay;
-    Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
-
-
-
-    private OrthographicCamera camera;
-
+    Texture logo;
+    Texture background;
+    Sprite sprite1;
+    Sprite sprite2;
+    Sprite sprite3;
+    Sprite sprite4;
+    Sprite highScoreButton;
+    Sprite gitHubButton;
+    Music music;
 
     public MainMenu(MainController controller) {
         super(controller);
-        this.controller = controller;
-        music.setLooping(true);
-        music.play();
-
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera(w, h);
-        camera = new OrthographicCamera(w, h);
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
     }
 
     @Override
@@ -51,7 +38,24 @@ public class MainMenu extends Scene{
 
     @Override
     public void loadGraphics() {
+        logo = new Texture("mainScreen/Logo.png");
+        background = new Texture("background/ShinemanPixel.png");
+        sprite1 = new Sprite(new Texture("player/rob.png"));
+        sprite1.setPosition(100, 75);
+        sprite2 = new Sprite(new Texture("player/Nick.png"));
+        sprite2.setPosition(200, 75);
+        sprite3 = new Sprite(new Texture("player/Katie.png"));
+        sprite3.setPosition(300, 75);
+        sprite4 = new Sprite(new Texture("player/Ye.png"));
+        sprite4.setPosition(400, 75);
+        highScoreButton = new Sprite(new Texture("mainScreen/HighScoreButton.png"));
+        highScoreButton.setPosition(75, 325);
+        gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
+        gitHubButton.setPosition(285, 325);
+        music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
 
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -62,28 +66,17 @@ public class MainMenu extends Scene{
 
         // Draw next frame (current scene)
         batch.begin();
-        //BACKGROUND IMPORT
 
         batch.draw(background, 0, 0);
-        batch.draw(logo,0,50);
-        batch.draw(sprite1, 100,75);
-        batch.draw(sprite2, 200,75);
-        batch.draw(sprite3, 300,75);
-        batch.draw(sprite4, 400,75);
-        batch.draw(highScoreButton, 75,325);
-        batch.draw(gitHubButton, 285,325);
+        batch.draw(logo, 0, 50);
+        sprite1.draw(batch);
+        sprite2.draw(batch);
+        sprite3.draw(batch);
+        sprite4.draw(batch);
+        highScoreButton.draw(batch);
+        gitHubButton.draw(batch);
         batch.end();
-
-    if (Gdx.input.getX() > 100 && Gdx.input.getX() <175 && Gdx.input.getY() >75 && Gdx.input.getY() >150){
-        if(Gdx.input.isTouched()){
-            this.dispose();
-            controller.setScene(new GameScene(controller));
-        }
     }
-    }
-
-
-    //Handles obstacle collision. TODO://Handle a lot more
 
     @Override
     public boolean keyDown(int i) {
@@ -101,8 +94,15 @@ public class MainMenu extends Scene{
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
+    public boolean touchDown(int x, int y, int pointer, int button) {
+        y = Gdx.graphics.getHeight() - y;
+        if (sprite1.getBoundingRectangle().contains(x, y)) {
+
+            MainController controller = super.getController();
+            controller.setScene(new GameScene(controller));
+        }
+
+        return true;
     }
 
     @Override
@@ -127,8 +127,17 @@ public class MainMenu extends Scene{
 
     @Override
     public void dispose() {
-    music.stop();
-    music.dispose();
+        logo.dispose();
+        background.dispose();
+        sprite1.getTexture().dispose();
+        sprite2.getTexture().dispose();
+        sprite3.getTexture().dispose();
+        sprite4.getTexture().dispose();
+        highScoreButton.getTexture().dispose();
+        gitHubButton.getTexture().dispose();
+
+        music.stop();
+        music.dispose();
     }
 
 

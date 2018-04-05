@@ -37,7 +37,7 @@ public class GameOverScene extends Scene {
             MainController controller = super.getController();
             controller.setScene(new MainMenu(controller));
         }
-        
+
         return true;
     }
 
