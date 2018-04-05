@@ -10,6 +10,13 @@ import com.hackerhop.game.core.utils.Character;
 import com.hackerhop.game.core.MainController;
 
 
+import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+
 public class MainMenu extends Scene {
 
     private static final String TAG = MainMenu.class.getName();
@@ -104,7 +111,14 @@ public class MainMenu extends Scene {
             controller.setScene(new GameScene(controller, Character.KATIE));
         } else if (sprite4.getBoundingRectangle().contains(x, y)) {
             controller.setScene(new GameScene(controller, Character.YE));
+        } else if (gitHubButton.getBoundingRectangle().contains(x, y)) {
+            try {
+                openWebpage(new URL("https://github.com/nicovank/HackerHop"));
+            } catch (MalformedURLException ignored) {
+
+            }
         }
+
 
         return true;
     }
@@ -144,5 +158,25 @@ public class MainMenu extends Scene {
         music.dispose();
     }
 
+    private static boolean openWebpage(URI uri) {
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(uri);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 
+    private static boolean openWebpage(URL url) {
+        try {
+            return openWebpage(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
