@@ -51,6 +51,7 @@ public class Player implements GraphicsElement {
         bodyDef.position.set(position);
 
         body = world.createBody(bodyDef);
+        body.setUserData("player");
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape rectangle = new PolygonShape();

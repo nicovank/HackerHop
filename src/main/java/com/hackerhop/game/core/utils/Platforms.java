@@ -2,100 +2,100 @@ package com.hackerhop.game.core.utils;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
-import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
-
-import java.util.HashSet;
-import java.util.Random;
 
 public class Platforms implements GraphicsElement {
 
-    private static final String TAG = Platforms.class.getName();
+    // used in update(World world) method
+    private static final int THRESHOLD = 420;   //blaze it
+    private static final String TAG = PlatformGroup.class.getName();
+    // change value in test every time you touch this value
+    private static final int wiggleRoom = 8;
+    // tracks lowest PlatformGroup
+    private static int tracker;
+    // only 4 PlatformGroup objects, cycled through as player advances
+    private PlatformGroup[] platformGroups = new PlatformGroup[4];
 
-    // Number of units between each platform
-    // (something with the camera is limiting it to only 20, 75 or greater is desired)
-    private static final float gridSeparation = 20;
-
-    // Number of platforms that can fit in the scene vertically and horizontally
-    // at the given separation
-    private static final int xCount = (int) Math.floor(60 / gridSeparation);
-    private static final int yCount = (int) Math.floor(80 / gridSeparation);
-
-    // Maximum deviation from grid center
-    private static final int wiggleroom = 7;
-
-    // Set of platforms
-    private HashSet<Platform> platforms;
-
-    /**
-     * Creates a new set of platforms, generating initial ones randomly.
-     *
-     * @param world The Box2D world of the platforms.
-     */
     public Platforms(World world) {
-        platforms = generatePlatforms(world);
+//        this.world = world;
+        platformGroups[0] = new PlatformGroup(world, 0, wiggleRoom);
+        for (int i = 1; i < 4; ++i) {
+            platformGroups[i] = new PlatformGroup(world, i, wiggleRoom);
+        }
+        tracker = 0;
     }
 
     /**
-     * Randomly generates Platform objects to be used in GameScreen.
-     * Platforms are generated based on grid points.
-     * Also generates the base platform.
+     * <p>Checks if the y-value of the PlatformGroup at <code>tracker</code> is below
+     * the y-value of the <code>Camera</code> by more than <code>THRESHOLD</code> units.
+     * </p>
+     * <p>If the PlatformGroup is lower than the specified threshold, then it is replaced
+     * with a new PlatformGroup object above the current highest PlatformGroup object,
+     * and increments the tracker by 1. All Platform objects in the old PlatformGroup are
+     * destroyed from <code>world</code> before PlatformGroup is replaced.
+     * </p>
      *
-     * @param w world
-     * @return HashSet containing Platform objects
+     * @param cameraPositionY the y-value of the camera used to check against the y-value
+     *                        of PlatformGroup objects
+     * @param world           the physics world from where Platform objects reside
      */
-    private static HashSet<Platform> generatePlatforms(World w) {
-        HashSet<Platform> h = new HashSet<>();
-        Random r = new Random();
-        // "hacky", floor creation, let's find a better way later.
-//        do {
-            for (int i = 0; i < 54; i += 6) {
-                Platform base = new Platform(i, 0, w);
-                h.add(base);
-            }
+    public void update(float cameraPositionY, World world) {
+        if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / 10) {
+            float tmpY = platformGroups[tracker].getY() / 20 + 4;
+            platformGroups[tracker].destroy(world);
+            PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
+            p.loadResources();
+            platformGroups[tracker] = p;
 
-            for (int i = 1; i < yCount; ++i) {
 
-                for (int j = 0; j < xCount; ++j) {
-                    if (r.nextBoolean() || i%3 == 0) {
-                        Platform p = new Platform((gridSeparation * (j)) + 3.5f + r.nextInt(wiggleroom),
-                                gridSeparation * (i) + r.nextInt(wiggleroom), w);
-                        h.add(p);
-                    }
-                }
-            }
-//        } while (h.size() < 13);
-
-        return h;
+            tracker = (tracker < 3) ? ++tracker : 0;
+        }
     }
 
-    public Platform[] getPlatforms() {
-        Platform[] platforms = new Platform[this.platforms.size()];
-        this.platforms.toArray(platforms);
-        return platforms;
+    /**
+     * Does what it says on the tin - destroys all physical objects from <code>world</code>.
+     *
+     * @param world the world where physical objects reside
+     */
+    public void destroyAll(World world) {
+        for (PlatformGroup p : platformGroups) {
+            p.destroy(world);
+        }
     }
 
+    /**
+     * Counts the total number of Platform objects in the world
+     *
+     * @return number of Platform objects in the physics world
+     */
     public int getCount() {
-        return platforms.size();
+        int count = 0;
+        for (PlatformGroup g : platformGroups) {
+            count += g.getCount();
+        }
+        return count;
     }
 
     @Override
     public void loadResources() {
-        for (Platform p : platforms) {
+        for (PlatformGroup p : platformGroups) {
             p.loadResources();
         }
     }
 
     @Override
     public void dispose() {
-        for (Platform p : platforms) {
-            p.dispose();
+        for (PlatformGroup g : platformGroups) {
+            g.dispose();
         }
     }
 
     public void render(SpriteBatch batch) {
-        for (Platform p : platforms) {
-            p.render(batch);
+
+        for (PlatformGroup g : platformGroups) {
+            g.render(batch);
         }
     }
+
+
 }
