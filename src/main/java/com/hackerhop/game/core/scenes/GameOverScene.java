@@ -26,7 +26,7 @@ public class GameOverScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(background, 0, 300, 540, 700 );
+        batch.draw(background, 0, 0, 540, 700 );
         batch.end();
     }
 

@@ -21,8 +21,6 @@ public class MainController extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private Scene currentScene;
-	private Player player;
-
 
 	/**
 	 * Entry point of the application.
@@ -70,12 +68,21 @@ public class MainController extends ApplicationAdapter {
 		currentScene.dispose();
 	}
 
-	public void setScene(Scene scene){
-		if(currentScene != null){
+	/**
+	 * Sets the scene to a new given scene.
+	 *
+	 * @param scene The new scene to load.
+	 */
+	public void setScene(Scene scene) {
+
+		batch.dispose();
+		batch = new SpriteBatch();
+
+		if (currentScene != null) {
 			currentScene.dispose();
 		}
+
 		currentScene = scene;
 		currentScene.loadGraphics();
 	}
-
 }
