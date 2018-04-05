@@ -6,15 +6,15 @@ import org.jbox2d.dynamics.World;
 
 public class Platforms implements GraphicsElement {
 
-    // only 4 PlatformGroup objects, cycled through as player advances
-    private PlatformGroup[] platformGroups = new PlatformGroup[4];
     // used in update(World world) method
     private static final int THRESHOLD = 420;   //blaze it
-    // tracks lowest PlatformGroup
-    private static int tracker;
     private static final String TAG = PlatformGroup.class.getName();
     // change value in test every time you touch this value
     private static final int wiggleRoom = 8;
+    // tracks lowest PlatformGroup
+    private static int tracker;
+    // only 4 PlatformGroup objects, cycled through as player advances
+    private PlatformGroup[] platformGroups = new PlatformGroup[4];
 
     public Platforms(World world) {
 //        this.world = world;
@@ -77,9 +77,9 @@ public class Platforms implements GraphicsElement {
     }
 
     @Override
-    public void loadGraphics() {
-        for (PlatformGroup g : platformGroups) {
-            g.loadGraphics();
+    public void loadResources() {
+        for (PlatformGroup p : platformGroups) {
+            p.loadResources();
         }
     }
 
