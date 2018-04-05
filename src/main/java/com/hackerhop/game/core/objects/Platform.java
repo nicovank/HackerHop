@@ -34,12 +34,6 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 		super.getBody().createFixture(fixtureDef);
 	}
 
-	/**
-	 * Width is the distance between the left and right sides
-	 * Height is the difference between the top and the bottom
-	 * libgdx uses the coordinates of bottom left corner and width and height to construct a rectangle
-	 * Color currently gets set to Teal--obviously this can be changed
-	 **/
 	public void render(SpriteBatch batch) {
 		batch.draw(texture,
 				super.getBody().getPosition().x * 10,
@@ -50,15 +44,15 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 	}
 
 	/**
-	 * Calculates the distance between two Platforms <code>p</code>.
+	 * Calculates the distance between this platform and another one.
 	 *
-	 * @param p the target Platform
-	 * @return distance between <code>this</code> and <code>p</code>
+	 * @param other the other platform to calculate the distance to.
+	 * @return distance between this platform and the other one.
 	 */
-	public double distanceTo(Platform p) {
-		float a = p.x;
-		float b = p.y;
-		return Math.sqrt(Math.pow((this.x - a), 2) + Math.pow((this.y - b), 2));
+	public double distanceTo(Platform other) {
+		float a = other.x;
+		float b = other.y;
+		return Math.sqrt(Math.pow((x - a), 2) + Math.pow((y - b), 2));
 	}
 
 	public float getY(){
