@@ -3,7 +3,7 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 
 /**
@@ -12,14 +12,14 @@ import com.hackerhop.game.core.graphics.GraphicsElement;
 public abstract class Scene implements GraphicsElement, InputProcessor {
 	private static final String TAG = Scene.class.getName();
 
-	private Game controller;
+	private MainController controller;
 
-	public Scene(Game controller) {
+	public Scene(MainController controller) {
 		this.controller = controller;
 		Gdx.input.setInputProcessor(this);
 	}
 
-	public Game getController() {
+	public MainController getController() {
 		return controller;
 	}
 

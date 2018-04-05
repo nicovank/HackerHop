@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.HomeworkObstacle;
 import com.hackerhop.game.core.objects.TextbookObstacle;
@@ -30,8 +30,7 @@ public class GameScene extends Scene {
 	private final Player player;
 
 	// Our physics world
-	Vec2 gravity = new Vec2(0, -50);
-	private World world = new World(gravity);
+	private World world = new World(new Vec2(0, -50));
 
 	private Platforms platforms = new Platforms(world);
 	private TextureRegion background;
@@ -49,17 +48,15 @@ public class GameScene extends Scene {
 	private static final float TIME_STEP = 1 / 60f;
 	private static final int VELOCITY_ITERATIONS = 2;
 	private static final int POSITION_ITERATIONS = 6;
-	Game controller;
 
 
 	/**
-	 * Creates a new Game Scene.
+	 * Creates a new MainController Scene.
 	 *
-	 * @param controller The Game controller. Used when we need to change scenes for example.
+	 * @param controller The MainController controller. Used when we need to change scenes for example.
 	 */
-	public GameScene(Game controller) {
+	public GameScene(MainController controller) {
 		super(controller);
-		this.controller = controller;
 		setWorld(world);
 		world.setContactListener(listener);
 
@@ -70,9 +67,6 @@ public class GameScene extends Scene {
 
 		camera = new OrthographicCamera(w, h);
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-
-		// TODO: Remove that initial jump.
-		player.getBody().applyLinearImpulse(new Vec2(0, 60), player.getBody().getLocalCenter());
 	}
 
 	/**
@@ -165,6 +159,8 @@ public class GameScene extends Scene {
 		if(keycode == Input.Keys.ESCAPE){
 			this.dispose();
 			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
+			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
 		}
 		return true;

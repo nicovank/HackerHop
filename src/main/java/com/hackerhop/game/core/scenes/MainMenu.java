@@ -6,14 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hackerhop.game.core.Game;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.World;
+import com.hackerhop.game.core.MainController;
 
 
 public class MainMenu extends Scene{
 
-    Game controller;
+    MainController controller;
     private static final String TAG = MainMenu.class.getName();
 
     //Main Screen Textures
@@ -33,7 +31,7 @@ public class MainMenu extends Scene{
     private OrthographicCamera camera;
 
 
-    public MainMenu(Game controller) {
+    public MainMenu(MainController controller) {
         super(controller);
         this.controller = controller;
         music.setLooping(true);

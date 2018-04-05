@@ -14,10 +14,10 @@ import com.hackerhop.game.core.scenes.Scene;
  * "Main" class, used by DesktopLauncher and AndroidLauncher.
  * Starts the game with the initial scene.
  */
-public class Game extends ApplicationAdapter {
+public class MainController extends ApplicationAdapter {
 
 	// We will have this TAG in every class to easily use LibGDX's logging system.
-	private static final String TAG = Game.class.getName();
+	private static final String TAG = MainController.class.getName();
 
 	private SpriteBatch batch;
 	private Scene currentScene;

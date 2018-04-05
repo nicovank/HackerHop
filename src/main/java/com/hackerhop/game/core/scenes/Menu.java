@@ -2,7 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.MainController;
 
 /**
  * Menu scene.
@@ -14,7 +14,7 @@ public class Menu extends Scene implements InputProcessor {
 
     private static final String TAG = Scene.class.getName();
 
-    public Menu(Game controller) {
+    public Menu(MainController controller) {
         super(controller);
     }
 

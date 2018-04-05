@@ -1,6 +1,6 @@
 package com.hackerhop.game.core.handlers;
 
-import com.hackerhop.game.core.Game;
+import com.hackerhop.game.core.MainController;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
@@ -9,9 +9,9 @@ import org.jbox2d.dynamics.contacts.Contact;
 public class ContactHandler implements ContactListener {
 //TODO: Start making bodies handle collisions
 
-    Game controller;
+    MainController controller;
 
-    public ContactHandler(Game controller){
+    public ContactHandler(MainController controller){
         controller = controller;
     }
 

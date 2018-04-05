@@ -1,9 +1,6 @@
 package com.hackerhop.game.core.objects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Disposable;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.World;
 
 /**
  * Just an abstract class to make sure every object has all the properties it needs.
