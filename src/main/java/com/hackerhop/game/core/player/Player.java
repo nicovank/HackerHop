@@ -92,9 +92,6 @@ public class Player implements GraphicsElement {
         return character;
     }
     //For Testing
-    public Texture getSpriteText() {
-        return sprite.getTexture();
-    }
 
 
     @Override
