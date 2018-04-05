@@ -8,7 +8,7 @@ import org.jbox2d.dynamics.World;
 import java.util.HashSet;
 import java.util.Random;
 
-public class PlatformGroup implements GraphicsElement {
+public class PlatformGroup{
 
     private static final String TAG = PlatformGroup.class.getName();
     private static final float gridSeparation = 20;
@@ -82,7 +82,6 @@ public class PlatformGroup implements GraphicsElement {
         return platforms.length;
     }
 
-    @Override
     public void loadResources() {
         for (Platform p : platforms) {
             if (p != null) {
@@ -91,7 +90,6 @@ public class PlatformGroup implements GraphicsElement {
         }
     }
 
-    @Override
     public void dispose() {
         for (Platform p : platforms) {
             if (p != null) p.dispose();

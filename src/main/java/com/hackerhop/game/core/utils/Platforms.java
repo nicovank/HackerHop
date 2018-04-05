@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import org.jbox2d.dynamics.World;
 
-public class Platforms implements GraphicsElement {
+public class Platforms{
 
     // used in update(World world) method
     private static final int THRESHOLD = 420;   //blaze it
@@ -74,14 +74,12 @@ public class Platforms implements GraphicsElement {
         return count;
     }
 
-    @Override
     public void loadResources() {
         for (PlatformGroup p : platformGroups) {
             p.loadResources();
         }
     }
 
-    @Override
     public void dispose() {
         for (PlatformGroup g : platformGroups) {
             g.dispose();
