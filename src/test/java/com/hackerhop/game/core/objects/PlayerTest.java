@@ -1,7 +1,10 @@
 package com.hackerhop.game.core.objects;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.utils.Character;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
@@ -58,19 +61,16 @@ public class PlayerTest {
         assertTrue(x==0);
         assertTrue(y==10);
     }
-//Still in progress
-//    @Test
-//    void keyTest(){
-//        World world = new World(new Vec2(0,-50));
-//        Vec2 position = new Vec2(0,10);
-//        Player p = new Player(world, position);
-//        int keyCode = Input.Keys.LEFT;
-//        keyDown(keyCode);
-//
-//
-//    }
+    //testing player character
+    @Test
+    void characterTest(){
+        World world = new World(new Vec2(0,-50));
+        Vec2 position = new Vec2(0,10);
+        Character character =Character.ROB;
+        Player p = new Player(world, position,character);
+        assertTrue(p.getCharacter() == character.ROB);
 
-
+    }
 
 
 }

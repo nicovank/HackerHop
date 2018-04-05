@@ -2,6 +2,8 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -36,6 +38,8 @@ public class GameScene extends Scene {
 
 	private Platforms platforms = new Platforms(world);
 	private TextureRegion background;
+	Music music;
+	Sound jump;
 
 	//Some obstacle objects
 	private HomeworkObstacle deadline = new HomeworkObstacle(world);
@@ -125,6 +129,11 @@ public class GameScene extends Scene {
 		deadline.loadResources();
 		textbook.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
+		jump =Gdx.audio.newSound(Gdx.files.internal("Audio/jump.mp3"));
+
+		music.setLooping(true);
+		music.play();
 	}
 
 	/**
@@ -136,6 +145,7 @@ public class GameScene extends Scene {
 		platforms.dispose();
 		deadline.dispose();
 		textbook.dispose();
+		music.dispose();
 	}
 
 	/**
@@ -157,6 +167,7 @@ public class GameScene extends Scene {
 		}
 		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
+			jump.play(0.2f);
 		}
 		if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
