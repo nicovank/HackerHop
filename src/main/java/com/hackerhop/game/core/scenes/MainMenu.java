@@ -1,47 +1,44 @@
 package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.Game;
-import com.hackerhop.game.core.handlers.ContactHandler;
-import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
-import org.jbox2d.dynamics.contacts.Contact;
-
-import javax.xml.soap.Text;
 
 
 public class MainMenu extends Scene{
 
-    Game Game;
+    Game controller;
     private static final String TAG = MainMenu.class.getName();
 
     //Main Screen Textures
     Texture logo = new Texture("mainScreen/Logo.png");
     Texture background = new Texture("background/ShinemanPixel.png");
-    Texture sprite1;
-    Texture sprite2;
-    Texture sprite3;
-    Texture sprite4;
-    Texture highScoreButton;
+    Texture sprite1 = new Texture("player/rob.png");
+    Texture sprite2 = new Texture("player/Nick.png");
+    Texture sprite3 = new Texture("player/Katie.png");
+    Texture sprite4 = new Texture("player/Ye.png");
+    Texture highScoreButton = new Texture("mainScreen/HighScoreButton.png");
+    Texture gitHubButton = new Texture("mainScreen/GitHubButton.png");
     Texture textDisplay;
+    Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
 
-    Vec2 gravity = new Vec2(0, -50);
-    private World world = new World(gravity);
+
 
     private OrthographicCamera camera;
+
+
     public MainMenu(Game controller) {
         super(controller);
+        this.controller = controller;
+        music.setLooping(true);
+        music.play();
 
-        setWorld(world);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(w, h);
@@ -56,14 +53,7 @@ public class MainMenu extends Scene{
 
     @Override
     public void loadGraphics() {
-//        background = new Texture("background/ShinemanPixel.png");
-//        logo = new Texture("mainScreen/Logo.png");
-//        sprite1 = new Texture("");
-//        sprite2 = new Texture("");
-//        sprite3 = new Texture("");
-//        sprite4 = new Texture("");
-//        highScoreButton = new Texture("");
-//        textDisplay = new Texture("");
+
     }
 
     @Override
@@ -71,21 +61,29 @@ public class MainMenu extends Scene{
 
         Gdx.gl.glClearColor(1, .5f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         // Draw next frame (current scene)
         batch.begin();
         //BACKGROUND IMPORT
-        batch.draw(background, 0, 0);
-        batch.draw(logo,0,0);
-        batch.end();
-        //ADD BATCH.DRAW FOR ALL OTHER TEXTURES AS WELL!
-//        batch.begin();
-//        player.render(batch);
-//        batch.end();
 
+        batch.draw(background, 0, 0);
+        batch.draw(logo,0,50);
+        batch.draw(sprite1, 100,75);
+        batch.draw(sprite2, 200,75);
+        batch.draw(sprite3, 300,75);
+        batch.draw(sprite4, 400,75);
+        batch.draw(highScoreButton, 75,325);
+        batch.draw(gitHubButton, 285,325);
+        batch.end();
+
+    if (Gdx.input.getX() > 100 && Gdx.input.getX() <175 && Gdx.input.getY() >75 && Gdx.input.getY() >150){
+        if(Gdx.input.isTouched()){
+            this.dispose();
+            controller.setScene(new GameScene(controller));
+        }
     }
-    public void setWorld(World world) {
-        this.world = world;
     }
+
 
     //Handles obstacle collision. TODO://Handle a lot more
 
@@ -131,6 +129,9 @@ public class MainMenu extends Scene{
 
     @Override
     public void dispose() {
-
+    music.stop();
+    music.dispose();
     }
+
+
 }

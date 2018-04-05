@@ -3,11 +3,8 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Disposable;
 import com.hackerhop.game.core.Game;
 import com.hackerhop.game.core.graphics.GraphicsElement;
-import com.hackerhop.game.core.player.Player;
 
 /**
  * This class is an interface for creating more scenes.

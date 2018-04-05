@@ -13,7 +13,6 @@ import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Platforms;
 import org.jbox2d.callbacks.ContactImpulse;
-import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
@@ -50,6 +49,7 @@ public class GameScene extends Scene {
 	private static final float TIME_STEP = 1 / 60f;
 	private static final int VELOCITY_ITERATIONS = 2;
 	private static final int POSITION_ITERATIONS = 6;
+	Game controller;
 
 
 	/**
@@ -59,7 +59,7 @@ public class GameScene extends Scene {
 	 */
 	public GameScene(Game controller) {
 		super(controller);
-
+		this.controller = controller;
 		setWorld(world);
 		world.setContactListener(listener);
 
@@ -141,6 +141,7 @@ public class GameScene extends Scene {
 		platforms.dispose();
 		deadline.dispose();
 		textbook.dispose();
+
 	}
 
 	/**
@@ -161,7 +162,11 @@ public class GameScene extends Scene {
 		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
 		}
-
+		if(keycode == Input.Keys.ESCAPE){
+			this.dispose();
+			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+			controller.setScene(new MainMenu(controller));
+		}
 		return true;
 	}
 
@@ -180,6 +185,7 @@ public class GameScene extends Scene {
 		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
 		}
+
 
 		return true;
 	}

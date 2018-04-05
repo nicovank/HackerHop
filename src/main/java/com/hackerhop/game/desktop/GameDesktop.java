@@ -10,6 +10,7 @@ public class GameDesktop {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = 720;
 		config.width = 540;
+		config.resizable = false;
 		new LwjglApplication(new Game(), config);
 	}
 }

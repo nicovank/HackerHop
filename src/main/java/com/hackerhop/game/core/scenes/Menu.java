@@ -2,7 +2,6 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hackerhop.game.core.Game;
 
 /**
