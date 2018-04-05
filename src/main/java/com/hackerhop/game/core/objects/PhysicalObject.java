@@ -1,6 +1,7 @@
 package com.hackerhop.game.core.objects;
 
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.World;
 
 /**
  * Just an abstract class to make sure every object has all the properties it needs.
@@ -25,7 +26,7 @@ public abstract class PhysicalObject {
 	 * @param world the world from which this object is to be removed
 	 */
 	public void destroy(World world){
-		world.destroyBody(this.getBody());
+		world.destroyBody(body);
 	}
 
 	/**

@@ -83,10 +83,10 @@ public class PlatformGroup implements GraphicsElement {
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         for (Platform p : platforms) {
             if (p != null) {
-                p.loadGraphics();
+                p.loadResources();
             }
         }
     }

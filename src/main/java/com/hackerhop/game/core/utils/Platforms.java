@@ -44,7 +44,7 @@ public class Platforms implements GraphicsElement {
             float tmpY = platformGroups[tracker].getY() / 20 + 4;
             platformGroups[tracker].destroy(world);
             PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
-            p.loadGraphics();
+            p.loadResources();
             platformGroups[tracker] = p;
 
 
