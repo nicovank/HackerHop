@@ -71,7 +71,7 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 	}
 
 	@Override
-	public void loadGraphics() {
+	public void loadResources() {
 		texture = new Texture("platform/bricks.png");
 	}
 }

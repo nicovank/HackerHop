@@ -37,7 +37,7 @@ public class MainMenu extends Scene {
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         logo = new Texture("mainScreen/Logo.png");
         background = new Texture("background/ShinemanPixel.png");
         sprite1 = new Sprite(new Texture("player/rob.png"));

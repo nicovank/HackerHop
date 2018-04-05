@@ -53,7 +53,7 @@ public class Player implements GraphicsElement {
 	}
 
 	@Override
-	public void loadGraphics() {
+	public void loadResources() {
 		texture = new Texture("player/rob.png");
 	}
 

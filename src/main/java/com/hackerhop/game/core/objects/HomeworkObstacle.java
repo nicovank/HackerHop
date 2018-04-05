@@ -42,7 +42,7 @@ public class HomeworkObstacle extends PhysicalObject implements GraphicsElement 
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         texture = new Texture("deadline/homework.png");
     }
 

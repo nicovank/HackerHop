@@ -8,10 +8,11 @@ import com.badlogic.gdx.utils.Disposable;
  * It implements Disposable as any resource loaded will need to be disposed.
  */
 public interface GraphicsElement extends Disposable {
+
 	/**
-	 * Will loads the graphics associated with the class.
+	 * Will loads the resources (graphics, music) associated with the class.
 	 */
-	void loadGraphics();
+	void loadResources();
 
 	/**
 	 * Will render the element on the screen.

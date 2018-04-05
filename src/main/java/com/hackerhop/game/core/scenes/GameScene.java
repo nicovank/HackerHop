@@ -118,11 +118,11 @@ public class GameScene extends Scene {
 	}
 
 	@Override
-	public void loadGraphics() {
-		player.loadGraphics();
-		platforms.loadGraphics();
-		deadline.loadGraphics();
-		textbook.loadGraphics();
+	public void loadResources() {
+		player.loadResources();
+		platforms.loadResources();
+		deadline.loadResources();
+		textbook.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 	}
 
@@ -135,7 +135,6 @@ public class GameScene extends Scene {
 		platforms.dispose();
 		deadline.dispose();
 		textbook.dispose();
-
 	}
 
 	/**
@@ -182,7 +181,6 @@ public class GameScene extends Scene {
 
 		return true;
 	}
-
 
 	/**
 	 * Called when a key is typed.

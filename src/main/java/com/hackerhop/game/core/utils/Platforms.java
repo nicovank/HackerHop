@@ -80,9 +80,9 @@ public class Platforms implements GraphicsElement {
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         for (Platform p : platforms) {
-            p.loadGraphics();
+            p.loadResources();
         }
     }
 

@@ -35,7 +35,7 @@ public class Menu extends Scene implements InputProcessor {
 
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
 
     }
 

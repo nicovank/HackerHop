@@ -20,7 +20,7 @@ public class GameOverScene extends Scene {
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         background = new TextureRegion(new Texture("background/GameOver.png"));
     }
 

@@ -45,7 +45,7 @@ public class TextbookObstacle extends PhysicalObject implements GraphicsElement 
     }
 
     @Override
-    public void loadGraphics() {
+    public void loadResources() {
         texture = new Texture("deadline/textbooks.png");
     }
 
