@@ -86,6 +86,15 @@ public class Player implements GraphicsElement {
                 break;
         }
     }
+    //For Testing
+    public Character getCharacter() {
+        return character;
+    }
+    //For Testing
+    public Texture getSpriteText() {
+        return sprite.getTexture();
+    }
+
 
     @Override
     public void dispose() {
