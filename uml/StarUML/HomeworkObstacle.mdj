@@ -578,7 +578,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+destroy(World)",
+											"text": "+destroy()",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1509,24 +1509,6 @@
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFil68jjZKPtcU=",
-									"_parent": {
-										"$ref": "AAAAAAFil68J45KI8a0="
-									},
-									"name": "World",
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "in"
-								}
-							],
 							"concurrency": "sequential",
 							"isQuery": false,
 							"isAbstract": false
