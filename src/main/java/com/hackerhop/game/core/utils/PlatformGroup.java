@@ -98,9 +98,12 @@ public class PlatformGroup implements GraphicsElement {
         }
     }
 
-    public void destroy(World world) {
+    public void destroy() {
         for (Platform p : platforms) {
-            if (p != null) p.destroy(world);
+            if (p != null) {
+                p.destroy();
+                p.dispose();
+            }
         }
     }
 

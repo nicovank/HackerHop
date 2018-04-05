@@ -42,7 +42,7 @@ public class Platforms implements GraphicsElement {
     public void update(float cameraPositionY, World world) {
         if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / 10) {
             float tmpY = platformGroups[tracker].getY() / 20 + 4;
-            platformGroups[tracker].destroy(world);
+            platformGroups[tracker].destroy();
             PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
             p.loadResources();
             platformGroups[tracker] = p;
@@ -54,12 +54,10 @@ public class Platforms implements GraphicsElement {
 
     /**
      * Does what it says on the tin - destroys all physical objects from <code>world</code>.
-     *
-     * @param world the world where physical objects reside
      */
-    public void destroyAll(World world) {
+    public void destroyAll() {
         for (PlatformGroup p : platformGroups) {
-            p.destroy(world);
+            p.destroy();
         }
     }
 
