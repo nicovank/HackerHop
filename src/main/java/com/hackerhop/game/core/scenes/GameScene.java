@@ -18,6 +18,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
+import com.hackerhop.game.core.utils.Character;
 
 
 /**
@@ -55,12 +56,12 @@ public class GameScene extends Scene {
 	 *
 	 * @param controller The MainController controller. Used when we need to change scenes for example.
 	 */
-	public GameScene(MainController controller) {
+	public GameScene(MainController controller, Character character) {
 		super(controller);
 		setWorld(world);
 		world.setContactListener(listener);
 
-		player = new Player(world, new Vec2(0, 10));
+		player = new Player(world, new Vec2(0, 10), character);
 
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();

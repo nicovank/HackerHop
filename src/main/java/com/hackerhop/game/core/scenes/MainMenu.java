@@ -3,12 +3,10 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
+import com.hackerhop.game.core.utils.Character;
 import com.hackerhop.game.core.MainController;
 
 
@@ -96,10 +94,16 @@ public class MainMenu extends Scene {
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
         y = Gdx.graphics.getHeight() - y;
-        if (sprite1.getBoundingRectangle().contains(x, y)) {
+        MainController controller = super.getController();
 
-            MainController controller = super.getController();
-            controller.setScene(new GameScene(controller));
+        if (sprite1.getBoundingRectangle().contains(x, y)) {
+            controller.setScene(new GameScene(controller, Character.ROB));
+        } else if (sprite2.getBoundingRectangle().contains(x, y)) {
+            controller.setScene(new GameScene(controller, Character.NICK));
+        } else if (sprite3.getBoundingRectangle().contains(x, y)) {
+            controller.setScene(new GameScene(controller, Character.KATIE));
+        } else if (sprite4.getBoundingRectangle().contains(x, y)) {
+            controller.setScene(new GameScene(controller, Character.YE));
         }
 
         return true;
