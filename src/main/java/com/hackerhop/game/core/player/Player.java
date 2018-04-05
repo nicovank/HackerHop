@@ -1,6 +1,7 @@
 package com.hackerhop.game.core.player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.utils.Direction;
@@ -12,7 +13,7 @@ import com.hackerhop.game.core.utils.Character;
 public class Player implements GraphicsElement {
     private Body body;
     private Direction direction;
-    private Texture texture;
+    private Sprite sprite;
     private Character character;
 
     /**
@@ -58,32 +59,37 @@ public class Player implements GraphicsElement {
         body.createFixture(fixtureDef);
     }
 
-    @Override
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	@Override
     public void render(SpriteBatch batch) {
-        batch.draw(texture, body.getPosition().x * 10, body.getPosition().y * 10);
+        sprite.setFlip(direction == Direction.LEFT, false);
+        batch.draw(sprite, body.getPosition().x * 10, body.getPosition().y * 10);
     }
 
     @Override
     public void loadResources() {
         switch (character) {
             case ROB:
-                texture = new Texture("player/rob.png");
+                sprite = new Sprite(new Texture("player/rob.png"));
                 break;
             case YE:
-                texture = new Texture("player/Ye.png");
+                sprite = new Sprite(new Texture("player/Ye.png"));
                 break;
             case NICK:
-                texture = new Texture("player/Nick.png");
+                sprite = new Sprite(new Texture("player/Nick.png"));
                 break;
             case KATIE:
-                texture = new Texture("player/Katie.png");
+                sprite = new Sprite(new Texture("player/Katie.png"));
                 break;
         }
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+        sprite.getTexture().dispose();
     }
 
 

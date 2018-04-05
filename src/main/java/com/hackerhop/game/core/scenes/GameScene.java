@@ -11,6 +11,7 @@ import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.HomeworkObstacle;
 import com.hackerhop.game.core.objects.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.utils.Direction;
 import com.hackerhop.game.core.utils.Platforms;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.collision.Manifold;
@@ -148,10 +149,12 @@ public class GameScene extends Scene {
 	public boolean keyDown(int keycode) {
 		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
+			player.setDirection(Direction.LEFT);
 		}
 
 		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
+			player.setDirection(Direction.RIGHT);
 		}
 		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
