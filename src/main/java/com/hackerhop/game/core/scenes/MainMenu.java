@@ -30,6 +30,7 @@ public class MainMenu extends Scene {
     Sprite sprite4;
     Sprite highScoreButton;
     Sprite gitHubButton;
+    Sprite getGitHubButtonActivated;
     Music music;
 
     public MainMenu(MainController controller) {
@@ -57,6 +58,7 @@ public class MainMenu extends Scene {
         highScoreButton.setPosition(75, 325);
         gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
         gitHubButton.setPosition(285, 325);
+        getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonActivated.png"));
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
 
         music.setLooping(true);
@@ -74,12 +76,32 @@ public class MainMenu extends Scene {
 
         batch.draw(background, 0, 0);
         batch.draw(logo, 0, 50);
-        sprite1.draw(batch);
-        sprite2.draw(batch);
-        sprite3.draw(batch);
-        sprite4.draw(batch);
+        if (sprite1.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
+            batch.draw(sprite1, 75, 50, 90, 125);
+        } else {
+            sprite1.draw(batch);
+        }
+        if (sprite2.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
+            batch.draw(sprite2, 175, 50, 90, 125);
+        } else {
+            sprite2.draw(batch);
+        }
+        if (sprite3.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
+            batch.draw(sprite3, 275, 50, 90, 125);
+        } else {
+            sprite3.draw(batch);
+        }
+        if (sprite4.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
+            batch.draw(sprite4, 375, 50, 90, 125);
+        } else {
+            sprite4.draw(batch);
+        }if(gitHubButton.getBoundingRectangle().contains(Gdx.input.getX(),(Gdx.input.getY()))){
+            batch.draw(getGitHubButtonActivated,285,325);
+        }else{
+            gitHubButton.draw(batch);
+        }
         highScoreButton.draw(batch);
-        gitHubButton.draw(batch);
+
         batch.end();
     }
 
