@@ -31,8 +31,8 @@ public class GameScene extends Scene {
     private static final int VELOCITY_ITERATIONS = 2;
     private static final int POSITION_ITERATIONS = 6;
     private final Player player;
-    Music music;
-    Sound jump;
+    private Music music;
+    private Sound jump;
     // Our physics world
     private World world = new World(new Vec2(0, -50));
     private Platforms platforms = new Platforms(world);
