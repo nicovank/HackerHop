@@ -22,15 +22,15 @@ public class MainMenu extends Scene {
     private static final String TAG = MainMenu.class.getName();
 
     //Main Screen Textures
-    Texture logo;
-    Texture background;
-    Sprite sprite1;
-    Sprite sprite2;
-    Sprite sprite3;
-    Sprite sprite4;
-    Sprite highScoreButton;
-    Sprite gitHubButton;
-    Music music;
+    private Texture logo;
+    private Texture background;
+    private Sprite sprite1;
+    private Sprite sprite2;
+    private Sprite sprite3;
+    private Sprite sprite4;
+    private Sprite highScoreButton;
+    private Sprite gitHubButton;
+    private Music music;
 
     public MainMenu(MainController controller) {
         super(controller);
@@ -45,20 +45,27 @@ public class MainMenu extends Scene {
     public void loadResources() {
         logo = new Texture("mainScreen/Logo.png");
         background = new Texture("background/ShinemanPixel.png");
+
         sprite1 = new Sprite(new Texture("player/rob.png"));
         sprite1.setPosition(100, 75);
+
         sprite2 = new Sprite(new Texture("player/Nick.png"));
         sprite2.setPosition(200, 75);
+
         sprite3 = new Sprite(new Texture("player/Katie.png"));
         sprite3.setPosition(300, 75);
+
         sprite4 = new Sprite(new Texture("player/Ye.png"));
         sprite4.setPosition(400, 75);
+
         highScoreButton = new Sprite(new Texture("mainScreen/HighScoreButton.png"));
         highScoreButton.setPosition(75, 325);
+
         gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
         gitHubButton.setPosition(285, 325);
-        music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
 
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
         music.setLooping(true);
         music.play();
     }
@@ -99,26 +106,25 @@ public class MainMenu extends Scene {
     }
 
     @Override
-    public boolean touchDown(int x, int y, int pointer, int button) {
-        y = Gdx.graphics.getHeight() - y;
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        int y = Gdx.graphics.getHeight() - screenY;
         MainController controller = super.getController();
 
-        if (sprite1.getBoundingRectangle().contains(x, y)) {
+        if (sprite1.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.ROB));
-        } else if (sprite2.getBoundingRectangle().contains(x, y)) {
+        } else if (sprite2.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.NICK));
-        } else if (sprite3.getBoundingRectangle().contains(x, y)) {
+        } else if (sprite3.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.KATIE));
-        } else if (sprite4.getBoundingRectangle().contains(x, y)) {
+        } else if (sprite4.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.YE));
-        } else if (gitHubButton.getBoundingRectangle().contains(x, y)) {
+        } else if (gitHubButton.getBoundingRectangle().contains(screenX, y)) {
             try {
                 openWebpage(new URL("https://github.com/nicovank/HackerHop"));
             } catch (MalformedURLException ignored) {
 
             }
         }
-
 
         return true;
     }
@@ -147,6 +153,7 @@ public class MainMenu extends Scene {
     public void dispose() {
         logo.dispose();
         background.dispose();
+
         sprite1.getTexture().dispose();
         sprite2.getTexture().dispose();
         sprite3.getTexture().dispose();

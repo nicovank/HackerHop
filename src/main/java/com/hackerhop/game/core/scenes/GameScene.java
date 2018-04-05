@@ -59,8 +59,7 @@ public class GameScene extends Scene {
 	 */
 	public GameScene(MainController controller, Character character) {
 		super(controller);
-		setWorld(world);
-		world.setContactListener(listener);
+		world.setContactListener(new ContactHandler(controller));
 
 		player = new Player(world, new Vec2(0, 10), character);
 
@@ -159,7 +158,7 @@ public class GameScene extends Scene {
 		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
 		}
-		if(keycode == Input.Keys.ESCAPE){
+		if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
 		}
@@ -260,43 +259,5 @@ public class GameScene extends Scene {
 	public boolean scrolled(int amount) {
 		return false;
 	}
-
-	//Sets world
-	public void setWorld(World world) {
-		this.world = world;
-	}
-
-	//Handles obstacle collision. TODO://Handle a lot more
-
-	ContactHandler listener = new ContactHandler(super.getController()){
-		@Override
-		public void beginContact(Contact contact) {
-			Fixture fixtureA = contact.getFixtureA();
-			Fixture fixtureB = contact.getFixtureB();
-			//Quit game if player and obstacle collide
-			if(fixtureA.getBody() == deadline.getBody() || fixtureA.getBody() == textbook.getBody()
-					&& fixtureB.getBody() == player.getBody()){
-				getController().setScene(new GameOverScene(getController()));
-			}
-		}
-
-		@Override
-		public void endContact(Contact contact) {
-
-		}
-
-		@Override
-		public void preSolve(Contact contact, Manifold manifold) {
-
-		}
-
-		@Override
-		public void postSolve(Contact contact, ContactImpulse contactImpulse) {
-
-		}
-	};
-
-
-
 }
 

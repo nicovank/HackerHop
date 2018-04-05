@@ -25,6 +25,7 @@ public class HomeworkObstacle extends PhysicalObject implements GraphicsElement 
         bodyDef.position.set(new Vec2(x, y));
 
         super.setBody(world.createBody(bodyDef));
+        super.getBody().setUserData("obstacle");
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape rectangle = new PolygonShape();
