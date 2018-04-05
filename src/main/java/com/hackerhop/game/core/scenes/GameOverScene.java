@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.scenes;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,13 +27,18 @@ public class GameOverScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(background, 0, 0, 540, 700 );
+        batch.draw(background, 0, 0, 540, 700);
         batch.end();
     }
 
     @Override
-    public boolean keyDown(int i) {
-        return false;
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.ESCAPE) {
+            MainController controller = super.getController();
+            controller.setScene(new MainMenu(controller));
+        }
+        
+        return true;
     }
 
 

@@ -157,9 +157,6 @@ public class GameScene extends Scene {
 			player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
 		}
 		if(keycode == Input.Keys.ESCAPE){
-			this.dispose();
-			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
 		}
