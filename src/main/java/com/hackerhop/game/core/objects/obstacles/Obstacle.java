@@ -11,7 +11,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
-import java.io.File;
 import java.util.Random;
 
 public class Obstacle extends PhysicalObject implements GraphicsElement {
@@ -20,7 +19,8 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
     private static final float WIDTH = 50;
     private static final float HEIGHT = 50;
 
-    private static String[] textures;
+    private static String[] textures = {"homework.png", "textbooks.png"};
+//    private static String[] textures;
     private Texture texture;
 
     public Obstacle(float x, float y, World world) {
@@ -38,8 +38,11 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
         fixtureDef.shape = rectangle;
         super.getBody().createFixture(fixtureDef);
 
-        // Ye broke this, Ye will fix this
-//        textures = new File("deadline").list();
+//        textures = new File("src/main/resources/deadline").list();
+
+        //Ye broke this, Ye will fix this
+//        textures = new File("src" + File.separator + "main" + File.separator +
+//                "resources" + File.separator + "deadline" + File.separator).list();
     }
 
     @Override
