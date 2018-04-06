@@ -1,7 +1,7 @@
 # Hacker-Hop
 
 <p align="center">
-<img src="https://github.com/nicovank/HackerHop/blob/master/logo.png?raw=true" alt="Hacker-Hop Logo" />
+<img width="270" src="https://github.com/nicovank/HackerHop/blob/master/logo.png?raw=true" alt="Hacker-Hop Logo" />
 </p>
 
 ## Project Description
