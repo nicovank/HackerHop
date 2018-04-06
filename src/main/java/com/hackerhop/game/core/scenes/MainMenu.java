@@ -31,7 +31,10 @@ public class MainMenu extends Scene {
     private Sprite highScoreButton;
     private Sprite getGitHubButtonActivated;
     private Sprite gitHubButton;
+    private Sprite arrow;
+    private Sprite textDisplay;
     private Music music;
+
 
     public MainMenu(MainController controller) {
         super(controller);
@@ -66,6 +69,9 @@ public class MainMenu extends Scene {
         gitHubButton.setPosition(285, 325);
         getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonActivated.png"));
         getGitHubButtonActivated.setPosition(285, 325);
+        arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
+        arrow.setPosition(0,0);
+        textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
         music.setLooping(true);
@@ -108,6 +114,8 @@ public class MainMenu extends Scene {
             gitHubButton.draw(batch);
         }
         highScoreButton.draw(batch);
+        arrow.draw(batch);
+        textDisplay.draw(batch);
 
         batch.end();
     }
