@@ -68,6 +68,9 @@ public class MainController extends ApplicationAdapter {
 		currentScene.dispose();
 	}
 
+	// Ye did this
+	// Ye thinks this is probably wrong
+	// Ye will improve this
 	public Scene getCurrentScene(){
 		return currentScene;
 	}

@@ -64,6 +64,9 @@ public class GameScene extends Scene {
         jumpable = false;
     }
 
+    // Ye did this
+    // Ye is aware that this is the equivalent of throwing enough duct tape till it works
+    // Ye will attempt to remove said duct tape in the future
     public void setJumpable(){
         jumpable = true;
     }
