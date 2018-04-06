@@ -10,12 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
-import com.hackerhop.game.core.objects.obstacles.HomeworkObstacle;
-import com.hackerhop.game.core.objects.obstacles.TextbookObstacle;
-import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
+import com.hackerhop.game.core.objects.platforms.Platforms;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
-import com.hackerhop.game.core.objects.platforms.Platforms;
+import com.hackerhop.game.core.player.Player;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
@@ -30,6 +29,8 @@ public class GameScene extends Scene {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 2;
     private static final int POSITION_ITERATIONS = 6;
+    // ObstacleGenerator
+    private static ObstacleGenerator obstacleGenerator = new ObstacleGenerator();
     private final Player player;
     private Music music;
     private Sound jump;
@@ -37,12 +38,11 @@ public class GameScene extends Scene {
     private World world = new World(new Vec2(0, -50));
     private Platforms platforms = new Platforms(world);
     private TextureRegion background;
-    //Some obstacle objects
-    private HomeworkObstacle deadline = new HomeworkObstacle(world);
-    private TextbookObstacle textbook = new TextbookObstacle(world);
     // Frame time accumulator
     private float accumulator = 0.0f;
     private OrthographicCamera camera;
+    private boolean jumpable;
+
 
 
     /**
@@ -61,6 +61,11 @@ public class GameScene extends Scene {
 
         camera = new OrthographicCamera(w, h);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        jumpable = false;
+    }
+
+    public void setJumpable(){
+        jumpable = true;
     }
 
     /**
@@ -88,7 +93,14 @@ public class GameScene extends Scene {
             platforms.update(camera.position.y, world);
         }
 
-        camera.update();
+
+        if ((System.currentTimeMillis() / 1000) % 7 == 0) {
+
+            if (camera.position.y > 0) {
+                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
+            }
+        }
+
         camera.update();
     }
 
@@ -105,18 +117,11 @@ public class GameScene extends Scene {
         batch.begin();
         batch.draw(background, 0, 0);
         platforms.render(batch);
+        obstacleGenerator.render(batch);
         batch.end();
 
         batch.begin();
         player.render(batch);
-        batch.end();
-
-        batch.begin();
-        deadline.render(batch);
-        batch.end();
-
-        batch.begin();
-        textbook.render(batch);
         batch.end();
 
     }
@@ -125,8 +130,6 @@ public class GameScene extends Scene {
     public void loadResources() {
         player.loadResources();
         platforms.loadResources();
-        deadline.loadResources();
-        textbook.loadResources();
         background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
         jump = Gdx.audio.newSound(Gdx.files.internal("Audio/jump.mp3"));
@@ -142,8 +145,6 @@ public class GameScene extends Scene {
     public void dispose() {
         player.dispose();
         platforms.dispose();
-        deadline.dispose();
-        textbook.dispose();
         music.dispose();
     }
 
@@ -165,8 +166,11 @@ public class GameScene extends Scene {
             player.setDirection(Direction.RIGHT);
         }
         if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
-            player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
-            jump.play(0.2f);
+            if (jumpable) {
+                player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
+                jumpable = false;
+                jump.play(0.2f);
+            }
         }
         if (keycode == Input.Keys.ESCAPE) {
             MainController controller = super.getController();

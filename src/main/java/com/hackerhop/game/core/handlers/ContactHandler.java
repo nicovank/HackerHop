@@ -2,6 +2,7 @@ package com.hackerhop.game.core.handlers;
 
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.scenes.GameOverScene;
+import com.hackerhop.game.core.scenes.GameScene;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
@@ -47,6 +48,9 @@ public class ContactHandler implements ContactListener {
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
 			controller.setScene(new GameOverScene(controller));
+		} else if (collision.isBetween("player","platform")){
+			GameScene scene = (GameScene) controller.getCurrentScene();
+			scene.setJumpable();
 		}
 	}
 
