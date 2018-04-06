@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
-import com.hackerhop.game.core.objects.HomeworkObstacle;
-import com.hackerhop.game.core.objects.TextbookObstacle;
+import com.hackerhop.game.core.objects.obstacles.HomeworkObstacle;
+import com.hackerhop.game.core.objects.obstacles.TextbookObstacle;
 import com.hackerhop.game.core.player.Player;
-import com.hackerhop.game.core.utils.Character;
-import com.hackerhop.game.core.utils.Direction;
-import com.hackerhop.game.core.utils.Platforms;
+import com.hackerhop.game.core.player.Character;
+import com.hackerhop.game.core.player.Direction;
+import com.hackerhop.game.core.objects.platforms.Platforms;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 

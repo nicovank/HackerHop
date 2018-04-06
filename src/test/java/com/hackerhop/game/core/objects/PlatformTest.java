@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.objects;
 
+import com.hackerhop.game.core.objects.platforms.Platform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,5 @@
 package com.hackerhop.game.core.utils;
 
-import com.hackerhop.game.core.objects.Platform;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.World;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlatformGroupTest {

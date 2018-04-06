@@ -1,11 +1,9 @@
-package com.hackerhop.game.core.utils;
+package com.hackerhop.game.core.objects.platforms;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
-import com.hackerhop.game.core.objects.Platform;
 import org.jbox2d.dynamics.World;
 
-import java.util.HashSet;
 import java.util.Random;
 
 public class PlatformGroup implements GraphicsElement {

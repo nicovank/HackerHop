@@ -1,7 +1,8 @@
-package com.hackerhop.game.core.utils;
+package com.hackerhop.game.core.objects.platforms;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.platforms.PlatformGroup;
 import org.jbox2d.dynamics.World;
 
 public class Platforms implements GraphicsElement {

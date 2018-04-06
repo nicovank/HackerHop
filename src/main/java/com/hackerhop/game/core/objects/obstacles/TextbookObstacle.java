@@ -1,24 +1,27 @@
-package com.hackerhop.game.core.objects;
+package com.hackerhop.game.core.objects.obstacles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.PhysicalObject;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 
-public class HomeworkObstacle extends PhysicalObject implements GraphicsElement {
+public class TextbookObstacle extends PhysicalObject implements GraphicsElement {
 
-    private static final String TAG = HomeworkObstacle.class.getName();
+    private static final String TAG = TextbookObstacle.class.getName();
 
     private Texture texture;
-    private float x = 15;
-    private float y = 125;
+    private float x = 25;
+    private float y = 100;
     private static final float WIDTH = 50;
     private static final float HEIGHT = 50;
 
-    //TODO: Make a falling deadline
-    public HomeworkObstacle(World world){
+    public TextbookObstacle(World world){
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DYNAMIC;
@@ -44,12 +47,11 @@ public class HomeworkObstacle extends PhysicalObject implements GraphicsElement 
 
     @Override
     public void loadResources() {
-        texture = new Texture("deadline/homework.png");
+        texture = new Texture("deadline/textbooks.png");
     }
 
     @Override
     public void dispose() {
         texture.dispose();
     }
-
 }

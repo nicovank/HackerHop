@@ -1,8 +1,9 @@
-package com.hackerhop.game.core.objects;
+package com.hackerhop.game.core.objects.platforms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.PhysicalObject;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;

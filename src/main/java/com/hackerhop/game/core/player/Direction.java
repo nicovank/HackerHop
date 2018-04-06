@@ -1,4 +1,4 @@
-package com.hackerhop.game.core.utils;
+package com.hackerhop.game.core.player;
 
 /**
  * Helper class so use directions for the player, obstacles, ...

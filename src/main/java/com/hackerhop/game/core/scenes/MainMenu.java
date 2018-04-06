@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hackerhop.game.core.utils.Character;
+import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
 
 
