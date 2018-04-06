@@ -38,8 +38,8 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
         fixtureDef.shape = rectangle;
         super.getBody().createFixture(fixtureDef);
 
-        textures = new File("src" + File.separator + "main" + File.separator +
-                "resources" + File.separator + "deadline" + File.separator).list();
+        // Ye broke this, Ye will fix this
+//        textures = new File("deadline").list();
     }
 
     @Override
