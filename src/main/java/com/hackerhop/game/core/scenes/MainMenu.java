@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.util.Blinker;
 
 
 import java.awt.*;
@@ -34,6 +35,7 @@ public class MainMenu extends Scene {
     private Sprite arrow;
     private Sprite textDisplay;
     private Music music;
+    private Blinker blinker;
 
 
     public MainMenu(MainController controller) {
@@ -70,7 +72,8 @@ public class MainMenu extends Scene {
         getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonActivated.png"));
         getGitHubButtonActivated.setPosition(285, 325);
         arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
-        arrow.setPosition(0,0);
+        arrow.setPosition(0, 0);
+        blinker = new Blinker(arrow, 1f, .5f);
         textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
@@ -108,13 +111,14 @@ public class MainMenu extends Scene {
             batch.draw(sprite4, 375, 50, 90, 125);
         } else {
             sprite4.draw(batch);
-        }if(gitHubButton.getBoundingRectangle().contains(Gdx.input.getX(),(Gdx.input.getY()))){
-            batch.draw(getGitHubButtonActivated,285,325);
-        }else{
+        }
+        if (gitHubButton.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY()))) {
+            batch.draw(getGitHubButtonActivated, 285, 325);
+        } else {
             gitHubButton.draw(batch);
         }
         highScoreButton.draw(batch);
-        arrow.draw(batch);
+        blinker.render(batch);
         textDisplay.draw(batch);
 
         batch.end();

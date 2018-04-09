@@ -17,6 +17,7 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.objects.platforms.Platforms;
+import com.hackerhop.game.core.util.Blinker;
 import net.java.games.input.Controller;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
@@ -47,8 +48,8 @@ public class GameScene extends Scene {
     // Frame time accumulator
     private float accumulator = 0.0f;
     private OrthographicCamera camera;
-    private Controller gamepad;
-    private Rectangle screenBounds = new Rectangle(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+    private Rectangle screenBounds = new Rectangle(0,0,540,720);
+
 
 
     /**
@@ -67,6 +68,8 @@ public class GameScene extends Scene {
 
         camera = new OrthographicCamera(w, h);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
+
     }
 
     /**
@@ -75,6 +78,7 @@ public class GameScene extends Scene {
      */
     @Override
     public void update() {
+
         float deltaTime = Gdx.graphics.getDeltaTime();
         float frameTime = Math.min(deltaTime, 0.25f);
         accumulator += frameTime;
@@ -82,6 +86,16 @@ public class GameScene extends Scene {
         while (accumulator > TIME_STEP) {
             world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
             accumulator -= TIME_STEP;
+        }
+
+        if(player.getBody().getPosition().x <= 0){
+            player.getBody().setLinearVelocity(new Vec2(0f, 0f));
+            player.getBody().setAngularVelocity(0f);
+        }
+        if(player.getBody().getPosition().x > 54
+                ){
+            player.getBody().setLinearVelocity(new Vec2(-5000f, 0f));
+            player.getBody().setAngularVelocity(0f);
         }
 
         // move camera only if the player is outside a threshold
@@ -105,6 +119,7 @@ public class GameScene extends Scene {
      */
     @Override
     public void render(SpriteBatch batch) {
+
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
@@ -161,13 +176,10 @@ public class GameScene extends Scene {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            if(screenBounds.getBounds().x < player.getSprite().getX()){
-            player.setDirection(Direction.RIGHT);
-            }else {
                 player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
                 player.setDirection(Direction.LEFT);
             }
-        }
+
 
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
             player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
