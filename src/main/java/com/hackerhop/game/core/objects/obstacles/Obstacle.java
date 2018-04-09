@@ -19,6 +19,7 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
     private static final float WIDTH = 50;
     private static final float HEIGHT = 50;
 
+
     private static String[] textures = {"homework.png", "textbooks.png"};
 //    private static String[] textures;
     private Texture texture;

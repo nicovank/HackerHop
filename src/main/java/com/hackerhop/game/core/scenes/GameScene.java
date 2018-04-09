@@ -44,7 +44,6 @@ public class GameScene extends Scene {
     private boolean jumpable;
 
 
-
     /**
      * Creates a new MainController Scene.
      *
@@ -67,7 +66,7 @@ public class GameScene extends Scene {
     // Ye did this
     // Ye is aware that this is the equivalent of throwing enough duct tape till it works
     // Ye will attempt to remove said duct tape in the future
-    public void setJumpable(){
+    public void setJumpable() {
         jumpable = true;
     }
 
@@ -86,6 +85,12 @@ public class GameScene extends Scene {
             accumulator -= TIME_STEP;
         }
 
+        // Don't work yet
+//        // change to game over scene if the Player is too low
+//        if (player.getBody().getPosition().y < (platforms.getLowestY() / 20) - 20) {
+//            this.getController().setScene(new GameOverScene(this.getController()));
+//        }
+
         // move camera only if the player is outside a threshold
         if (player.getBody().getPosition().y * 10 < camera.position.y - 300) {
             camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * 10, camera.position.z);
@@ -97,9 +102,9 @@ public class GameScene extends Scene {
         }
 
 
-        if ((System.currentTimeMillis() / 1000) % 7 == 0) {
+        if ((System.currentTimeMillis() / 1000) % 4 == 0) {
 
-            if (camera.position.y > 0) {
+            if (camera.position.y > 360) {
                 obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
             }
         }
