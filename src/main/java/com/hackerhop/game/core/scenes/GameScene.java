@@ -68,8 +68,6 @@ public class GameScene extends Scene {
 
         camera = new OrthographicCamera(w, h);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-
-
     }
 
     /**
@@ -86,16 +84,6 @@ public class GameScene extends Scene {
         while (accumulator > TIME_STEP) {
             world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
             accumulator -= TIME_STEP;
-        }
-
-        if(player.getBody().getPosition().x <= 0){
-            player.getBody().setLinearVelocity(new Vec2(0f, 0f));
-            player.getBody().setAngularVelocity(0f);
-        }
-        if(player.getBody().getPosition().x > 54
-                ){
-            player.getBody().setLinearVelocity(new Vec2(-5000f, 0f));
-            player.getBody().setAngularVelocity(0f);
         }
 
         // move camera only if the player is outside a threshold
