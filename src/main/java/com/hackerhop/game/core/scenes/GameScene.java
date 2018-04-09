@@ -17,8 +17,6 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.objects.platforms.Platforms;
-import com.hackerhop.game.core.util.Blinker;
-import net.java.games.input.Controller;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 

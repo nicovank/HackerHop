@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
-import com.hackerhop.game.core.util.Blinker;
+import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 
 
 import java.awt.*;
@@ -35,7 +35,7 @@ public class MainMenu extends Scene {
     private Sprite arrow;
     private Sprite textDisplay;
     private Music music;
-    private Blinker blinker;
+    private SpriteBlinker blinker;
 
 
     public MainMenu(MainController controller) {
@@ -44,7 +44,7 @@ public class MainMenu extends Scene {
 
     @Override
     public void update() {
-
+        blinker.update();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MainMenu extends Scene {
         getGitHubButtonActivated.setPosition(285, 325);
         arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
         arrow.setPosition(0, 0);
-        blinker = new Blinker(arrow, 1f, .5f);
+        blinker = new SpriteBlinker(arrow, 1f, .5f);
         textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
