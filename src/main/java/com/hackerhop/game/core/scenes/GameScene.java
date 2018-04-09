@@ -89,7 +89,6 @@ public class GameScene extends Scene {
         }
 
         camera.update();
-        camera.update();
     }
 
     /**
