@@ -94,5 +94,10 @@ public class Player implements GraphicsElement {
 	public void dispose() {
 		sprite.getTexture().dispose();
 	}
+
+
+	public Sprite getSprite(){
+		return sprite;
+	}
 }
 

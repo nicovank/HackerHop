@@ -2,6 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,8 +17,11 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.objects.platforms.Platforms;
+import net.java.games.input.Controller;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+
+import java.awt.*;
 
 
 /**
@@ -43,6 +47,8 @@ public class GameScene extends Scene {
     // Frame time accumulator
     private float accumulator = 0.0f;
     private OrthographicCamera camera;
+    private Controller gamepad;
+    private Rectangle screenBounds = new Rectangle(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 
     /**
@@ -155,8 +161,12 @@ public class GameScene extends Scene {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
-            player.setDirection(Direction.LEFT);
+            if(screenBounds.getBounds().x < player.getSprite().getX()){
+            player.setDirection(Direction.RIGHT);
+            }else {
+                player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
+                player.setDirection(Direction.LEFT);
+            }
         }
 
         if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
@@ -182,7 +192,7 @@ public class GameScene extends Scene {
      */
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+        if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT ) {
             player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
         }
 
@@ -268,5 +278,11 @@ public class GameScene extends Scene {
     public boolean scrolled(int amount) {
         return false;
     }
+
+    public Rectangle getRectangle(com.badlogic.gdx.math.Rectangle rectangle){
+         Rectangle newrec = new Rectangle(((int) rectangle.x),((int)rectangle.y),((int)rectangle.width),((int)rectangle.height));
+         return newrec;
+    }
 }
+
 
