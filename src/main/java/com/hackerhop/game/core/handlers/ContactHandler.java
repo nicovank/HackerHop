@@ -16,7 +16,7 @@ public class ContactHandler implements ContactListener {
 		private Body body1;
 		private Body body2;
 
-		public boolean isBetween(String label1, String label2) {
+		boolean isBetween(String label1, String label2) {
 
 			if (body1.getUserData() == null || body2.getUserData() == null) {
 				return false;
@@ -26,7 +26,7 @@ public class ContactHandler implements ContactListener {
 					(body1.getUserData().equals(label2) && body2.getUserData().equals(label1));
 		}
 
-		public Collision(Body body1, Body body2) {
+		Collision(Body body1, Body body2) {
 			this.body1 = body1;
 			this.body2 = body2;
 		}
@@ -47,15 +47,7 @@ public class ContactHandler implements ContactListener {
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
 			controller.setScene(new GameOverScene(controller));
-		} else if (collision.isBetween("player","platform")){	// Ye assured himself at 2 a.m. that he will remember why he did this
-			GameScene scene = (GameScene) controller.getCurrentScene();
-			scene.setJumpable();
 		}
-
-		if(collision.isBetween("obstacle", "platform")){
-			contact.setEnabled(false);
-		}
-
 	}
 
 	@Override

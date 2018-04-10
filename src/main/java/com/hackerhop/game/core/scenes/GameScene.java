@@ -36,7 +36,6 @@ public class GameScene extends Scene {
     private static ObstacleGenerator obstacleGenerator = new ObstacleGenerator();
     private final Player player;
     private Music music;
-    private Sound jump;
     // Our physics world
     private World world = new World(new Vec2(0, -50));
     private Platforms platforms = new Platforms(world);
@@ -44,8 +43,6 @@ public class GameScene extends Scene {
     // Frame time accumulator
     private float accumulator = 0.0f;
     private OrthographicCamera camera;
-    private Rectangle screenBounds = new Rectangle(0,0,540,720);
-    private boolean jumpable;
 
 
     /**
@@ -64,14 +61,6 @@ public class GameScene extends Scene {
 
         camera = new OrthographicCamera(w, h);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        jumpable = false;
-    }
-
-    // Ye did this
-    // Ye is aware that this is the equivalent of throwing enough duct tape till it works
-    // Ye will attempt to remove said duct tape in the future
-    public void setJumpable() {
-        jumpable = true;
     }
 
     /**
@@ -107,12 +96,11 @@ public class GameScene extends Scene {
         }
 
         // generate obstacles at 4-second intervals
-        if ((System.currentTimeMillis() / 1000) % 4 == 0) {
-
-            if (camera.position.y > 360) {
-                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
-            }
-        }
+//        if ((int) (Math.random() * 10) == 5) {
+//            if (camera.position.y > 360) {
+//                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
+//            }
+//        }
         camera.update();
     }
 
@@ -145,7 +133,6 @@ public class GameScene extends Scene {
         platforms.loadResources();
         background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
-        jump = Gdx.audio.newSound(Gdx.files.internal("Audio/jump.mp3"));
 
         music.setLooping(true);
         music.play();
@@ -180,11 +167,7 @@ public class GameScene extends Scene {
             player.setDirection(Direction.RIGHT);
         }
         if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
-            if (jumpable) {
-                player.getBody().applyForceToCenter(new Vec2(0f, 5000f));
-                jumpable = false;
-                jump.play(0.2f);
-            }
+            player.jump();
         }
         if (keycode == Input.Keys.ESCAPE) {
             MainController controller = super.getController();
@@ -288,9 +271,8 @@ public class GameScene extends Scene {
         return false;
     }
 
-    public Rectangle getRectangle(com.badlogic.gdx.math.Rectangle rectangle){
-         Rectangle newrec = new Rectangle(((int) rectangle.x),((int)rectangle.y),((int)rectangle.width),((int)rectangle.height));
-         return newrec;
+    public Player getPlayer() {
+        return player;
     }
 }
 

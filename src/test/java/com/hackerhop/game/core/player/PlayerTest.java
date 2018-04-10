@@ -47,7 +47,7 @@ public class PlayerTest {
 		assertTrue(y >= 0 && y <= 72);
 	}
 
-	//testing player position at the start of the game.
+	// testing player position at the start of the game.
 	@Test
 	void startingPositionTest() {
 		World world = new World(new Vec2(0, -50));
@@ -59,7 +59,7 @@ public class PlayerTest {
 		assertEquals(10, y);
 	}
 
-	//testing player character
+	// testing player character
 	@Test
 	void characterTest() {
 		World world = new World(new Vec2(0, -50));

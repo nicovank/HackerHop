@@ -15,19 +15,20 @@ import java.util.Random;
 
 public class Obstacle extends PhysicalObject implements GraphicsElement {
 
+    private static final float VELOCITY = 100f;
+
     private static final String TAG = Obstacle.class.getName();
     private static final float WIDTH = 50;
     private static final float HEIGHT = 50;
 
 
     private static String[] textures = {"homework.png", "textbooks.png"};
-//    private static String[] textures;
     private Texture texture;
 
     public Obstacle(float x, float y, World world) {
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyType.DYNAMIC;
+        bodyDef.type = BodyType.KINEMATIC;
         bodyDef.position.set(new Vec2(x, y));
 
         super.setBody(world.createBody(bodyDef));
@@ -39,11 +40,7 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
         fixtureDef.shape = rectangle;
         super.getBody().createFixture(fixtureDef);
 
-//        textures = new File("src/main/resources/deadline").list();
-
-        //Ye broke this, Ye will fix this
-//        textures = new File("src" + File.separator + "main" + File.separator +
-//                "resources" + File.separator + "deadline" + File.separator).list();
+        super.getBody().setLinearVelocity(new Vec2(0, - VELOCITY));
     }
 
     @Override

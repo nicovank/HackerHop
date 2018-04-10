@@ -1,5 +1,7 @@
 package com.hackerhop.game.core.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,11 +9,13 @@ import com.hackerhop.game.core.graphics.GraphicsElement;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.dynamics.contacts.ContactEdge;
 
 public class Player implements GraphicsElement {
 	private Body body;
 	private Direction direction;
 	private Sprite sprite;
+	private Sound jumpSound;
 	private Character character;
 
 	/**
@@ -89,11 +93,31 @@ public class Player implements GraphicsElement {
 				sprite = new Sprite(new Texture("player/Katie.png"));
 				break;
 		}
+
+		jumpSound = Gdx.audio.newSound(Gdx.files.internal("Audio/jump.mp3"));
 	}
 
 	@Override
 	public void dispose() {
 		sprite.getTexture().dispose();
+		jumpSound.dispose();
+	}
+
+	public void jump() {
+		if (canJump()) {
+			body.applyForceToCenter(new Vec2(0f, 5000f));
+			jumpSound.play(0.2f);
+		}
+	}
+
+	private boolean canJump() {
+		for (ContactEdge edge = body.getContactList(); edge != null; edge = edge.next) {
+			if (edge.other.getUserData().equals("platform") && edge.contact.isTouching()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 
