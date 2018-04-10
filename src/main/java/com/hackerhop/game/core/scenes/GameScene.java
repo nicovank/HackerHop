@@ -63,8 +63,8 @@ public class GameScene extends Scene implements Constants {
 		camera = new OrthographicCamera(w, h);
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
-		obstacleGenerator.generateObstacle();
-		obstacleGenerator.generateObstacle();
+		obstacleGenerator.generateObstacle(camera);
+		obstacleGenerator.generateObstacle(camera);
 	}
 
 	/**

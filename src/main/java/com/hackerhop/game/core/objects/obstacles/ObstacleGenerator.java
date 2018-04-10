@@ -25,23 +25,33 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
 	/**
 	 * Will check if obstacles need deletion, and maybe spawn new ones.
+	 *
+	 * @param camera the camera associated with the scene.
 	 */
 	public void update(Camera camera) {
 		// 1. Check if obstacles need deletion
 		for (int i = 0; i < obstacles.length; ++i) {
 			Obstacle obstacle = obstacles[i];
 
-			if (obstacle != null && obstacle.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y) {
-				obstacle.dispose();
-				obstacle.destroy();
-				obstacles[i] = null;
+			if (obstacle != null) {
+				float obstacleY = obstacle.getBody().getPosition().y * PHYSICS_RATIO;
+				float boundary = camera.position.y - SCREEN_HEIGHT;
+
+				if (obstacleY < boundary) {
+					obstacle.dispose();
+					obstacle.destroy();
+					obstacles[i] = null;
+				}
 			}
 		}
 	}
 
-	// Nick
-	// I am trying some stuff out, I'd like to announce incoming obstacles with the blinking arrow.
-	public void generateObstacle() {
+	/**
+	 * Generates a new obstacle if we have not yet reached the maximum number of obstacles.
+	 *
+	 * @param camera the camera associated with the scene.
+	 */
+	public void generateObstacle(Camera camera) {
 		float x = randomFloat(5f, (SCREEN_WIDTH / 10f) - 5f);
 		float y = 70;
 
@@ -55,45 +65,6 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 			}
 		}
 	}
-
-//    /**
-//     * <p>Generates obstacles based on the current position of the Player.</p>
-//     *
-//     * <p>The x-value for the obstacle is generated at random, with the bound determined from
-//     * the x-value of the Player, and the distance from the Player to either of the walls, with
-//     * an upper bound of 260.The obstacles spawn at least 10 units away from either of the walls.</p>
-//     *
-//     * <p>The y-value is determined by the y-value of the camera. The obstacles always spawn 400 units
-//     * above the camera's current position.</p>
-//     *
-//     * <p>How long the obstacles last in the world is determined by the method caller. This method
-//     * only takes care of spawning and de-spawning the obstacles.</p>
-//     *
-//     * @param playerX x-value of the Player
-//     * @param cameraY y-value of the camera
-//     * @param world the physics world
-//     */
-//    public void generate(float playerX, float cameraY, World world) {
-//        cameraY += 400;
-//
-//        Random r = new Random();
-//        if (r.nextBoolean()) {
-//
-//            int offset = (int) (((playerX - 260) < 10) ? playerX : 260);
-//            offset = (offset < 0) ? 0 : offset;
-//            offset = ((playerX + 260) > 530) ? (int) (530 - playerX) : offset;
-//            offset = (offset < 0) ? 0 : offset;
-//            offset = (offset > 520) ? 0 : offset;
-//            // @YE this is broke now that this uses an ArrayList. Just change it back to an array of length 2 to go back where it was.
-//            if (obstacles.get(tracker) != null) {
-//                obstacles.get(tracker).destroy();
-//            }
-//            obstacles.set(tracker, new Obstacle(1 + ((playerX - offset) + r.nextInt(1 + (2 * offset)) / 10), cameraY / 10, world));
-//            obstacles.get(tracker).loadResources();
-//            tracker = (tracker < 1) ? 1 : 0;
-//        }
-//    }
-
 
 	@Override
 	public void loadResources() {

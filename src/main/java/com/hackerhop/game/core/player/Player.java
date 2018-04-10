@@ -105,10 +105,10 @@ public class Player implements GraphicsElement, Constants {
 	}
 
 	public void jump() {
-		if (canJump()) {
+		 if (canJump()) {
 			body.applyForceToCenter(new Vec2(0f, 5000f));
 			jumpSound.play(0.2f);
-		}
+		 }
 	}
 
 	private boolean canJump() {
