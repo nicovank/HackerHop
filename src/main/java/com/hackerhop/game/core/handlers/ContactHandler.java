@@ -41,13 +41,17 @@ public class ContactHandler implements ContactListener {
 	public void beginContact(Contact contact) {
 		Body body = contact.getFixtureA().getBody();
 		Body otherBody = contact.getFixtureB().getBody();
-
 		Collision collision = new Collision(body, otherBody);
 
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
 			controller.setScene(new GameOverScene(controller));
 		}
+
+		if(collision.isBetween("obstacle", "platform")){
+			contact.setEnabled(false);
+		}
+
 	}
 
 	@Override
