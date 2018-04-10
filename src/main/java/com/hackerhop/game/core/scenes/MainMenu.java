@@ -34,8 +34,12 @@ public class MainMenu extends Scene {
     private Sprite gitHubButton;
     private Sprite arrow;
     private Sprite textDisplay;
+    private Sprite underConstruction;
+    private Sprite soundButtonOn;
+    private Sprite soundButtonOff;
     private Music music;
     private Blinker blinker;
+    public boolean stopMusic = false;
 
 
     public MainMenu(MainController controller) {
@@ -75,10 +79,16 @@ public class MainMenu extends Scene {
         arrow.setPosition(0, 0);
         blinker = new Blinker(arrow, 1f, .5f);
         textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
-
+        underConstruction = new Sprite(new Texture("mainScreen/UnderConstruction.png"));
+        soundButtonOn = new Sprite(new Texture("mainScreen/soundButton.png"));
+        soundButtonOn.setPosition(0, 0);
+        soundButtonOff = new Sprite(new Texture("mainScreen/soundButtonOff.png"));
+        soundButtonOff.setPosition(0, 0);
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
         music.setLooping(true);
         music.play();
+
+
     }
 
     @Override
@@ -117,7 +127,19 @@ public class MainMenu extends Scene {
         } else {
             gitHubButton.draw(batch);
         }
-        highScoreButton.draw(batch);
+
+        if (highScoreButton.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY()))) {
+            batch.draw(underConstruction, 75, 325);
+        } else {
+            highScoreButton.draw(batch);
+        }
+//        if(stopMusic == false) {
+//            soundButtonOn.draw(batch);
+//        } else {
+//            soundButtonOff.draw(batch);
+//        }
+
+
         blinker.render(batch);
         textDisplay.draw(batch);
 
@@ -141,9 +163,18 @@ public class MainMenu extends Scene {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+
         int y = Gdx.graphics.getHeight() - screenY;
         MainController controller = super.getController();
-
+//        if(soundButtonOn.getBoundingRectangle().contains(screenX, y)){
+//            stopMusic= true;
+//            music.stop();
+//        }
+//        if(soundButtonOff.getBoundingRectangle().contains(screenX, y)){
+//            stopMusic=false;
+//            music.play();
+//        }
         if (sprite1.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.ROB));
         } else if (sprite2.getBoundingRectangle().contains(screenX, y)) {
@@ -195,6 +226,10 @@ public class MainMenu extends Scene {
         highScoreButton.getTexture().dispose();
         gitHubButton.getTexture().dispose();
         getGitHubButtonActivated.getTexture().dispose();
+        arrow.getTexture().dispose();
+        underConstruction.getTexture().dispose();
+        soundButtonOn.getTexture().dispose();
+        soundButtonOff.getTexture().dispose();
 
         music.stop();
         music.dispose();
