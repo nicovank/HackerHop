@@ -2,11 +2,13 @@ package com.hackerhop.game.core.objects.obstacles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.scenes.GameScene;
 import org.jbox2d.dynamics.World;
 
 import java.util.Random;
 
 public class ObstacleGenerator implements GraphicsElement {
+    private static final String TAG = GameScene.class.getName();
     private static Obstacle[] obstacles;
     private static int tracker;
 
