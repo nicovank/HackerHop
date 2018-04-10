@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.contacts.ContactEdge;
 
-public class Player implements GraphicsElement {
+public class Player implements GraphicsElement, Constants {
 	private Body body;
 	private Direction direction;
 	private Sprite sprite;
@@ -74,7 +75,7 @@ public class Player implements GraphicsElement {
 	@Override
 	public void render(SpriteBatch batch) {
 		sprite.setFlip(direction == Direction.LEFT, false);
-		batch.draw(sprite, body.getPosition().x * 10, body.getPosition().y * 10);
+		batch.draw(sprite, body.getPosition().x * PHYSICS_RATIO, body.getPosition().y * PHYSICS_RATIO);
 	}
 
 	@Override

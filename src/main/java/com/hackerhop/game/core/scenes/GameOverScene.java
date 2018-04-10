@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.utils.Constants;
 
-public class GameOverScene extends Scene {
+public class GameOverScene extends Scene implements Constants {
 
     private TextureRegion background;
 
@@ -27,7 +28,7 @@ public class GameOverScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(background, 0, 0, 540, 700);
+        batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.end();
 
     }

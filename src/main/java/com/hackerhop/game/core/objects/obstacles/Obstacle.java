@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.objects.PhysicalObject;
+import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
@@ -13,7 +14,9 @@ import org.jbox2d.dynamics.World;
 
 import java.util.Random;
 
-public class Obstacle extends PhysicalObject implements GraphicsElement {
+import static com.hackerhop.game.core.utils.Methods.randomInt;
+
+public class Obstacle extends PhysicalObject implements GraphicsElement, Constants {
 
     private static final float VELOCITY = 100f;
 
@@ -45,15 +48,15 @@ public class Obstacle extends PhysicalObject implements GraphicsElement {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(texture, super.getBody().getPosition().x * 10,
-                super.getBody().getPosition().y * 10,
+        batch.draw(texture, super.getBody().getPosition().x * PHYSICS_RATIO,
+                super.getBody().getPosition().y * PHYSICS_RATIO,
                 WIDTH,
                 HEIGHT);
     }
 
     @Override
     public void loadResources() {
-        texture = new Texture("deadline/" + textures[new Random().nextInt(textures.length)]);
+        texture = new Texture("deadline/" + textures[randomInt(textures.length)]);
     }
 
     @Override

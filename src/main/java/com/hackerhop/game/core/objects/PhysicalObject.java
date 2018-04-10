@@ -22,9 +22,9 @@ public abstract class PhysicalObject {
 	}
 
 	/**
-	 * Destroys this physical object from the physics world
+	 * Destroys this physical object from the physics world.
 	 */
-	public void destroy(){
+	public void destroy() {
 		body.getWorld().destroyBody(body);
 	}
 

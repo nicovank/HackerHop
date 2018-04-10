@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.objects.PhysicalObject;
+import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 
-public class Platform extends PhysicalObject implements GraphicsElement {
+public class Platform extends PhysicalObject implements GraphicsElement, Constants {
 
 	private static final String TAG = Platform.class.getName();
 
@@ -38,8 +39,8 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 
 	public void render(SpriteBatch batch) {
 		batch.draw(texture,
-				super.getBody().getPosition().x * 10,
-				super.getBody().getPosition().y * 10,
+				super.getBody().getPosition().x * PHYSICS_RATIO,
+				super.getBody().getPosition().y * PHYSICS_RATIO,
 				WIDTH,
 				HEIGHT
 		);
