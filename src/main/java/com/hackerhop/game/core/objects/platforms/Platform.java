@@ -27,6 +27,7 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 		bodyDef.position.set(new Vec2(x, y));
 
 		super.setBody(world.createBody(bodyDef));
+		super.getBody().setUserData("platform");
 
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape rectangle = new PolygonShape();
@@ -49,11 +50,7 @@ public class Platform extends PhysicalObject implements GraphicsElement {
 //	}
 
 	/**
-<<<<<<< HEAD
-	 * Calculates the distance between two PlatformGroup <code>p</code>.
-=======
 	 * Calculates the distance between this platform and another one.
->>>>>>> 826cc1420e78181ff0c47dce481921761f173528
 	 *
 	 * @param other the other platform to calculate the distance to.
 	 * @return distance between this platform and the other one.
