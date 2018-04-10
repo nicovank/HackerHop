@@ -55,6 +55,7 @@ public class Player implements GraphicsElement {
 		PolygonShape rectangle = new PolygonShape();
 		rectangle.setAsBox(3, 3);
 		fixtureDef.shape = rectangle;
+		fixtureDef.friction = 0f;
 		body.createFixture(fixtureDef);
 	}
 
