@@ -1,26 +1,25 @@
-package com.hackerhop.game.core.util;
+package com.hackerhop.game.core.utils.blinkers;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Blinker {
+public abstract class Blinker {
     private float showTime;
     private float hideTime;
     private boolean isShowed = true; // start displaying the object by default
 
     private float blinkTimer;
-    private Sprite sprite;
 
-    public Blinker(Sprite sprite, float showTime, float hideTime) {
-        this.sprite = sprite;
+    public Blinker(float showTime, float hideTime) {
         this.showTime = showTime;
         this.hideTime = hideTime;
     }
+    
+    public void update() {
+        blinkTimer += Gdx.graphics.getDeltaTime();
+    }
 
-    private boolean shouldBlink(float d) {
-        blinkTimer += d;
-
+    public boolean shouldBlink() {
         if (isShowed) {
             if(blinkTimer > showTime) {
                 blinkTimer = 0;
@@ -36,10 +35,6 @@ public class Blinker {
         return isShowed;
     }
 
-    public void render(SpriteBatch batch) {
-        if (shouldBlink(Gdx.graphics.getDeltaTime())) {
-            sprite.draw(batch);
-        }
-    }
+    public abstract void render(SpriteBatch batch);
 }
 
