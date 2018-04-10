@@ -2,9 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,9 +17,6 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
-
-import java.awt.*;
-
 
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
@@ -70,9 +65,6 @@ public class GameScene extends Scene implements Constants {
 
 		obstacleGenerator.generateObstacle();
 		obstacleGenerator.generateObstacle();
-		obstacleGenerator.generateObstacle();
-		obstacleGenerator.generateObstacle();
-		obstacleGenerator.generateObstacle();
 	}
 
 	/**
@@ -115,6 +107,8 @@ public class GameScene extends Scene implements Constants {
 //        }
 
 		camera.update();
+
+		obstacleGenerator.update(camera);
 	}
 
 	/**
@@ -129,13 +123,12 @@ public class GameScene extends Scene implements Constants {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
+
 		batch.draw(background, 0, 0);
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
-		batch.end();
-
-		batch.begin();
 		player.render(batch);
+
 		batch.end();
 
 	}
@@ -174,18 +167,20 @@ public class GameScene extends Scene implements Constants {
 			player.setDirection(Direction.LEFT);
 		}
 
-
-		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
 			player.setDirection(Direction.RIGHT);
 		}
-		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
+
+		else if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.jump();
 		}
-		if (keycode == Input.Keys.ESCAPE) {
+
+		else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
 		}
+
 		return true;
 	}
 
@@ -201,10 +196,9 @@ public class GameScene extends Scene implements Constants {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
 		}
 
-		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
 		}
-
 
 		return true;
 	}

@@ -1,34 +1,59 @@
 package com.hackerhop.game.core.objects.obstacles;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.dynamics.World;
 
-import java.util.ArrayList;
-
-import static com.hackerhop.game.core.utils.Methods.randomInt;
+import static com.hackerhop.game.core.utils.Methods.randomFloat;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
 	private static final String TAG = GameScene.class.getName();
 
-	private static ArrayList<Obstacle> obstacles;
+	// Never more than 10 obstacles (arbitrary)
+	private static Obstacle[] obstacles = new Obstacle[10];
+
 	// private static int tracker;
 	private World world;
 
 	public ObstacleGenerator(World world) {
 		this.world = world;
 		// tracker = 0;
-		obstacles = new ArrayList<>();
+	}
+
+	/**
+	 * Will check if obstacles need deletion, and maybe spawn new ones.
+	 */
+	public void update(Camera camera) {
+		// 1. Check if obstacles need deletion
+		for (int i = 0; i < obstacles.length; ++i) {
+			Obstacle obstacle = obstacles[i];
+
+			if (obstacle != null && obstacle.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y) {
+				obstacle.dispose();
+				obstacle.destroy();
+				obstacles[i] = null;
+			}
+		}
 	}
 
 	// Nick
 	// I am trying some stuff out, I'd like to announce incoming obstacles with the blinking arrow.
 	public void generateObstacle() {
-		Obstacle obstacle = new Obstacle(randomInt(SCREEN_WIDTH / 10), 500, world);
+		float x = randomFloat(5f, (SCREEN_WIDTH / 10f) - 5f);
+		float y = 70;
+
+		Obstacle obstacle = new Obstacle(x, y, world);
 		obstacle.loadResources();
-		obstacles.add(obstacle);
+
+		for (int i = 0; i < obstacles.length; ++i) {
+			if (obstacles[i] == null) {
+				obstacles[i] = obstacle;
+				break;
+			}
+		}
 	}
 
 //    /**
@@ -73,28 +98,28 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 	@Override
 	public void loadResources() {
 		for (Obstacle obstacle : obstacles) {
-//            if (obstacle != null) {
-			obstacle.loadResources();
-//            }
+			if (obstacle != null) {
+				obstacle.loadResources();
+			}
 		}
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
 		for (Obstacle obstacle : obstacles) {
-//            if (obstacle != null) {
-			obstacle.render(batch);
-//            }
+			if (obstacle != null) {
+				obstacle.render(batch);
+			}
 		}
 	}
 
 	@Override
 	public void dispose() {
 		for (Obstacle obstacle : obstacles) {
-//            if (obstacle != null) {
-			obstacle.destroy();
-			obstacle.dispose();
-//            }
+			if (obstacle != null) {
+				obstacle.destroy();
+				obstacle.dispose();
+			}
 		}
 	}
 }
