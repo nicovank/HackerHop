@@ -29,11 +29,12 @@ public class GameOverScene extends Scene {
         batch.begin();
         batch.draw(background, 0, 0, 540, 700);
         batch.end();
+
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.ESCAPE) {
+        if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.ENTER) {
             MainController controller = super.getController();
             controller.setScene(new MainMenu(controller));
         }
