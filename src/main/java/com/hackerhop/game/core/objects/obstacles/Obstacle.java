@@ -18,8 +18,6 @@ import static com.hackerhop.game.core.utils.Methods.randomInt;
 public class Obstacle extends PhysicalObject implements GraphicsElement, Constants {
 
 	private static final float VELOCITY = 50f;
-
-	private static final String TAG = Obstacle.class.getName();
 	private static final float WIDTH = 50;
 	private static final float HEIGHT = 50;
 
@@ -27,6 +25,13 @@ public class Obstacle extends PhysicalObject implements GraphicsElement, Constan
 	private static String[] textures = {"homework.png", "textbooks.png"};
 	private Texture texture;
 
+	/**
+	 * Creates a new Obstacle at the given position in the given world.
+	 *
+	 * @param x the x-position of the obstacle. Use Physics coordinates.
+	 * @param y the y-position of the obstacle. Use Physics coordinates.
+	 * @param world the physics world to create the obstacle in.
+	 */
 	public Obstacle(float x, float y, World world) {
 
 		BodyDef bodyDef = new BodyDef();
