@@ -91,7 +91,7 @@ public class GameScene extends Scene implements Constants {
 
 		}
 
-<<<<<<< HEAD
+
 		// generate obstacles at 4-second intervals
 //        if ((int) (Math.random() * 10) == 5) {
 //            if (camera.position.y > 360) {
@@ -100,8 +100,7 @@ public class GameScene extends Scene implements Constants {
 //        }
 
 
-=======
->>>>>>> b77d415e9965e9ce077408ee90049e5ee5e91753
+
 		camera.update();
 		obstacleGenerator.update();
 	}
