@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
@@ -44,6 +45,8 @@ public class GameScene extends Scene implements Constants {
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
+	private Sprite cloudBackground;
+	private float counter;
 
 
 	/**
@@ -90,6 +93,7 @@ public class GameScene extends Scene implements Constants {
 		if (player.getBody().getPosition().y * PHYSICS_RATIO > camera.position.y + 100) {
 			camera.position.set(camera.position.x, (player.getBody().getPosition().y * PHYSICS_RATIO) - 100, camera.position.z);
 			platforms.update(camera.position.y, world);
+
 		}
 
 		// generate obstacles at 4-second intervals
@@ -98,6 +102,7 @@ public class GameScene extends Scene implements Constants {
 //                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
 //            }
 //        }
+
 
 		camera.update();
 
@@ -117,10 +122,12 @@ public class GameScene extends Scene implements Constants {
 
 		batch.begin();
 
-		batch.draw(background, 0, 0);
+		batch.draw(cloudBackground,0,camera.position.y-500);
+		batch.draw(background, 0, -50);
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
+
 
 		batch.end();
 
@@ -132,6 +139,7 @@ public class GameScene extends Scene implements Constants {
 		platforms.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
+		cloudBackground = new Sprite(new Texture("background/cloud.png"));
 
 		music.setLooping(true);
 		music.play();
@@ -278,6 +286,7 @@ public class GameScene extends Scene implements Constants {
 	public Player getPlayer() {
 		return player;
 	}
+
 }
 
 
