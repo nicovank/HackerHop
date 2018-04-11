@@ -76,31 +76,18 @@ public class GameScene extends Scene implements Constants {
 			accumulator -= TIME_STEP;
 		}
 
-		// Don't work yet
-//        // change to game over scene if the Player is too low
-//        if (player.getBody().getPosition().y < (platforms.getLowestY() / 20) - 20) {
-//            this.getController().setScene(new GameOverScene(this.getController()));
-//        }
-
 		// move camera only if the player is outside a threshold
-		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 300) {
-			camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * PHYSICS_RATIO, camera.position.z);
-		}
+
+//		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 300) {
+//			camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * PHYSICS_RATIO, camera.position.z);
+//		}
 
 		if (player.getBody().getPosition().y * PHYSICS_RATIO > camera.position.y + 100) {
 			camera.position.set(camera.position.x, (player.getBody().getPosition().y * PHYSICS_RATIO) - 100, camera.position.z);
 			platforms.update(camera.position.y, world);
 		}
 
-		// generate obstacles at 4-second intervals
-//        if ((int) (Math.random() * 10) == 5) {
-//            if (camera.position.y > 360) {
-//                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
-//            }
-//        }
-
 		camera.update();
-
 		obstacleGenerator.update();
 	}
 
