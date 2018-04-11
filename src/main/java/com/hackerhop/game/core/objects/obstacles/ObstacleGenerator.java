@@ -11,6 +11,7 @@ import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 
 import static com.hackerhop.game.core.utils.Methods.randomFloat;
+import static com.hackerhop.game.core.utils.Methods.randomInt;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
 	private static final String TAG = GameScene.class.getName();
@@ -31,7 +32,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 	}
 
 	/**
-	 * Will check if obstacles need deletion, and maybe spawn new ones.
+	 * Will check if obstacles need deletion, and spawn new ones.
 	 */
 	public void update() {
 
@@ -54,11 +55,11 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 			}
 		}
 
-		// 2. generate between 1 and 5 obstacles.
+		// 2. generate between 1 and 4 obstacles.
 		if (obstacleCount == 0) {
-			generateObstacle();
-			generateObstacle();
-			generateObstacle();
+			for (int i = randomInt(5); i > 0; --i) {
+				generateObstacle();
+			}
 		}
 	}
 
