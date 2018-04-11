@@ -1,10 +1,13 @@
 package com.hackerhop.game.core.objects.obstacles;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.utils.Constants;
+import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 
 import static com.hackerhop.game.core.utils.Methods.randomFloat;
@@ -12,23 +15,28 @@ import static com.hackerhop.game.core.utils.Methods.randomFloat;
 public class ObstacleGenerator implements GraphicsElement, Constants {
 	private static final String TAG = GameScene.class.getName();
 
-	// Never more than 10 obstacles (arbitrary)
-	private static Obstacle[] obstacles = new Obstacle[10];
+	// Never more than 5 obstacles (arbitrary)
+	private Obstacle[] obstacles = new Obstacle[5];
+	private int obstacleCount = 0;
 
-	// private static int tracker;
 	private World world;
+	private Camera camera;
 
-	public ObstacleGenerator(World world) {
+	private SpriteBlinker blinker;
+	private Sprite arrow;
+
+	public ObstacleGenerator(World world, Camera camera) {
 		this.world = world;
-		// tracker = 0;
+		this.camera = camera;
 	}
 
 	/**
 	 * Will check if obstacles need deletion, and maybe spawn new ones.
-	 *
-	 * @param camera the camera associated with the scene.
 	 */
-	public void update(Camera camera) {
+	public void update() {
+
+		blinker.update();
+
 		// 1. Check if obstacles need deletion
 		for (int i = 0; i < obstacles.length; ++i) {
 			Obstacle obstacle = obstacles[i];
@@ -41,19 +49,26 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 					obstacle.dispose();
 					obstacle.destroy();
 					obstacles[i] = null;
+					--obstacleCount;
 				}
 			}
+		}
+
+		// 2. generate between 1 and 5 obstacles.
+		if (obstacleCount == 0) {
+			generateObstacle();
+			generateObstacle();
+			generateObstacle();
 		}
 	}
 
 	/**
 	 * Generates a new obstacle if we have not yet reached the maximum number of obstacles.
-	 *
-	 * @param camera the camera associated with the scene.
 	 */
-	public void generateObstacle(Camera camera) {
-		float x = randomFloat(5f, (SCREEN_WIDTH / 10f) - 5f);
-		float y = 70;
+	public void generateObstacle() {
+		++obstacleCount;
+		float x = randomFloat(5f, (SCREEN_WIDTH / PHYSICS_RATIO) - 5f);
+		float y = 350 + SCREEN_HEIGHT / PHYSICS_RATIO;
 
 		Obstacle obstacle = new Obstacle(x, y, world);
 		obstacle.loadResources();
@@ -68,24 +83,31 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
 	@Override
 	public void loadResources() {
-		for (Obstacle obstacle : obstacles) {
-			if (obstacle != null) {
-				obstacle.loadResources();
-			}
-		}
+		arrow = new Sprite(new Texture("obstacles/arrow.png"));
+		blinker = new SpriteBlinker(arrow, .5f, .5f);
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
 		for (Obstacle obstacle : obstacles) {
 			if (obstacle != null) {
-				obstacle.render(batch);
+				if (obstacle.getBody().getPosition().y > ((camera.position.y + (SCREEN_HEIGHT / 2)) / PHYSICS_RATIO)) {
+					blinker.render(batch,
+							obstacle.getBody().getPosition().x * PHYSICS_RATIO,
+							camera.position.y + (SCREEN_HEIGHT / 2) - 50
+					);
+				} else {
+					obstacle.render(batch);
+				}
 			}
 		}
 	}
 
 	@Override
 	public void dispose() {
+
+		arrow.getTexture().dispose();
+
 		for (Obstacle obstacle : obstacles) {
 			if (obstacle != null) {
 				obstacle.destroy();

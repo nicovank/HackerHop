@@ -32,10 +32,11 @@ public class GameScene extends Scene implements Constants {
 
 	// General variables for the game scene
 	private World world = new World(new Vec2(0, -50));
+	private OrthographicCamera camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	private final Player player;
 	private Platforms platforms = new Platforms(world);
-	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world);
+	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
 	// Resources for the scene
 	private Music music;
@@ -43,7 +44,6 @@ public class GameScene extends Scene implements Constants {
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
-	private OrthographicCamera camera;
 
 
 	/**
@@ -57,14 +57,7 @@ public class GameScene extends Scene implements Constants {
 
 		player = new Player(world, new Vec2(0, 10), character);
 
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-
-		camera = new OrthographicCamera(w, h);
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-
-		obstacleGenerator.generateObstacle(camera);
-		obstacleGenerator.generateObstacle(camera);
 	}
 
 	/**
@@ -108,7 +101,7 @@ public class GameScene extends Scene implements Constants {
 
 		camera.update();
 
-		obstacleGenerator.update(camera);
+		obstacleGenerator.update();
 	}
 
 	/**
@@ -142,6 +135,8 @@ public class GameScene extends Scene implements Constants {
 
 		music.setLooping(true);
 		music.play();
+
+		obstacleGenerator.loadResources();
 	}
 
 	/**
@@ -152,6 +147,8 @@ public class GameScene extends Scene implements Constants {
 		player.dispose();
 		platforms.dispose();
 		music.dispose();
+
+		obstacleGenerator.dispose();
 	}
 
 	/**

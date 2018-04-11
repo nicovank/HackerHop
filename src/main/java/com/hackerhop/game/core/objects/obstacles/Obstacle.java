@@ -17,7 +17,7 @@ import static com.hackerhop.game.core.utils.Methods.randomInt;
 
 public class Obstacle extends PhysicalObject implements GraphicsElement, Constants {
 
-	private static final float VELOCITY = 20f;
+	private static final float VELOCITY = 50f;
 
 	private static final String TAG = Obstacle.class.getName();
 	private static final float WIDTH = 50;
@@ -56,7 +56,7 @@ public class Obstacle extends PhysicalObject implements GraphicsElement, Constan
 
 	@Override
 	public void loadResources() {
-		texture = new Texture("deadline/" + textures[randomInt(textures.length)]);
+		texture = new Texture("obstacles/" + textures[randomInt(textures.length)]);
 	}
 
 	@Override

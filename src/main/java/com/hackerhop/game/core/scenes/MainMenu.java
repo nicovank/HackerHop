@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
-import com.hackerhop.game.core.utils.blinkers.Blinker;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 
 
@@ -39,7 +38,6 @@ public class MainMenu extends Scene {
     private Sprite soundButtonOn;
     private Sprite soundButtonOff;
     private Music music;
-    public boolean stopMusic = false;
     private SpriteBlinker blinker;
 
 
@@ -89,8 +87,6 @@ public class MainMenu extends Scene {
         music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
         music.setLooping(true);
         music.play();
-
-
     }
 
     @Override

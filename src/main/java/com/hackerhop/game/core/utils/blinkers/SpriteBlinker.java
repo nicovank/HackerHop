@@ -18,4 +18,17 @@ public class SpriteBlinker extends Blinker {
             sprite.draw(batch);
         }
     }
+
+    /**
+     * renders the sprite at the given position, overriding the Sprite's position.
+	 *
+     * @param batch The batch where to draw the sprite.
+     * @param x The x-coordinate where to draw the sprite.
+     * @param y The y-coordinate where to draw the sprite.
+     */
+    public void render(SpriteBatch batch, float x, float y) {
+        if (super.shouldBlink()) {
+            batch.draw(sprite, x, y);
+        }
+    }
 }

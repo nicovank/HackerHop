@@ -8,5 +8,5 @@ public interface Constants {
 	int SCREEN_HEIGHT = 720;
 
 	// The ratio between our physics coordinates and screen coordinates.
-	int PHYSICS_RATIO = 10;
+	float PHYSICS_RATIO = 10f;
 }
