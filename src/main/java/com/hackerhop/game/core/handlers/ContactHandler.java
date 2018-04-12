@@ -46,7 +46,8 @@ public class ContactHandler implements ContactListener {
 
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
-			controller.setScene(new GameOverScene(controller));
+			String score = ((GameScene) controller.getCurrentScene()).score();
+			controller.setScene(new GameOverScene(controller, score));
 		}
 	}
 

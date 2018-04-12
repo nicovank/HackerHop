@@ -23,6 +23,10 @@ public abstract class Scene implements GraphicsElement, InputProcessor {
 		return controller;
 	}
 
+	public String getTag(){
+		return TAG;
+	}
+
 	/**
 	 * Updates the physics, character positions, etc.
 	 */

@@ -2,6 +2,7 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
@@ -11,8 +12,14 @@ public class GameOverScene extends Scene implements Constants {
 
     private TextureRegion background;
 
-    public GameOverScene(MainController controller) {
+    //Final Score variables
+    private BitmapFont font;
+    private SpriteBatch ui;
+    private String finalScore;
+
+    public GameOverScene(MainController controller, String score) {
         super(controller);
+        finalScore = score;
     }
 
     @Override
@@ -23,6 +30,8 @@ public class GameOverScene extends Scene implements Constants {
     @Override
     public void loadResources() {
         background = new TextureRegion(new Texture("background/GameOver.png"));
+        font = new BitmapFont();
+        ui = new SpriteBatch();
     }
 
     @Override
@@ -30,6 +39,12 @@ public class GameOverScene extends Scene implements Constants {
         batch.begin();
         batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.end();
+
+        ui.begin();
+
+        font.draw(ui, String.format("Final Score: %s", finalScore), 10, 25);
+
+        ui.end();
 
     }
 

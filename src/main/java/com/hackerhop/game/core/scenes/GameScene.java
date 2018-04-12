@@ -94,7 +94,7 @@ public class GameScene extends Scene implements Constants {
 		}
 		// go to game over scene if player falls below bounds
 		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
-			getController().setScene(new GameOverScene(getController()));
+			getController().setScene(new GameOverScene(getController(), score()));
 		}
 
 		camera.update();
@@ -134,7 +134,7 @@ public class GameScene extends Scene implements Constants {
 	 *
 	 * @return A String representation of the current score.
 	 */
-	private String score() {
+	public String score() {
 		return String.valueOf(score);
 	}
 
