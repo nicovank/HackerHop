@@ -113,7 +113,7 @@ public class GameScene extends Scene implements Constants {
 
 		batch.begin();
 
-		batch.draw(cloudBackground,0,camera.position.y - 500);
+		batch.draw(cloudBackground, 0, camera.position.y - 500);
 		batch.draw(background, 0, -50);
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
@@ -179,18 +179,12 @@ public class GameScene extends Scene implements Constants {
 		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
 			player.setDirection(Direction.LEFT);
-		}
-
-		else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
 			player.setDirection(Direction.RIGHT);
-		}
-
-		else if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
+		} else if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.jump();
-		}
-
-		else if (keycode == Input.Keys.ESCAPE) {
+		} else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
 		}
@@ -208,9 +202,7 @@ public class GameScene extends Scene implements Constants {
 	public boolean keyUp(int keycode) {
 		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
-		}
-
-		else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
 		}
 
