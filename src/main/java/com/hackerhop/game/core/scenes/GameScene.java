@@ -82,18 +82,17 @@ public class GameScene extends Scene implements Constants {
 
 		// move camera only if the player is outside a threshold
 
-//		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 300) {
-//			camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * PHYSICS_RATIO, camera.position.z);
-//		}
-
 		float oldY = camera.position.y;
 
 		if (player.getBody().getPosition().y * PHYSICS_RATIO > oldY + 100) {
 			float newY = (player.getBody().getPosition().y * PHYSICS_RATIO) - 100;
 			camera.position.set(camera.position.x, newY, camera.position.z);
 			platforms.update(camera.position.y, world);
-
 			score += newY - oldY;
+		}
+		// go to game over scene if player falls below bounds
+		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
+			getController().setScene(new GameOverScene(getController()));
 		}
 
 		camera.update();
