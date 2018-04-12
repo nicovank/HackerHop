@@ -27,11 +27,4 @@ public abstract class Scene implements GraphicsElement, InputProcessor {
 	 * Updates the physics, character positions, etc.
 	 */
 	public abstract void update();
-
-	/**
-	 * Renders the scenes to be drawn
-	 *
-	 * @param batch where the scene will be rendered
-	 */
-	public abstract void render(SpriteBatch batch);
 }
