@@ -59,7 +59,7 @@ public class GameScene extends Scene implements Constants {
 	 */
 	public GameScene(MainController controller, Character character) {
 		super(controller);
-		world.setContactListener(new ContactHandler(controller));
+		world.setContactListener(new ContactHandler(this));
 
 		player = new Player(world, new Vec2(0, 10), character);
 
