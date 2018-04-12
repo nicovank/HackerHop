@@ -32,10 +32,10 @@ public class ContactHandler implements ContactListener {
 		}
 	}
 
-	private MainController controller;
+	private GameScene scene;
 
-	public ContactHandler(MainController controller) {
-		this.controller = controller;
+	public ContactHandler(GameScene scene) {
+		this.scene = scene;
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class ContactHandler implements ContactListener {
 
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
-			String score = ((GameScene) controller.getCurrentScene()).score();
-			controller.setScene(new GameOverScene(controller, score));
+			String score = scene.score();
+			scene.getController().setScene(new GameOverScene(scene.getController(), score));
 		}
 	}
 
