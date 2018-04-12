@@ -31,6 +31,7 @@ public class GameScene extends Scene implements Constants {
 	private static final float TIME_STEP = 1 / 60f;
 	private static final int VELOCITY_ITERATIONS = 2;
 	private static final int POSITION_ITERATIONS = 6;
+	private static final int CAMERA_MOVEMENT_THRESHOLD = - 100;
 
 	// General variables for the game scene
 	private World world = new World(new Vec2(0, -50));
@@ -86,12 +87,13 @@ public class GameScene extends Scene implements Constants {
 
 		float oldY = camera.position.y;
 
-		if (player.getBody().getPosition().y * PHYSICS_RATIO > oldY + 100) {
-			float newY = (player.getBody().getPosition().y * PHYSICS_RATIO) - 100;
+		if (player.getBody().getPosition().y * PHYSICS_RATIO > oldY + CAMERA_MOVEMENT_THRESHOLD) {
+			float newY = (player.getBody().getPosition().y * PHYSICS_RATIO) - CAMERA_MOVEMENT_THRESHOLD;
 			camera.position.set(camera.position.x, newY, camera.position.z);
 			platforms.update(camera.position.y, world);
 			score += newY - oldY;
 		}
+
 		// go to game over scene if player falls below bounds
 		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
 			getController().setScene(new GameOverScene(getController(), score()));
