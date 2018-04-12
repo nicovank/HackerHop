@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,11 +44,12 @@ public class GameScene extends Scene implements Constants {
 	// Resources for the scene
 	private Music music;
 	private TextureRegion background;
+	private BitmapFont font;
+	private SpriteBatch ui;
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
 	private Sprite cloudBackground;
-	private float counter;
 
 
 	/**
@@ -112,13 +114,29 @@ public class GameScene extends Scene implements Constants {
 
 		batch.begin();
 
-		batch.draw(cloudBackground,0,camera.position.y-500);
+		batch.draw(cloudBackground,0,camera.position.y - 500);
 		batch.draw(background, 0, -50);
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
 
 		batch.end();
+
+
+		ui.begin();
+
+		font.draw(ui, String.format("Score: %s", score()), 10, 25);
+
+		ui.end();
+	}
+
+	/**
+	 * Transforms the current score into a nice displayable String.
+	 *
+	 * @return A String representation of the current score.
+	 */
+	private String score() {
+		return String.valueOf(score);
 	}
 
 	@Override
@@ -128,6 +146,8 @@ public class GameScene extends Scene implements Constants {
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
 		cloudBackground = new Sprite(new Texture("background/cloud.png"));
+		font = new BitmapFont();
+		ui = new SpriteBatch();
 
 		music.setLooping(true);
 		music.play();
@@ -143,6 +163,8 @@ public class GameScene extends Scene implements Constants {
 		player.dispose();
 		platforms.dispose();
 		music.dispose();
+		font.dispose();
+		ui.dispose();
 
 		obstacleGenerator.dispose();
 	}
