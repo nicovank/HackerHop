@@ -84,7 +84,7 @@ public class MainMenu extends Scene {
         soundButtonOn.setPosition(0, 0);
         soundButtonOff = new Sprite(new Texture("mainScreen/soundButtonOff.png"));
         soundButtonOff.setPosition(0, 0);
-        music = Gdx.audio.newMusic(Gdx.files.internal("Audio/waves.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));
         music.setLooping(true);
         music.play();
     }

@@ -95,7 +95,7 @@ public class Player implements GraphicsElement, Constants {
 				break;
 		}
 
-		jumpSound = Gdx.audio.newSound(Gdx.files.internal("Audio/jump.mp3"));
+		jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/jump.mp3"));
 	}
 
 	@Override

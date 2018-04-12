@@ -143,9 +143,11 @@ public class GameScene extends Scene implements Constants {
 		player.loadResources();
 		platforms.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
-		music = Gdx.audio.newMusic(Gdx.files.internal("Audio/DkIslandSwing.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
 		cloudBackground = new Sprite(new Texture("background/cloud.png"));
-		font = new BitmapFont();
+
+		font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
+		font.setScale(0.1f);
 		ui = new SpriteBatch();
 
 		music.setLooping(true);
