@@ -69,7 +69,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 	public void generateObstacle() {
 		++obstacleCount;
 		float x = randomFloat(5f, (SCREEN_WIDTH / PHYSICS_RATIO) - 5f);
-		float y = (SCREEN_HEIGHT / PHYSICS_RATIO) + 500;
+		float y = (camera.position.y / PHYSICS_RATIO) + 500;
 
 		Obstacle obstacle = new Obstacle(x, y, world);
 		obstacle.loadResources();
