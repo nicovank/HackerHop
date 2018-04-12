@@ -13,6 +13,7 @@ import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
 import com.hackerhop.game.core.objects.platforms.Platforms;
+import com.hackerhop.game.core.objects.Coin;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.player.Player;
@@ -39,6 +40,7 @@ public class GameScene extends Scene implements Constants {
 
 	private long score = 0;
 	private Player player;
+	private Coin coin;
 	private Platforms platforms = new Platforms(world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
@@ -120,6 +122,7 @@ public class GameScene extends Scene implements Constants {
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
+		
 
 		batch.end();
 
@@ -142,6 +145,7 @@ public class GameScene extends Scene implements Constants {
 
 	@Override
 	public void loadResources() {
+
 		player.loadResources();
 		platforms.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
