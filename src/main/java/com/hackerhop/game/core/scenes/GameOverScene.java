@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -30,14 +31,15 @@ public class GameOverScene extends Scene implements Constants {
     @Override
     public void loadResources() {
         background = new TextureRegion(new Texture("background/GameOver.png"));
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
+        font.setScale(0.1f);
         ui = new SpriteBatch();
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(background, 0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.end();
 
         ui.begin();
@@ -96,6 +98,8 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void dispose() {
+        font.dispose();
+        ui.dispose();
         background.getTexture().dispose();
     }
 }
