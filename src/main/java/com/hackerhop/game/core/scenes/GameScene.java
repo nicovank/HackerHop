@@ -35,7 +35,8 @@ public class GameScene extends Scene implements Constants {
 	private World world = new World(new Vec2(0, -50));
 	private OrthographicCamera camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	private final Player player;
+	private long score = 0;
+	private Player player;
 	private Platforms platforms = new Platforms(world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
@@ -85,21 +86,15 @@ public class GameScene extends Scene implements Constants {
 //			camera.position.set(camera.position.x, 300 + player.getBody().getPosition().y * PHYSICS_RATIO, camera.position.z);
 //		}
 
-		if (player.getBody().getPosition().y * PHYSICS_RATIO > camera.position.y + 100) {
-			camera.position.set(camera.position.x, (player.getBody().getPosition().y * PHYSICS_RATIO) - 100, camera.position.z);
+		float oldY = camera.position.y;
+
+		if (player.getBody().getPosition().y * PHYSICS_RATIO > oldY + 100) {
+			float newY = (player.getBody().getPosition().y * PHYSICS_RATIO) - 100;
+			camera.position.set(camera.position.x, newY, camera.position.z);
 			platforms.update(camera.position.y, world);
 
+			score += newY - oldY;
 		}
-
-
-		// generate obstacles at 4-second intervals
-//        if ((int) (Math.random() * 10) == 5) {
-//            if (camera.position.y > 360) {
-//                obstacleGenerator.generate(player.getBody().getPosition().x * 10, camera.position.y, world);
-//            }
-//        }
-
-
 
 		camera.update();
 		obstacleGenerator.update();
@@ -113,7 +108,6 @@ public class GameScene extends Scene implements Constants {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
@@ -124,9 +118,7 @@ public class GameScene extends Scene implements Constants {
 		obstacleGenerator.render(batch);
 		player.render(batch);
 
-
 		batch.end();
-
 	}
 
 	@Override
