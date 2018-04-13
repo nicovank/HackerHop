@@ -12,8 +12,8 @@ public interface Constants {
 
 
 	// Constants for everything in com.hackerhop.game.platforms
-	int THRESHOLD = 500;
-	int GROUP_COUNT = 5;
-	int GRID_SEPARATION = 20;
-	int WIGGLE_ROOM = 7;
+	int THRESHOLD = 500;	// Platform delete threshold
+	int GROUP_COUNT = 5;	// number of PlatformGroups in Platforms object
+	int GRID_SEPARATION = 20;	// distance between each PlatformGroup
+	int WIGGLE_ROOM = 7;	// maximum distance between a Platform's grid position and actual position
 }
