@@ -41,8 +41,9 @@ public class GameScene extends Scene implements Constants {
 	private long score = 0;
 	private Sprite highScoreBorder;
 	private Player player;
-	private Coin coin;
+
 	private Platforms platforms = new Platforms(world);
+	private Coin coin = new Coin(world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
 	// Resources for the scene
@@ -122,6 +123,7 @@ public class GameScene extends Scene implements Constants {
 		batch.draw(background, 0, -50);
 		batch.draw(highScoreBorder,0,camera.position.y -360);
 		platforms.render(batch);
+		coin.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
 
@@ -150,6 +152,7 @@ public class GameScene extends Scene implements Constants {
 
 		player.loadResources();
 		platforms.loadResources();
+		coin.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
 		cloudBackground = new Sprite(new Texture("background/cloud.png"));
@@ -174,6 +177,7 @@ public class GameScene extends Scene implements Constants {
 		music.dispose();
 		font.dispose();
 		ui.dispose();
+		coin.dispose();
 
 		obstacleGenerator.dispose();
 	}
