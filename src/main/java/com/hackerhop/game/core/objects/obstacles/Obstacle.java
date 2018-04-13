@@ -46,7 +46,7 @@ public class Obstacle extends PhysicalObject implements GraphicsElement, Constan
         fixtureDef.shape = rectangle;
         super.getBody().createFixture(fixtureDef);
 
-        super.getBody().setLinearVelocity(new Vec2(0, -VELOCITY - (y/10)));
+        super.getBody().setLinearVelocity(new Vec2(0, -VELOCITY ));
     }
 
     @Override
