@@ -39,6 +39,7 @@ public class GameScene extends Scene implements Constants {
 	private OrthographicCamera camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	private long score = 0;
+	private Sprite highScoreBorder;
 	private Player player;
 	private Coin coin;
 	private Platforms platforms = new Platforms(world);
@@ -119,10 +120,11 @@ public class GameScene extends Scene implements Constants {
 
 		batch.draw(cloudBackground, 0, camera.position.y - 500);
 		batch.draw(background, 0, -50);
+		batch.draw(highScoreBorder,0,camera.position.y -360);
 		platforms.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
-		
+
 
 		batch.end();
 
@@ -151,7 +153,7 @@ public class GameScene extends Scene implements Constants {
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
 		cloudBackground = new Sprite(new Texture("background/cloud.png"));
-
+		highScoreBorder = new Sprite(new Texture("background/HighScoreBorder.png"));
 		font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
 		font.setScale(0.1f);
 		ui = new SpriteBatch();
@@ -195,6 +197,10 @@ public class GameScene extends Scene implements Constants {
 		} else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
+		} else if(keycode == Input.Keys.R){
+			Character character = player.getCharacter();
+			MainController controller = super.getController();
+			controller.setScene(new GameScene(controller,character));
 		}
 
 		return true;
