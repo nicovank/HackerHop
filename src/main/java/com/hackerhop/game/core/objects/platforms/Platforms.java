@@ -2,24 +2,22 @@ package com.hackerhop.game.core.objects.platforms;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.dynamics.World;
 
-public class Platforms implements GraphicsElement {
+public class Platforms implements GraphicsElement, Constants {
 
     // used in update(World world) method
-    private static final int THRESHOLD = 420;   //blaze it
     private static final String TAG = PlatformGroup.class.getName();
-    // change value in test every time you touch this value
-    private static final int wiggleRoom = 8;
     // tracks lowest PlatformGroup
     private static int tracker;
     // only 4 PlatformGroup objects, cycled through as player advances
-    private PlatformGroup[] platformGroups = new PlatformGroup[4];
+    private PlatformGroup[] platformGroups = new PlatformGroup[GROUP_COUNT];
 
     public Platforms(World world) {
-        platformGroups[0] = new PlatformGroup(world, 0, wiggleRoom);
-        for (int i = 1; i < 4; ++i) {
-            platformGroups[i] = new PlatformGroup(world, i, wiggleRoom);
+        platformGroups[0] = new PlatformGroup(world, 0, WIGGLE_ROOM);
+        for (int i = 1; i < 5; ++i) {
+            platformGroups[i] = new PlatformGroup(world, i, WIGGLE_ROOM);
         }
         tracker = 0;
     }
@@ -40,14 +38,14 @@ public class Platforms implements GraphicsElement {
      */
     public void update(float cameraPositionY, World world) {
         if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / 10) {
-            float tmpY = platformGroups[tracker].getY() / 20 + 4;
+            float tmpY = platformGroups[tracker].getY() / 20 + GROUP_COUNT;
             platformGroups[tracker].destroy();
-            PlatformGroup p = new PlatformGroup(world, tmpY, wiggleRoom);
+            PlatformGroup p = new PlatformGroup(world, tmpY, WIGGLE_ROOM);
             p.loadResources();
             platformGroups[tracker] = p;
 
 
-            tracker = (tracker < 3) ? ++tracker : 0;
+            tracker = (tracker < GROUP_COUNT - 1) ? ++tracker : 0;
         }
     }
 

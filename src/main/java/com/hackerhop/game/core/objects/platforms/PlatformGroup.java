@@ -2,14 +2,14 @@ package com.hackerhop.game.core.objects.platforms;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.dynamics.World;
 
 import java.util.Random;
 
-public class PlatformGroup implements GraphicsElement {
+public class PlatformGroup implements GraphicsElement, Constants {
 
 	private static final String TAG = PlatformGroup.class.getName();
-	private static final float gridSeparation = 20;
 
 	// Set of platforms
 	private Platform[] platforms;
@@ -25,7 +25,7 @@ public class PlatformGroup implements GraphicsElement {
 	public PlatformGroup(World world, float y, int wiggleRoom) {
 		this.wiggleRoom = wiggleRoom;
 		this.y = y;
-		this.xCount = (int) (60 / gridSeparation);
+		this.xCount = 3;
 
 		platforms = generatePlatforms(world);
 	}
@@ -37,7 +37,7 @@ public class PlatformGroup implements GraphicsElement {
 	 * </p>
 	 * <p>For all other cases, a maximum of 3 Platform objects are created at random
 	 * within a circle of radius <code>wiggleRoom</code>. The center of each circle is separated from
-	 * another by <code>gridSeparation</code> units.
+	 * another by <code>GRID_SEPARATION</code> units.
 	 * </p>
 	 *
 	 * @param w the physics world where Platform objects are to be generated
@@ -50,8 +50,8 @@ public class PlatformGroup implements GraphicsElement {
 			h = new Platform[xCount];
 			for (int i = 0; i < xCount; ++i) {
 				if (r.nextBoolean() || r.nextBoolean()) {
-					h[i] = new Platform((gridSeparation * i) + 3.5f + (wiggleRoom - r.nextInt(2 * wiggleRoom)),
-							(y * gridSeparation) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
+					h[i] = new Platform((GRID_SEPARATION * i) + 3.5f + (wiggleRoom - r.nextInt(2 * wiggleRoom)),
+							(y * GRID_SEPARATION) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
 				}
 			}
 		} else {
@@ -69,7 +69,7 @@ public class PlatformGroup implements GraphicsElement {
 	 * @return y-value of the central grid
 	 */
 	public float getY() {
-		return y * gridSeparation;
+		return y * GRID_SEPARATION;
 	}
 
 	public Platform[] getPlatforms() {

@@ -9,4 +9,11 @@ public interface Constants {
 
 	// The ratio between our physics coordinates and screen coordinates.
 	float PHYSICS_RATIO = 10f;
+
+
+	// Constants for everything in com.hackerhop.game.platforms
+	int THRESHOLD = 500;
+	int GROUP_COUNT = 5;
+	int GRID_SEPARATION = 20;
+	int WIGGLE_ROOM = 7;
 }
