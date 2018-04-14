@@ -38,6 +38,7 @@ public class MainMenu extends Scene {
     private Sprite soundButtonOn;
     private Sprite soundButtonOff;
     private Music music;
+    private boolean sounds = true;
     private SpriteBlinker blinker;
 
 
@@ -131,11 +132,12 @@ public class MainMenu extends Scene {
         } else {
             highScoreButton.draw(batch);
         }
-//        if(stopMusic == false) {
-//            soundButtonOn.draw(batch);
-//        } else {
-//            soundButtonOff.draw(batch);
-//        }
+
+        if (sounds) {
+            soundButtonOn.draw(batch);
+        } else {
+            soundButtonOff.draw(batch);
+        }
 
 
         blinker.render(batch);
@@ -165,14 +167,11 @@ public class MainMenu extends Scene {
 
         int y = Gdx.graphics.getHeight() - screenY;
         MainController controller = super.getController();
-//        if(soundButtonOn.getBoundingRectangle().contains(screenX, y)){
-//            stopMusic= true;
-//            music.stop();
-//        }
-//        if(soundButtonOff.getBoundingRectangle().contains(screenX, y)){
-//            stopMusic=false;
-//            music.play();
-//        }
+        if(soundButtonOn.getBoundingRectangle().contains(screenX, y)) {
+            // deactivate sounds
+            sounds = !sounds;
+        }
+
         if (sprite1.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.ROB));
         } else if (sprite2.getBoundingRectangle().contains(screenX, y)) {
