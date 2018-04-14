@@ -1,9 +1,10 @@
 package com.hackerhop.game.core.objects;
 
-import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -12,31 +13,18 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-import com.badlogic.gdx.Graphics;
-
-import java.util.ArrayList;
 
 public class Coin extends PhysicalObject implements GraphicsElement, Constants {
 
-    private float x, y;
-    private Sprite coinSprite;
-    private Texture coin1;
-    private Texture coin2;
-    private Texture coin3;
-    private Texture coin4;
-    private Texture coin5;
-    private Texture coin6;
-    private Texture coin15;
-    private Texture coin25;
-    private Texture coin35;
-    private Texture coin45;
-    private Texture coin55;
-    private Texture coin65;
-    ArrayList<Texture> list = new ArrayList<>();
+    private static final float ANIMATION_DURATION = .1f;
+
+    private Texture texture;
+    private TextureRegion currentFrame;
+    private Animation animation;
+    private float timeAccumulator = 0;
 
 
-    public Coin(World world) {
-
+    public Coin(float x, float y, World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.STATIC;
         bodyDef.position.set(new Vec2(x, y));
@@ -46,66 +34,35 @@ public class Coin extends PhysicalObject implements GraphicsElement, Constants {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape rectangle = new PolygonShape();
-        rectangle.setAsBox(3, -1);
+        rectangle.setAsBox(2, 2);
         fixtureDef.shape = rectangle;
         super.getBody().createFixture(fixtureDef);
     }
 
+    public void update() {
+        timeAccumulator += Gdx.graphics.getDeltaTime();
+        currentFrame = animation.getKeyFrame(timeAccumulator);
+    }
+
     @Override
     public void loadResources() {
-        coinSprite = new Sprite(new Texture("Coin/coin1.png"));
-        coin1 = new Texture("Coin/coin1.png");
-        coin2 = new Texture("Coin/coin2.png");
-        coin3 = new Texture("Coin/coin3.png");
-        coin4 = new Texture("Coin/coin4.png");
-        coin5 = new Texture("Coin/coin5.png");
-        coin6 = new Texture("Coin/coin6.png");
-        coin15 = new Texture("Coin/coin1.png");
-        coin25 = new Texture("Coin/coin2.png");
-        coin35 = new Texture("Coin/coin3.png");
-        coin45 = new Texture("Coin/coin4.png");
-        coin55 = new Texture("Coin/coin5.png");
-        coin65 = new Texture("Coin/coin6.png");
-        list.add(coin1);
-        list.add(coin15);
-        list.add(coin2);
-        list.add(coin25);
-        list.add(coin3);
-        list.add(coin35);
-        list.add(coin4);
-        list.add(coin45);
-        list.add(coin5);
-        list.add(coin55);
-        list.add(coin6);
-        list.add(coin65);
+        texture = new Texture("coin.png");
+        TextureRegion[] frames = TextureRegion.split(texture, 33, 33)[0];
 
-
+        animation = new Animation(ANIMATION_DURATION, frames);
+        animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        coinSprite = new Sprite(setCoinTexture());
-        coinSprite.setPosition(200, 360);
-        coinSprite.draw(batch);
+        batch.draw(currentFrame,
+                super.getBody().getPosition().x * PHYSICS_RATIO,
+                super.getBody().getPosition().y * PHYSICS_RATIO
+        );
     }
 
     @Override
     public void dispose() {
-        coin1.dispose();
-    }
-
-    public Texture setCoinTexture() {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == coinSprite.getTexture()) {
-                if (i == 11) {
-                    coinSprite = new Sprite(list.get(0));
-                    return list.get(0);
-                } else {
-                    coinSprite = new Sprite(list.get(i++));
-                    return list.get(i++);
-                }
-            }
-        }
-        return list.get(11);
+        texture.dispose();
     }
 }

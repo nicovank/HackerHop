@@ -13,9 +13,12 @@ import com.hackerhop.game.core.utils.Constants;
 
 public class GameOverScene extends Scene implements Constants {
 
+
     //Game Over
     private TextureRegion gameOver;
     //Final Score variables
+    private TextureRegion background;
+    // Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
     private String finalScore;
@@ -63,7 +66,6 @@ public class GameOverScene extends Scene implements Constants {
             MainController controller = super.getController();
             controller.setScene(new MainMenu(controller));
         }
-
         return true;
     }
 
