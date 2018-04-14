@@ -26,8 +26,8 @@ public class Options {
 		return Boolean.valueOf(options.getProperty("sounds")) ? 1f : 0f;
 	}
 
-	public static void playSounds(boolean sounds) throws IOException {
-		options.setProperty("sounds", Boolean.toString(sounds));
+	public static void toggleSounds() throws IOException {
+		options.setProperty("sounds", Boolean.toString(!Boolean.valueOf(options.getProperty("sounds"))));
 		options.store(new FileOutputStream("options.properties"), "Ya Yeet");
 	}
 }
