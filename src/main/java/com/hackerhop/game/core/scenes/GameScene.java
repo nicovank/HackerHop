@@ -18,8 +18,11 @@ import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
+import com.hackerhop.game.core.utils.Options;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+
+import java.io.IOException;
 
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
@@ -135,8 +138,8 @@ public class GameScene extends Scene implements Constants {
 
 		ui.begin();
 
-		font.draw(ui, String.format("Score: %s", score()), 10, 25);
 		ui.draw(highScoreBorder,0, 0);
+		font.draw(ui, String.format("Score: %s", score()), 10, 25);
 
 		ui.end();
 	}
@@ -165,6 +168,7 @@ public class GameScene extends Scene implements Constants {
 		ui = new SpriteBatch();
 
 		music.setLooping(true);
+		music.setVolume(Options.getMusicVolume());
 		music.play();
 
 		obstacleGenerator.loadResources();
