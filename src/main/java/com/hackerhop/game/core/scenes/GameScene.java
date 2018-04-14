@@ -124,7 +124,6 @@ public class GameScene extends Scene implements Constants {
 
 		batch.draw(cloudBackground, 0, camera.position.y - 500);
 		batch.draw(background, 0, -50);
-		batch.draw(highScoreBorder,0,camera.position.y -360);
 		platforms.render(batch);
 		coin.render(batch);
 		obstacleGenerator.render(batch);
@@ -137,6 +136,7 @@ public class GameScene extends Scene implements Constants {
 		ui.begin();
 
 		font.draw(ui, String.format("Score: %s", score()), 10, 25);
+		ui.draw(highScoreBorder,0, 0);
 
 		ui.end();
 	}
@@ -181,6 +181,9 @@ public class GameScene extends Scene implements Constants {
 		font.dispose();
 		ui.dispose();
 		coin.dispose();
+
+		highScoreBorder.getTexture().dispose();
+		cloudBackground.getTexture().dispose();
 
 		obstacleGenerator.dispose();
 	}
