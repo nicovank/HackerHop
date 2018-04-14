@@ -13,6 +13,7 @@ import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,7 +40,6 @@ public class MainMenu extends Scene {
     private Sprite soundButtonOn;
     private Sprite soundButtonOff;
     private Music music;
-    private boolean sounds = true;
     private SpriteBlinker blinker;
 
 
@@ -89,7 +89,7 @@ public class MainMenu extends Scene {
 
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));
         music.setLooping(true);
-        music.setVolume(Options.getMusicVolume());
+        music.setVolume(Options.sounds() ? 1f : 0f);
         music.play();
     }
 
@@ -136,7 +136,7 @@ public class MainMenu extends Scene {
             highScoreButton.draw(batch);
         }
 
-        if (sounds) {
+        if (Options.sounds()) {
             soundButtonOn.draw(batch);
         } else {
             soundButtonOff.draw(batch);
@@ -170,9 +170,15 @@ public class MainMenu extends Scene {
 
         int y = Gdx.graphics.getHeight() - screenY;
         MainController controller = super.getController();
+
         if(soundButtonOn.getBoundingRectangle().contains(screenX, y)) {
-            // deactivate sounds
-            sounds = !sounds;
+            try {
+                Options.toggleSounds();
+            } catch (IOException ignored) {
+
+            }
+
+            music.setVolume(Options.sounds() ? 1f : 0f);
         }
 
         if (sprite1.getBoundingRectangle().contains(screenX, y)) {

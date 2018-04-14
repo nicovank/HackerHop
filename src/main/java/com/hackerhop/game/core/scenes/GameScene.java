@@ -168,7 +168,7 @@ public class GameScene extends Scene implements Constants {
 		ui = new SpriteBatch();
 
 		music.setLooping(true);
-		music.setVolume(Options.getMusicVolume());
+		music.setVolume(Options.sounds() ? 1f : 0f);
 		music.play();
 
 		obstacleGenerator.loadResources();

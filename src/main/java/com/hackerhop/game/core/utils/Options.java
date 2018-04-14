@@ -18,16 +18,16 @@ public class Options {
 		}
 	}
 
-	public static float getMusicVolume() {
+	public static boolean sounds() {
 		if (options.getProperty("sounds") == null) {
-			return 1f;
+			return true;
 		}
 
-		return Boolean.valueOf(options.getProperty("sounds")) ? 1f : 0f;
+		return Boolean.valueOf(options.getProperty("sounds"));
 	}
 
 	public static void toggleSounds() throws IOException {
 		options.setProperty("sounds", Boolean.toString(!Boolean.valueOf(options.getProperty("sounds"))));
-		options.store(new FileOutputStream("options.properties"), "Ya Yeet");
+		options.store(new FileOutputStream("options.properties"), null);
 	}
 }

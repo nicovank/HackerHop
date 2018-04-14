@@ -1,3 +1,6 @@
+## "Runtime" persistent options
+options.properties
+
 ## Java
 
 *.class
