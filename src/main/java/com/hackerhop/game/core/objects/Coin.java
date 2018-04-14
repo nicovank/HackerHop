@@ -80,6 +80,7 @@ public class Coin extends PhysicalObject implements GraphicsElement, Constants {
         list.add(coin65);
 
 
+
     }
 
     @Override
@@ -92,6 +93,18 @@ public class Coin extends PhysicalObject implements GraphicsElement, Constants {
     @Override
     public void dispose() {
         coin1.dispose();
+        coin15.dispose();
+        coin2.dispose();
+        coin25.dispose();
+        coin3.dispose();
+        coin35.dispose();
+        coin4.dispose();
+        coin45.dispose();
+        coin5.dispose();
+        coin55.dispose();
+        coin6.dispose();
+        coin65.dispose();
+
     }
 
     public Texture setCoinTexture() {
@@ -107,5 +120,11 @@ public class Coin extends PhysicalObject implements GraphicsElement, Constants {
             }
         }
         return list.get(11);
+    }
+    public float getCoinPositionX(){
+        return coinSprite.getX();
+    }
+    public float getCoinPositionY(){
+        return coinSprite.getY();
     }
 }
