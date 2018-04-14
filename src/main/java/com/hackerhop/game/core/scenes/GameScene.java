@@ -43,7 +43,7 @@ public class GameScene extends Scene implements Constants {
 	private Player player;
 
 	private Platforms platforms = new Platforms(world);
-	private Coin coin = new Coin(world);
+	private Coin coin = new Coin(10, 10, world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
 	// Resources for the scene
@@ -105,6 +105,8 @@ public class GameScene extends Scene implements Constants {
 
 		camera.update();
 		obstacleGenerator.update();
+
+		coin.update();
 	}
 
 	/**

@@ -13,7 +13,7 @@ public class GameOverScene extends Scene implements Constants {
 
     private TextureRegion background;
 
-    //Final Score variables
+    // Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
     private String finalScore;
