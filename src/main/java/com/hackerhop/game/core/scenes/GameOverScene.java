@@ -14,10 +14,10 @@ import com.hackerhop.game.core.utils.Constants;
 public class GameOverScene extends Scene implements Constants {
 
 
+    //Background
+    private TextureRegion background;
     //Game Over
     private TextureRegion gameOver;
-    //Final Score variables
-    private TextureRegion background;
     // Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
@@ -39,23 +39,31 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void loadResources() {
+        background = new TextureRegion((new Texture("background/ShinemanPixel.png")));
         gameOver = new TextureRegion(new Texture("background/GameOver.png"));
         font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
-        font.setScale(0.2f);
-        font.setColor(255, 0, 0, 1);
+        font.setScale(0.15f);
+        font.setColor(0, 0, 0, 1);
         ui = new SpriteBatch();
+        restartButton = new Sprite(new Texture("gameOver/Restart.png"));
+        menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
+
     }
 
     @Override
     public void render(SpriteBatch batch) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
-        batch.draw(gameOver, 0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //batch.draw(gameOver, 0, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(menuButton, 50, 75);
+        batch.draw(restartButton, 310, 75);
         batch.end();
 
         ui.begin();
-        font.draw(ui, String.format("Final Score: %s", finalScore), 170, 680);
+        font.draw(ui, String.format("Final Score: %s", finalScore), 130, 700);
         ui.end();
 
     }
@@ -110,5 +118,7 @@ public class GameOverScene extends Scene implements Constants {
         font.dispose();
         ui.dispose();
         gameOver.getTexture().dispose();
+        menuButton.getTexture().dispose();
+        restartButton.getTexture().dispose();
     }
 }
