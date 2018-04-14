@@ -103,13 +103,7 @@ public class GameScene extends Scene implements Constants {
 			playerDeath();
 
 		}
-		System.out.println(coin.getCoinPositionX() + " " + coin.getCoinPositionY());
-		System.out.println("Camera " + camera.position.y);
 
-		if (camera.position.y == coin.getCoinPositionY() && player.getBody().getPosition().x == coin.getCoinPositionX()){
-			coin.dispose();
-			score = score + 100;
-		}
 
 		camera.update();
 		obstacleGenerator.update();
