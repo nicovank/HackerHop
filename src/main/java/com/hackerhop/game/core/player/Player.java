@@ -110,6 +110,10 @@ public class Player implements GraphicsElement, Constants {
 		return sprite.getTexture();
 	}
 
+	public Sprite getSprite(){
+		return sprite;
+	}
+
 	public void jump() {
 		 if (canJump()) {
 			body.applyForceToCenter(new Vec2(0f, 5000f));
