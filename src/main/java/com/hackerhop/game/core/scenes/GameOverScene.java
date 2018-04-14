@@ -56,7 +56,6 @@ public class GameOverScene extends Scene implements Constants {
             MainController controller = super.getController();
             controller.setScene(new MainMenu(controller));
         }
-
         return true;
     }
 

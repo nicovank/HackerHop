@@ -25,7 +25,6 @@ public class Coin extends PhysicalObject implements GraphicsElement, Constants {
 
 
     public Coin(float x, float y, World world) {
-
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.STATIC;
         bodyDef.position.set(new Vec2(x, y));

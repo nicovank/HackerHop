@@ -98,9 +98,17 @@ public class GameScene extends Scene implements Constants {
 			score += newY - oldY;
 		}
 
-		// go to game over scene if player falls below bounds
+		// o to game over scene if player falls below bounds
 		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
-			getController().setScene(new GameOverScene(getController(), score()));
+			playerDeath();
+
+		}
+		System.out.println(coin.getCoinPositionX() + " " + coin.getCoinPositionY());
+		System.out.println("Camera " + camera.position.y);
+
+		if (camera.position.y == coin.getCoinPositionY() && player.getBody().getPosition().x == coin.getCoinPositionX()){
+			coin.dispose();
+			score = score + 100;
 		}
 
 		camera.update();
@@ -306,6 +314,14 @@ public class GameScene extends Scene implements Constants {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public void playerDeath(){
+//		Character character = player.getCharacter();
+//		float x = player.getBody().getPosition().x;
+//		float y = player.getBody().getPosition().y;
+		getController().setScene(new GameOverScene(getController(), score()));
+
 	}
 
 }
