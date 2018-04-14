@@ -320,7 +320,7 @@ public class GameScene extends Scene implements Constants {
 //		Character character = player.getCharacter();
 //		float x = player.getBody().getPosition().x;
 //		float y = player.getBody().getPosition().y;
-		getController().setScene(new GameOverScene(getController(), score()));
+		getController().setScene(new GameOverScene(getController(), score(), player));
 
 	}
 

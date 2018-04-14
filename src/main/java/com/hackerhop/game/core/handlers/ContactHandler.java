@@ -1,6 +1,7 @@
 package com.hackerhop.game.core.handlers;
 
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameOverScene;
 import com.hackerhop.game.core.scenes.GameScene;
 import org.jbox2d.callbacks.ContactImpulse;
@@ -47,7 +48,8 @@ public class ContactHandler implements ContactListener {
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
 			String score = scene.score();
-			scene.getController().setScene(new GameOverScene(scene.getController(), score));
+			Player player = scene.getPlayer();
+			scene.getController().setScene(new GameOverScene(scene.getController(), score, player));
 		}
 	}
 

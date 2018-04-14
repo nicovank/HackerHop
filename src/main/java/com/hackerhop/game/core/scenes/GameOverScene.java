@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 
 public class GameOverScene extends Scene implements Constants {
@@ -25,11 +26,13 @@ public class GameOverScene extends Scene implements Constants {
     //Buttons
     private Sprite restartButton;
     private Sprite menuButton;
+    //Character
+    private Texture playerTexture;
 
-
-    public GameOverScene(MainController controller, String score) {
+    public GameOverScene(MainController controller, String score, Player player) {
         super(controller);
         finalScore = score;
+        playerTexture = player.getPlayerTexture();
     }
 
     @Override
@@ -58,8 +61,8 @@ public class GameOverScene extends Scene implements Constants {
         batch.begin();
         batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.draw(gameOver, 15, 300, 500, 400);
-        batch.draw(menuButton, 50, 75);
-        batch.draw(restartButton, 310, 75);
+        batch.draw(menuButton, 90, 75, 125, 45);
+        batch.draw(restartButton, 330, 75, 125, 45);
         batch.end();
 
         ui.begin();

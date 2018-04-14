@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.Options;
@@ -103,6 +104,10 @@ public class Player implements GraphicsElement, Constants {
 	public void dispose() {
 		sprite.getTexture().dispose();
 		jumpSound.dispose();
+	}
+
+	public Texture getPlayerTexture(){
+		return sprite.getTexture();
 	}
 
 	public void jump() {
