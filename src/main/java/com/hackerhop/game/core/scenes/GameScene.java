@@ -69,7 +69,7 @@ public class GameScene extends Scene implements Constants {
 		super(controller);
 		world.setContactListener(new ContactHandler(this));
 
-		player = new Player(world, new Vec2(0, 10), character);
+		player = new Player(world, new Vec2((SCREEN_WIDTH / (2 * PHYSICS_RATIO)), 10), character);
 
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 	}
@@ -104,9 +104,9 @@ public class GameScene extends Scene implements Constants {
 		// go to game over scene if player falls below bounds
 		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
 			playerDeath();
-
 		}
 
+		player.update();
 		camera.update();
 		obstacleGenerator.update();
 

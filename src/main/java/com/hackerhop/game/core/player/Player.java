@@ -117,6 +117,18 @@ public class Player implements GraphicsElement, Constants {
 		 }
 	}
 
+	public void update() {
+		float x = this.body.getPosition().x;
+		float y = this.body.getPosition().y;
+		float xMax = (SCREEN_WIDTH - getPlayerTexture().getWidth()) / PHYSICS_RATIO;
+
+		if (x < 0) {
+			this.body.setTransform(new Vec2(0, y), 0);
+		} else if (x > xMax) {
+			this.body.setTransform(new Vec2(xMax, y), 0);
+		}
+	}
+
 	private boolean canJump() {
 		for (ContactEdge edge = body.getContactList(); edge != null; edge = edge.next) {
 			if (edge.other.getUserData().equals("platform") && edge.contact.isTouching()) {

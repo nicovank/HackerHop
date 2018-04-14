@@ -31,6 +31,18 @@ public class ContactHandler implements ContactListener {
 			this.body1 = body1;
 			this.body2 = body2;
 		}
+
+		Body getBody(String label) {
+			if (body1.getUserData().equals(label)) {
+				return body1;
+			}
+
+			if (body2.getUserData().equals(label)) {
+				return body2;
+			}
+
+			return null;
+		}
 	}
 
 	private GameScene scene;
