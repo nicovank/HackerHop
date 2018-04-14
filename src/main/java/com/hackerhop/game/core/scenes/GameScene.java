@@ -98,12 +98,11 @@ public class GameScene extends Scene implements Constants {
 			score += newY - oldY;
 		}
 
-		// o to game over scene if player falls below bounds
+		// go to game over scene if player falls below bounds
 		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
 			playerDeath();
 
 		}
-
 
 		camera.update();
 		obstacleGenerator.update();
