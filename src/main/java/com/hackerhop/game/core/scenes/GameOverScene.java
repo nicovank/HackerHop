@@ -2,8 +2,10 @@ package com.hackerhop.game.core.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
@@ -11,12 +13,16 @@ import com.hackerhop.game.core.utils.Constants;
 
 public class GameOverScene extends Scene implements Constants {
 
-    private TextureRegion background;
-
+    //Game Over
+    private TextureRegion gameOver;
     //Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
     private String finalScore;
+    //Buttons
+    private Sprite restartButton;
+    private Sprite menuButton;
+
 
     public GameOverScene(MainController controller, String score) {
         super(controller);
@@ -30,22 +36,23 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void loadResources() {
-        background = new TextureRegion(new Texture("background/GameOver.png"));
+        gameOver = new TextureRegion(new Texture("background/GameOver.png"));
         font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
-        font.setScale(0.1f);
+        font.setScale(0.2f);
+        font.setColor(255, 0, 0, 1);
         ui = new SpriteBatch();
     }
 
     @Override
     public void render(SpriteBatch batch) {
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(background, 0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(gameOver, 0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.end();
 
         ui.begin();
-
-        font.draw(ui, String.format("Final Score: %s", finalScore), 10, 25);
-
+        font.draw(ui, String.format("Final Score: %s", finalScore), 170, 680);
         ui.end();
 
     }
@@ -100,6 +107,6 @@ public class GameOverScene extends Scene implements Constants {
     public void dispose() {
         font.dispose();
         ui.dispose();
-        background.getTexture().dispose();
+        gameOver.getTexture().dispose();
     }
 }
