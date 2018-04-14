@@ -27,12 +27,13 @@ public class GameOverScene extends Scene implements Constants {
     private Sprite restartButton;
     private Sprite menuButton;
     //Character
+    private Player userPlayer;
     private Texture playerTexture;
 
     public GameOverScene(MainController controller, String score, Player player) {
         super(controller);
         finalScore = score;
-        playerTexture = player.getPlayerTexture();
+        userPlayer = player;
     }
 
     @Override
@@ -42,6 +43,7 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void loadResources() {
+        userPlayer.loadResources();
         background = new TextureRegion((new Texture("background/ShinemanPixel.png")));
         gameOver = new TextureRegion(new Texture("gameOver/GameOver.png"));
         font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
@@ -50,7 +52,7 @@ public class GameOverScene extends Scene implements Constants {
         ui = new SpriteBatch();
         restartButton = new Sprite(new Texture("gameOver/Restart.png"));
         menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
-
+        playerTexture = userPlayer.getPlayerTexture();
     }
 
     @Override
@@ -63,6 +65,7 @@ public class GameOverScene extends Scene implements Constants {
         batch.draw(gameOver, 15, 300, 500, 400);
         batch.draw(menuButton, 90, 75, 125, 45);
         batch.draw(restartButton, 330, 75, 125, 45);
+        batch.draw(playerTexture, 205, 160, 100, 120);
         batch.end();
 
         ui.begin();
@@ -124,5 +127,7 @@ public class GameOverScene extends Scene implements Constants {
         gameOver.getTexture().dispose();
         menuButton.getTexture().dispose();
         restartButton.getTexture().dispose();
+        playerTexture.dispose();
+        userPlayer.dispose();
     }
 }

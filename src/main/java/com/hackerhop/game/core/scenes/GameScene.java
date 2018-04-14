@@ -131,8 +131,6 @@ public class GameScene extends Scene implements Constants {
 		coin.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
-
-
 		batch.end();
 
 
