@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.utils.Constants;
+import com.hackerhop.game.core.utils.Options;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -107,7 +108,7 @@ public class Player implements GraphicsElement, Constants {
 	public void jump() {
 		 if (canJump()) {
 			body.applyForceToCenter(new Vec2(0f, 5000f));
-			jumpSound.play(0.2f);
+			jumpSound.play(Options.getMusicVolume());
 		 }
 	}
 
