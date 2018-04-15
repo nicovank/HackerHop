@@ -98,7 +98,7 @@ public class GameOverScene extends Scene implements Constants {
         batch.end();
 
         ui.begin();
-        font.draw(ui, String.format("Final Score: %s", finalScore), 120, 700);
+        font.draw(ui, String.format("Final Score: %s", finalScore), 115, 700);
         ui.end();
     }
 
