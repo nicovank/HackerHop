@@ -2,8 +2,9 @@ package com.hackerhop.game.core.utils.blinkers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
-public abstract class Blinker {
+public abstract class Blinker implements Disposable {
     private float showTime;
     private float hideTime;
     private boolean isShowed = true; // start displaying the object by default

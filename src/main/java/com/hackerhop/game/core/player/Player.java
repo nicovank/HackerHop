@@ -122,7 +122,7 @@ public class Player implements GraphicsElement, Constants {
 	public void jump() {
 		 if (canJump()) {
 			 body.applyForceToCenter(new Vec2(0f, JUMP_FORCE));
-			 jumpSound.play(Options.sounds() ? 1f : 0f);
+			 jumpSound.play(Options.sounds() ? .2f : 0f);
 		 }
 	}
 
@@ -130,8 +130,10 @@ public class Player implements GraphicsElement, Constants {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
 			body.setLinearVelocity(new Vec2(- LATERAL_SPEED, body.getLinearVelocity().y));
+			setDirection(Direction.LEFT);
 		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
 			body.setLinearVelocity(new Vec2(LATERAL_SPEED, body.getLinearVelocity().y));
+			setDirection(Direction.RIGHT);
 		} else {
 			body.setLinearVelocity(new Vec2(0f, body.getLinearVelocity().y));
 		}

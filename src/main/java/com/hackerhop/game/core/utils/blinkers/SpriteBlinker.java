@@ -31,4 +31,9 @@ public class SpriteBlinker extends Blinker {
             batch.draw(sprite, x, y);
         }
     }
+
+    @Override
+    public void dispose() {
+        sprite.getTexture().dispose();
+    }
 }
