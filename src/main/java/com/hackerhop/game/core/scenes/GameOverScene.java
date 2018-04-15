@@ -5,9 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.Rectangle;
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
+import org.lwjgl.input.Controller;
 
 public class GameOverScene extends Scene implements Constants {
 
@@ -35,6 +38,7 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void update() {
+        playerSprite.rotate(3);
     }
 
     @Override
@@ -46,9 +50,19 @@ public class GameOverScene extends Scene implements Constants {
         font.setScale(0.15f);
         font.setColor(0, 0, 0, 1);
         ui = new SpriteBatch();
+
         restartButton = new Sprite(new Texture("gameOver/Restart.png"));
+        restartButton.setSize(125, 45);
+        restartButton.setPosition(330, 75);
+
         menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
+        menuButton.setSize(125, 45);
+        menuButton.setPosition(90, 75);
+
         playerSprite = userPlayer.getSprite();
+        playerSprite.setSize(100, 120);
+        playerSprite.setPosition(215, 160);
+        playerSprite.setOriginCenter();
     }
 
     @Override
@@ -59,13 +73,9 @@ public class GameOverScene extends Scene implements Constants {
         batch.begin();
         batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.draw(gameOver, 15, 300, 500, 400);
-        batch.draw(menuButton, 90, 75, 125, 45);
-        batch.draw(restartButton, 330, 75, 125, 45);
+        menuButton.draw(batch);
+        restartButton.draw(batch);
         playerSprite.draw(batch);
-        playerSprite.setSize(100, 120);
-        playerSprite.setPosition(215, 160);
-        playerSprite.setOriginCenter();
-        playerSprite.rotate(3);
         batch.end();
 
         ui.begin();
@@ -94,8 +104,18 @@ public class GameOverScene extends Scene implements Constants {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        int y = Gdx.graphics.getHeight() - screenY;
+        MainController controller = super.getController();
+
+        Rectangle r = restartButton.getBoundingRectangle();
+        if(restartButton.getBoundingRectangle().contains(screenX, y)){
+            controller.setScene(new GameScene(controller, userPlayer.getCharacter()));
+        } else if(menuButton.getBoundingRectangle().contains(screenX, y)){
+            controller.setScene(new MainMenu(controller));
+        }
+
+        return true;
     }
 
     @Override
