@@ -10,14 +10,14 @@ import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 
-import static com.hackerhop.game.core.utils.Methods.randomFloat;
 import static com.hackerhop.game.core.utils.Methods.randomInt;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
     private static final String TAG = GameScene.class.getName();
 
-    // Never more than 5 obstacles (arbitrary)
-    private Obstacle[] obstacles = new Obstacle[5];
+    // Array indexes serve as grids
+    // SCREEN_WIDTH / Obstacle.WIDTH gives 10 grids with spaces of width 20 on either side of the screen
+    private Obstacle[] obstacles = new Obstacle[10];
     private int obstacleCount = 0;
 
     private World world;
@@ -42,7 +42,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         for (int i = 0; i < obstacles.length; ++i) {
             Obstacle obstacle = obstacles[i];
 
-            if (obstacle != null) {
+            if (obstacles[i] != null) {
                 float obstacleY = obstacle.getBody().getPosition().y * PHYSICS_RATIO;
                 float boundary = camera.position.y - SCREEN_HEIGHT;
 
@@ -67,22 +67,22 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
      * Generates a new obstacle if we have not yet reached the maximum number of obstacles.
      */
     public void generateObstacle() {
-        ++obstacleCount;
-        float x = randomFloat(5f, (SCREEN_WIDTH / PHYSICS_RATIO) - 5f);
-        x = (x < 0) ? 0 : x;
-        x = (x > 49) ? 49 : x;
+
+        int index = randomInt(obstacles.length);
+
+        while (obstacles[index] != null) {
+            index = randomInt(obstacles.length);
+        }
+
+        float x = 2 + (5 * index);
         float y = (camera.position.y / PHYSICS_RATIO) + 500;
 
-        Obstacle obstacle = new Obstacle(x, y, world);
-        obstacle.loadResources();
+        obstacles[index] = new Obstacle(x, y, world);
+        obstacles[index].loadResources();
+        ++obstacleCount;
 
-        for (int i = 0; i < obstacles.length; ++i) {
-            if (obstacles[i] == null) {
-                obstacles[i] = obstacle;
-                break;
-            }
-        }
     }
+
 
     @Override
     public void loadResources() {
