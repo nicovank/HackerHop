@@ -122,7 +122,7 @@ public class Player implements GraphicsElement, Constants {
 	public void jump() {
 		 if (canJump()) {
 			 body.applyForceToCenter(new Vec2(0f, JUMP_FORCE));
-			 jumpSound.play(Options.sounds() ? 1f : 0f);
+			 jumpSound.play(Options.sounds() ? .2f : 0f);
 		 }
 	}
 
