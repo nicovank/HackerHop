@@ -183,16 +183,16 @@ public class MainMenu extends Scene {
 		}
 
 		if (rob.getBoundingRectangle().contains(screenX, y)) {
-			controller.setScene(new GameScene(controller, Character.ROB));
+			controller.setScene(new HelpScene(controller, Character.ROB));
 
 		} else if (nick.getBoundingRectangle().contains(screenX, y)) {
-			controller.setScene(new GameScene(controller, Character.NICK));
+			controller.setScene(new HelpScene(controller, Character.NICK));
 
 		} else if (kate.getBoundingRectangle().contains(screenX, y)) {
-			controller.setScene(new GameScene(controller, Character.KATIE));
+			controller.setScene(new HelpScene(controller, Character.KATIE));
 
 		} else if (ye.getBoundingRectangle().contains(screenX, y)) {
-			controller.setScene(new GameScene(controller, Character.YE));
+			controller.setScene(new HelpScene(controller, Character.YE));
 
 		} else if (gitHubButton.getBoundingRectangle().contains(screenX, y)) {
 			try {
