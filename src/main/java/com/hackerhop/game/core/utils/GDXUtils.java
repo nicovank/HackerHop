@@ -8,7 +8,7 @@ public class GDXUtils {
 	 * Returns the x-position of the mouse on screen.
 	 * @return the x-position of the mouse on screen.
 	 */
-	public static int mouseX() {
+	public static int getMouseX() {
 		return Gdx.input.getX();
 	}
 
@@ -16,7 +16,7 @@ public class GDXUtils {
 	 * Returns the x-position of the mouse on screen.
 	 * @return the x-position of the mouse on screen.
 	 */
-	public static int mouseY() {
+	public static int getMouseY() {
 		return Gdx.graphics.getHeight() - Gdx.input.getY();
 	}
 
@@ -24,7 +24,7 @@ public class GDXUtils {
 	 * Returns the position of the mouse on the screen.
 	 * @return a Vector2 representing the position of the mouse on screen.
 	 */
-	public static Vector2 mousePosition() {
-		return new Vector2(mouseX(), mouseY());
+	public static Vector2 getMousePosition() {
+		return new Vector2(getMouseX(), getMouseY());
 	}
 }

@@ -22,7 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import static com.hackerhop.game.core.utils.GDXUtils.*;
+import static com.hackerhop.game.core.utils.GDXUtils.getMousePosition;
 
 public class MainMenu extends Scene {
 
@@ -65,7 +65,7 @@ public class MainMenu extends Scene {
 		final Sprite robSprite = new Sprite(new Texture("player/rob.png"));
 		robSprite.setPosition(100, 75);
 		this.rob = new ToggleableSprite(
-				() -> robSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				() -> robSprite.getBoundingRectangle().contains(getMousePosition()),
 				upscale(robSprite, CHARACTER_ZOOM),
 				robSprite
 
@@ -74,7 +74,7 @@ public class MainMenu extends Scene {
 		final Sprite nickSprite = new Sprite(new Texture("player/Nick.png"));
 		nickSprite.setPosition(200, 75);
 		this.nick = new ToggleableSprite(
-				() -> nickSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				() -> nickSprite.getBoundingRectangle().contains(getMousePosition()),
 				upscale(nickSprite, CHARACTER_ZOOM),
 				nickSprite
 
@@ -83,7 +83,7 @@ public class MainMenu extends Scene {
 		final Sprite kateSprite = new Sprite(new Texture("player/Katie.png"));
 		kateSprite.setPosition(300, 75);
 		this.kate = new ToggleableSprite(
-				() -> kateSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				() -> kateSprite.getBoundingRectangle().contains(getMousePosition()),
 				upscale(kateSprite, CHARACTER_ZOOM),
 				kateSprite
 
@@ -92,7 +92,7 @@ public class MainMenu extends Scene {
 		final Sprite yeSprite = new Sprite(new Texture("player/Ye.png"));
 		yeSprite.setPosition(400, 75);
 		this.ye = new ToggleableSprite(
-				() -> yeSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				() -> yeSprite.getBoundingRectangle().contains(getMousePosition()),
 				upscale(yeSprite, CHARACTER_ZOOM),
 				yeSprite
 

@@ -2,11 +2,10 @@ package com.hackerhop.game.core.objects.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.hackerhop.game.core.utils.toggleable.ToggleableSprite;
 import org.jbox2d.common.Vec2;
 
-import static com.hackerhop.game.core.utils.GDXUtils.mousePosition;
+import static com.hackerhop.game.core.utils.GDXUtils.getMousePosition;
 
 public class Button extends ToggleableSprite {
 
@@ -27,7 +26,7 @@ public class Button extends ToggleableSprite {
 
 	private Button(Sprite activeSprite, Sprite inactiveSprite, Vec2 position) {
 		super(
-				() -> inactiveSprite.getBoundingRectangle().contains(mousePosition()),
+				() -> inactiveSprite.getBoundingRectangle().contains(getMousePosition()),
 				activeSprite,
 				inactiveSprite
 		);
