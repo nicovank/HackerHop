@@ -54,8 +54,8 @@ public class PlatformGroup implements GraphicsElement, Constants {
 //                    while (((GRID_SEPARATION * i) + offset) < 0 || ((GRID_SEPARATION * i) + offset) > 48){
 //                        offset = wiggleRoom - r.nextInt(2 * wiggleRoom);
 //                    }
-                    float x = (((GRID_SEPARATION * i) + offset) < 0) ? 0 : (GRID_SEPARATION * i) + offset;
-                    x = (((GRID_SEPARATION * i) + offset) > 48) ? 48 : x;
+                    float x = (((GRID_SEPARATION * i) + offset) < 6) ? 6 : (GRID_SEPARATION * i) + offset;
+                    x = (((GRID_SEPARATION * i) + offset) > 42) ? 42 : x;
 
 
                     h[i] = new Platform(x,
