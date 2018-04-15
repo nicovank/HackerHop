@@ -2,6 +2,7 @@ package com.hackerhop.game.core.utils.toggleable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.function.Supplier;
 
@@ -13,6 +14,10 @@ public class ToggleableSprite extends Toggleable {
 		super(condition);
 		this.activeSprite = activeSprite;
 		this.inactiveSprite = inactiveSprite;
+	}
+
+	public Rectangle getBoundingRectangle() {
+		return inactiveSprite.getBoundingRectangle();
 	}
 
 	public Sprite getActiveSprite() {

@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hackerhop.game.core.objects.ui.Button;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.utils.Options;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import com.hackerhop.game.core.utils.toggleable.ToggleableSprite;
+import org.jbox2d.common.Vec2;
 
 
 import java.awt.*;
@@ -21,7 +23,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import static com.hackerhop.game.core.utils.GDXUtils.*;
-
 
 public class MainMenu extends Scene {
 
@@ -38,13 +39,13 @@ public class MainMenu extends Scene {
 	private ToggleableSprite kate;
 	private ToggleableSprite ye;
 
-	private ToggleableSprite highScoreButton;
-	private ToggleableSprite gitHubButton;
+	private Button highScoreButton;
+	private Button gitHubButton;
 
 	private Sprite textDisplay;
 	private SpriteBlinker blinker;
 
-	private ToggleableSprite soundButton;
+	private Button soundButton;
 	private Music music;
 
 	public MainMenu(MainController controller) {
@@ -97,38 +98,25 @@ public class MainMenu extends Scene {
 
 		);
 
-		final Sprite highScoreButton = new Sprite(new Texture("mainScreen/HighScoreButton.png"));
-		final Sprite highScoreButtonHover = new Sprite(new Texture("mainScreen/UnderConstruction.png"));
-		highScoreButton.setPosition(75, 325);
-		highScoreButtonHover.setPosition(highScoreButton.getX(), highScoreButton.getY());
-
-		this.highScoreButton = new ToggleableSprite(
-				() -> highScoreButton.getBoundingRectangle().contains(mouseX(), mouseY()),
-				highScoreButtonHover,
-				highScoreButton
+		this.highScoreButton = new Button(
+				"mainScreen/HighScoreButton.png",
+				"mainScreen/UnderConstruction.png",
+				new Vec2(75, 325)
 		);
 
-		final Sprite gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
-		gitHubButton.setPosition(285, 325);
-		final Sprite gitHubButtonHover = new Sprite(new Texture("mainScreen/GitHubButtonHover.png"));
-		gitHubButtonHover.setPosition(gitHubButton.getX(), gitHubButton.getY());
-
-		this.gitHubButton = new ToggleableSprite(
-				() -> gitHubButton.getBoundingRectangle().contains(mouseX(), mouseY()),
-				gitHubButtonHover,
-				gitHubButton
+		this.gitHubButton = new Button(
+				"mainScreen/GitHubButton.png",
+				"mainScreen/GitHubButtonHover.png",
+				new Vec2(285, 325)
 		);
 
-		Sprite arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
-		arrow.setPosition(0, 0);
-		blinker = new SpriteBlinker(arrow, 1f, .5f);
-
+		blinker = new SpriteBlinker(new Sprite(new Texture("mainScreen/Arrow.png")), 1f, .5f);
 		textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
 
-		soundButton = new ToggleableSprite(
-				Options::sounds,
-				new Sprite(new Texture("mainScreen/soundButton.png")),
-				new Sprite(new Texture("mainScreen/soundButtonOff.png"))
+		this.soundButton = new Button(
+				"mainScreen/soundButton.png",
+				"mainScreen/soundButtonOff.png",
+				new Vec2(0, 0)
 		);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));
@@ -184,7 +172,7 @@ public class MainMenu extends Scene {
 		int y = Gdx.graphics.getHeight() - screenY;
 		MainController controller = super.getController();
 
-		if (soundButton.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		if (soundButton.getBoundingRectangle().contains(screenX, y)) {
 			try {
 				Options.toggleSounds();
 			} catch (IOException ignored) {
@@ -194,19 +182,19 @@ public class MainMenu extends Scene {
 			music.setVolume(Options.sounds() ? 1f : 0f);
 		}
 
-		if (rob.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		if (rob.getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.ROB));
 
-		} else if (nick.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		} else if (nick.getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.NICK));
 
-		} else if (kate.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		} else if (kate.getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.KATIE));
 
-		} else if (ye.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		} else if (ye.getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.YE));
 
-		} else if (gitHubButton.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
+		} else if (gitHubButton.getBoundingRectangle().contains(screenX, y)) {
 			try {
 				openWebpage(new URL("https://github.com/nicovank/HackerHop"));
 			} catch (MalformedURLException ignored) {

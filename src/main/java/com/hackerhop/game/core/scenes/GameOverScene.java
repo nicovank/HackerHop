@@ -7,27 +7,29 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.hackerhop.game.core.MainController;
+import com.hackerhop.game.core.objects.ui.Button;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
+import org.jbox2d.common.Vec2;
 
 import static com.hackerhop.game.core.utils.GDXUtils.*;
 
 public class GameOverScene extends Scene implements Constants {
 
-
     //Background
     private TextureRegion background;
     //Game Over
     private TextureRegion gameOver;
+
     // Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
     private String finalScore;
+
     //Buttons
-    private Sprite restartButton;
-    private Sprite restartButtonHover;
-    private Sprite menuButton;
-    private Sprite menuButtonHover;
+    private Button restartButton;
+    private Button menuButton;
+
     //Character
     private Player userPlayer;
     private Sprite playerSprite;
@@ -53,19 +55,19 @@ public class GameOverScene extends Scene implements Constants {
         font.setColor(0, 0, 0, 1);
         ui = new SpriteBatch();
 
-        restartButton = new Sprite(new Texture("gameOver/Restart.png"));
-        restartButtonHover = new Sprite(new Texture("gameOver/RestartHover.png"));
-        restartButton.setSize(125, 45);
-        restartButton.setPosition(330, 75);
-        restartButtonHover.setSize(125, 45);
-        restartButtonHover.setPosition(330, 75);
+        restartButton = new Button(
+                "gameOver/Restart.png",
+                "gameOver/RestartHover.png",
+                new Vec2(330, 75),
+                new Vec2(125, 45)
+        );
 
-        menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
-        menuButtonHover = new Sprite(new Texture("gameOver/MainMenuHover.png"));
-        menuButton.setSize(125, 45);
-        menuButton.setPosition(90, 75);
-        menuButtonHover.setSize(125, 45);
-        menuButtonHover.setPosition(90, 75);
+        menuButton = new Button(
+                "gameOver/MainMenu.png",
+                "gameOver/MainMenuHover.png",
+                new Vec2(90, 75),
+                new Vec2(125, 45)
+        );
 
         playerSprite = userPlayer.getSprite();
         playerSprite.setSize(100, 120);
@@ -82,17 +84,8 @@ public class GameOverScene extends Scene implements Constants {
         batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.draw(gameOver, 15, 300, 500, 400);
 
-        if (menuButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
-            menuButtonHover.draw(batch);
-        } else {
-            menuButton.draw(batch);
-        }
-
-        if (restartButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
-            restartButtonHover.draw(batch);
-        } else {
-            restartButton.draw(batch);
-        }
+        menuButton.render(batch);
+        restartButton.render(batch);
 
         playerSprite.draw(batch);
         batch.end();
@@ -164,8 +157,8 @@ public class GameOverScene extends Scene implements Constants {
         ui.dispose();
         background.getTexture().dispose();
         gameOver.getTexture().dispose();
-        menuButton.getTexture().dispose();
-        restartButton.getTexture().dispose();
+        menuButton.dispose();
+        restartButton.dispose();
         userPlayer.dispose();
         playerSprite.getTexture().dispose();
     }
