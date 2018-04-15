@@ -33,10 +33,10 @@ public class MainMenu extends Scene {
 	private Texture logo;
 	private Texture background;
 
-	private Sprite rob;
-	private Sprite nick;
-	private Sprite kate;
-	private Sprite ye;
+	private ToggleableSprite rob;
+	private ToggleableSprite nick;
+	private ToggleableSprite kate;
+	private ToggleableSprite ye;
 
 	private ToggleableSprite highScoreButton;
 	private ToggleableSprite gitHubButton;
@@ -61,17 +61,41 @@ public class MainMenu extends Scene {
 		logo = new Texture("mainScreen/Logo.png");
 		background = new Texture("background/ShinemanPixel.png");
 
-		rob = new Sprite(new Texture("player/rob.png"));
-		rob.setPosition(100, 75);
+		final Sprite robSprite = new Sprite(new Texture("player/rob.png"));
+		robSprite.setPosition(100, 75);
+		this.rob = new ToggleableSprite(
+				() -> robSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				upscale(robSprite, CHARACTER_ZOOM),
+				robSprite
 
-		nick = new Sprite(new Texture("player/Nick.png"));
-		nick.setPosition(200, 75);
+		);
 
-		kate = new Sprite(new Texture("player/Katie.png"));
-		kate.setPosition(300, 75);
+		final Sprite nickSprite = new Sprite(new Texture("player/Nick.png"));
+		nickSprite.setPosition(200, 75);
+		this.nick = new ToggleableSprite(
+				() -> nickSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				upscale(nickSprite, CHARACTER_ZOOM),
+				nickSprite
 
-		ye = new Sprite(new Texture("player/Ye.png"));
-		ye.setPosition(400, 75);
+		);
+
+		final Sprite kateSprite = new Sprite(new Texture("player/Katie.png"));
+		kateSprite.setPosition(300, 75);
+		this.kate = new ToggleableSprite(
+				() -> kateSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				upscale(kateSprite, CHARACTER_ZOOM),
+				kateSprite
+
+		);
+
+		final Sprite yeSprite = new Sprite(new Texture("player/Ye.png"));
+		yeSprite.setPosition(400, 75);
+		this.ye = new ToggleableSprite(
+				() -> yeSprite.getBoundingRectangle().contains(mouseX(), mouseY()),
+				upscale(yeSprite, CHARACTER_ZOOM),
+				yeSprite
+
+		);
 
 		final Sprite highScoreButton = new Sprite(new Texture("mainScreen/HighScoreButton.png"));
 		final Sprite highScoreButtonHover = new Sprite(new Texture("mainScreen/UnderConstruction.png"));
@@ -125,27 +149,10 @@ public class MainMenu extends Scene {
 		batch.draw(background, 0, 0);
 		batch.draw(logo, 0, 50);
 
-		if (rob.getBoundingRectangle().contains(mouseX(), mouseY())) {
-			batch.draw(rob, rob.getX(), rob.getY(), rob.getWidth() * CHARACTER_ZOOM, rob.getHeight() * CHARACTER_ZOOM);
-		} else {
-			rob.draw(batch);
-		}
-
-		if (nick.getBoundingRectangle().contains(mouseX(), mouseY())) {
-			batch.draw(nick, nick.getX(), nick.getY(), nick.getWidth() * CHARACTER_ZOOM, nick.getHeight() * CHARACTER_ZOOM);
-		} else {
-			nick.draw(batch);
-		}
-		if (kate.getBoundingRectangle().contains(mouseX(), mouseY())) {
-			batch.draw(kate, kate.getX(), kate.getY(), kate.getWidth() * CHARACTER_ZOOM, kate.getHeight() * CHARACTER_ZOOM);
-		} else {
-			kate.draw(batch);
-		}
-		if (ye.getBoundingRectangle().contains(mouseX(), mouseY())) {
-			batch.draw(ye, ye.getX(), ye.getY(), ye.getWidth() * CHARACTER_ZOOM, ye.getHeight() * CHARACTER_ZOOM);
-		} else {
-			ye.draw(batch);
-		}
+		rob.render(batch);
+		nick.render(batch);
+		kate.render(batch);
+		ye.render(batch);
 
 		gitHubButton.render(batch);
 		highScoreButton.render(batch);
@@ -187,16 +194,16 @@ public class MainMenu extends Scene {
 			music.setVolume(Options.sounds() ? 1f : 0f);
 		}
 
-		if (rob.getBoundingRectangle().contains(screenX, y)) {
+		if (rob.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.ROB));
 
-		} else if (nick.getBoundingRectangle().contains(screenX, y)) {
+		} else if (nick.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.NICK));
 
-		} else if (kate.getBoundingRectangle().contains(screenX, y)) {
+		} else if (kate.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.KATIE));
 
-		} else if (ye.getBoundingRectangle().contains(screenX, y)) {
+		} else if (ye.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
 			controller.setScene(new GameScene(controller, Character.YE));
 
 		} else if (gitHubButton.getActiveSprite().getBoundingRectangle().contains(screenX, y)) {
@@ -235,10 +242,10 @@ public class MainMenu extends Scene {
 		logo.dispose();
 		background.dispose();
 
-		rob.getTexture().dispose();
-		nick.getTexture().dispose();
-		kate.getTexture().dispose();
-		ye.getTexture().dispose();
+		rob.dispose();
+		nick.dispose();
+		kate.dispose();
+		ye.dispose();
 
 		highScoreButton.dispose();
 		gitHubButton.dispose();
@@ -273,5 +280,12 @@ public class MainMenu extends Scene {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private static Sprite upscale(Sprite original, float scale) {
+		Sprite upscaled = new Sprite(original.getTexture());
+		upscaled.setPosition(original.getX(), original.getY());
+		upscaled.setScale(scale);
+		return upscaled;
 	}
 }
