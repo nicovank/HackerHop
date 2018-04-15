@@ -15,6 +15,14 @@ public class ToggleableSprite extends Toggleable {
 		this.inactiveSprite = inactiveSprite;
 	}
 
+	public Sprite getActiveSprite() {
+		return activeSprite;
+	}
+
+	public Sprite getInactiveSprite() {
+		return inactiveSprite;
+	}
+
 	@Override
 	public void render(SpriteBatch batch) {
 		if (super.isActive()) {
