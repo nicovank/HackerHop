@@ -10,6 +10,7 @@ import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.utils.Options;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
+import com.hackerhop.game.core.utils.toggleable.ToggleableSprite;
 
 
 import java.awt.*;
@@ -19,30 +20,35 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import static com.hackerhop.game.core.utils.GDXUtils.*;
+
 
 public class MainMenu extends Scene {
 
     private static final String TAG = MainMenu.class.getName();
 
+    private static final float CHARACTER_ZOOM = 1.2f;
+
     // Main Screen Textures
     private Texture logo;
     private Texture background;
-    private Sprite sprite1;
-    private Sprite sprite2;
-    private Sprite sprite3;
-    private Sprite sprite4;
+
+    private Sprite rob;
+    private Sprite nick;
+    private Sprite kate;
+    private Sprite ye;
+
     private Sprite highScoreButton;
-    private Sprite getGitHubButtonActivated;
+    private Sprite highScoreButtonHover;
     private Sprite gitHubButton;
-    private Sprite arrow;
+    private Sprite gitHubButtonHover;
+
     private Sprite textDisplay;
-    private Sprite underConstruction;
+    private SpriteBlinker blinker;
+
     private Sprite soundButtonOn;
     private Sprite soundButtonOff;
     private Music music;
-    private SpriteBlinker blinker;
-
-
 
     public MainMenu(MainController controller) {
         super(controller);
@@ -58,34 +64,38 @@ public class MainMenu extends Scene {
         logo = new Texture("mainScreen/Logo.png");
         background = new Texture("background/ShinemanPixel.png");
 
-        sprite1 = new Sprite(new Texture("player/rob.png"));
-        sprite1.setPosition(100, 75);
+        rob = new Sprite(new Texture("player/rob.png"));
+        rob.setPosition(100, 75);
 
-        sprite2 = new Sprite(new Texture("player/Nick.png"));
-        sprite2.setPosition(200, 75);
+        nick = new Sprite(new Texture("player/Nick.png"));
+        nick.setPosition(200, 75);
 
-        sprite3 = new Sprite(new Texture("player/Katie.png"));
-        sprite3.setPosition(300, 75);
+        kate = new Sprite(new Texture("player/Katie.png"));
+        kate.setPosition(300, 75);
 
-        sprite4 = new Sprite(new Texture("player/Ye.png"));
-        sprite4.setPosition(400, 75);
+        ye = new Sprite(new Texture("player/Ye.png"));
+        ye.setPosition(400, 75);
 
         highScoreButton = new Sprite(new Texture("mainScreen/HighScoreButton.png"));
+        highScoreButtonHover = new Sprite(new Texture("mainScreen/UnderConstruction.png"));
         highScoreButton.setPosition(75, 325);
+        highScoreButtonHover.setPosition(highScoreButton.getX(), highScoreButton.getY());
 
         gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
         gitHubButton.setPosition(285, 325);
-        getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonHover.png"));
-        getGitHubButtonActivated.setPosition(285, 325);
-        arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
+        gitHubButtonHover = new Sprite(new Texture("mainScreen/GitHubButtonHover.png"));
+        gitHubButtonHover.setPosition(gitHubButton.getX(), gitHubButton.getY());
+
+        Sprite arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
         arrow.setPosition(0, 0);
         blinker = new SpriteBlinker(arrow, 1f, .5f);
+
         textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
-        underConstruction = new Sprite(new Texture("mainScreen/UnderConstruction.png"));
+
         soundButtonOn = new Sprite(new Texture("mainScreen/soundButton.png"));
         soundButtonOn.setPosition(0, 0);
         soundButtonOff = new Sprite(new Texture("mainScreen/soundButtonOff.png"));
-        soundButtonOff.setPosition(0, 0);
+        soundButtonOff.setPosition(soundButtonOn.getX(), soundButtonOn.getY());
 
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));
         music.setLooping(true);
@@ -104,34 +114,36 @@ public class MainMenu extends Scene {
 
         batch.draw(background, 0, 0);
         batch.draw(logo, 0, 50);
-        if (sprite1.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
-            batch.draw(sprite1, 75, 50, 90, 125);
+
+        if (rob.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            batch.draw(rob, rob.getX(), rob.getY(), rob.getWidth() * CHARACTER_ZOOM, rob.getHeight() * CHARACTER_ZOOM);
         } else {
-            sprite1.draw(batch);
+            rob.draw(batch);
         }
-        if (sprite2.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
-            batch.draw(sprite2, 175, 50, 90, 125);
+
+        if (nick.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            batch.draw(nick, nick.getX(), nick.getY(), nick.getWidth() * CHARACTER_ZOOM, nick.getHeight() * CHARACTER_ZOOM);
         } else {
-            sprite2.draw(batch);
+            nick.draw(batch);
         }
-        if (sprite3.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
-            batch.draw(sprite3, 275, 50, 90, 125);
+        if (kate.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            batch.draw(kate, kate.getX(), kate.getY(), kate.getWidth() * CHARACTER_ZOOM, kate.getHeight() * CHARACTER_ZOOM);
         } else {
-            sprite3.draw(batch);
+            kate.draw(batch);
         }
-        if (sprite4.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY() / 7))) {
-            batch.draw(sprite4, 375, 50, 90, 125);
+        if (ye.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            batch.draw(ye, ye.getX(), ye.getY(), ye.getWidth() * CHARACTER_ZOOM, ye.getHeight() * CHARACTER_ZOOM);
         } else {
-            sprite4.draw(batch);
+            ye.draw(batch);
         }
-        if (gitHubButton.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY()))) {
-            batch.draw(getGitHubButtonActivated, 285, 325);
+        if (gitHubButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            gitHubButtonHover.draw(batch);
         } else {
             gitHubButton.draw(batch);
         }
 
-        if (highScoreButton.getBoundingRectangle().contains(Gdx.input.getX(), (Gdx.input.getY()))) {
-            batch.draw(underConstruction, 75, 325);
+        if (highScoreButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            highScoreButtonHover.draw(batch);
         } else {
             highScoreButton.draw(batch);
         }
@@ -141,7 +153,6 @@ public class MainMenu extends Scene {
         } else {
             soundButtonOff.draw(batch);
         }
-
 
         blinker.render(batch);
         textDisplay.draw(batch);
@@ -166,8 +177,6 @@ public class MainMenu extends Scene {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-
         int y = Gdx.graphics.getHeight() - screenY;
         MainController controller = super.getController();
 
@@ -181,14 +190,18 @@ public class MainMenu extends Scene {
             music.setVolume(Options.sounds() ? 1f : 0f);
         }
 
-        if (sprite1.getBoundingRectangle().contains(screenX, y)) {
+        if (rob.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.ROB));
-        } else if (sprite2.getBoundingRectangle().contains(screenX, y)) {
+
+        } else if (nick.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.NICK));
-        } else if (sprite3.getBoundingRectangle().contains(screenX, y)) {
+
+        } else if (kate.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.KATIE));
-        } else if (sprite4.getBoundingRectangle().contains(screenX, y)) {
+
+        } else if (ye.getBoundingRectangle().contains(screenX, y)) {
             controller.setScene(new GameScene(controller, Character.YE));
+
         } else if (gitHubButton.getBoundingRectangle().contains(screenX, y)) {
             try {
                 openWebpage(new URL("https://github.com/nicovank/HackerHop"));
@@ -225,15 +238,20 @@ public class MainMenu extends Scene {
         logo.dispose();
         background.dispose();
 
-        sprite1.getTexture().dispose();
-        sprite2.getTexture().dispose();
-        sprite3.getTexture().dispose();
-        sprite4.getTexture().dispose();
+        rob.getTexture().dispose();
+        nick.getTexture().dispose();
+        kate.getTexture().dispose();
+        ye.getTexture().dispose();
+
         highScoreButton.getTexture().dispose();
         gitHubButton.getTexture().dispose();
-        getGitHubButtonActivated.getTexture().dispose();
-        arrow.getTexture().dispose();
-        underConstruction.getTexture().dispose();
+        gitHubButtonHover.getTexture().dispose();
+        highScoreButtonHover.getTexture().dispose();
+
+        blinker.dispose();
+
+        textDisplay.getTexture().dispose();
+
         soundButtonOn.getTexture().dispose();
         soundButtonOff.getTexture().dispose();
 

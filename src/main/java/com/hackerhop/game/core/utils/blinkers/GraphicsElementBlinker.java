@@ -28,5 +28,4 @@ public class GraphicsElementBlinker extends Blinker implements GraphicsElement {
     public void dispose() {
         element.dispose();
     }
-    
 }
