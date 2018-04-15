@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
@@ -28,7 +25,7 @@ public class GameOverScene extends Scene implements Constants {
     private Sprite menuButton;
     //Character
     private Player userPlayer;
-    private Texture playerTexture;
+    private Sprite playerSprite;
 
     public GameOverScene(MainController controller, String score, Player player) {
         super(controller);
@@ -38,7 +35,6 @@ public class GameOverScene extends Scene implements Constants {
 
     @Override
     public void update() {
-
     }
 
     @Override
@@ -52,7 +48,7 @@ public class GameOverScene extends Scene implements Constants {
         ui = new SpriteBatch();
         restartButton = new Sprite(new Texture("gameOver/Restart.png"));
         menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
-        playerTexture = userPlayer.getPlayerTexture();
+        playerSprite = userPlayer.getSprite();
     }
 
     @Override
@@ -65,13 +61,16 @@ public class GameOverScene extends Scene implements Constants {
         batch.draw(gameOver, 15, 300, 500, 400);
         batch.draw(menuButton, 90, 75, 125, 45);
         batch.draw(restartButton, 330, 75, 125, 45);
-        batch.draw(playerTexture, 205, 160, 100, 120);
+        playerSprite.draw(batch);
+        playerSprite.setSize(100, 120);
+        playerSprite.setPosition(215, 160);
+        playerSprite.setOriginCenter();
+        playerSprite.rotate(3);
         batch.end();
 
         ui.begin();
         font.draw(ui, String.format("Final Score: %s", finalScore), 120, 700);
         ui.end();
-
     }
 
     @Override
@@ -127,7 +126,7 @@ public class GameOverScene extends Scene implements Constants {
         gameOver.getTexture().dispose();
         menuButton.getTexture().dispose();
         restartButton.getTexture().dispose();
-        playerTexture.dispose();
         userPlayer.dispose();
+        playerSprite.getTexture().dispose();
     }
 }
