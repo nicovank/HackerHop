@@ -45,7 +45,7 @@ public class MainMenu extends Scene {
 	private Sprite textDisplay;
 	private SpriteBlinker blinker;
 
-	private Button soundButton;
+	private ToggleableSprite soundButton;
 	private Music music;
 
 	public MainMenu(MainController controller) {
@@ -113,10 +113,10 @@ public class MainMenu extends Scene {
 		blinker = new SpriteBlinker(new Sprite(new Texture("mainScreen/Arrow.png")), 1f, .5f);
 		textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
 
-		this.soundButton = new Button(
-				"mainScreen/soundButton.png",
-				"mainScreen/soundButtonOff.png",
-				new Vec2(0, 0)
+		this.soundButton = new ToggleableSprite(
+				Options::sounds,
+				new Sprite(new Texture("mainScreen/soundButton.png")),
+				new Sprite(new Texture("mainScreen/soundButtonOff.png"))
 		);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));
