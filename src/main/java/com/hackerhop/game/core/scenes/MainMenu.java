@@ -75,7 +75,7 @@ public class MainMenu extends Scene {
 
         gitHubButton = new Sprite(new Texture("mainScreen/GitHubButton.png"));
         gitHubButton.setPosition(285, 325);
-        getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonActivated.png"));
+        getGitHubButtonActivated = new Sprite(new Texture("mainScreen/GitHubButtonHover.png"));
         getGitHubButtonActivated.setPosition(285, 325);
         arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
         arrow.setPosition(0, 0);

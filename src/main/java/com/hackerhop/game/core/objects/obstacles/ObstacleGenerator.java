@@ -10,8 +10,8 @@ import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 
-import static com.hackerhop.game.core.utils.Methods.randomFloat;
-import static com.hackerhop.game.core.utils.Methods.randomInt;
+import static com.hackerhop.game.core.utils.Random.randomFloat;
+import static com.hackerhop.game.core.utils.Random.randomInt;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
     private static final String TAG = GameScene.class.getName();

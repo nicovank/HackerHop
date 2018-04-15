@@ -3,7 +3,7 @@ package com.hackerhop.game.core.utils;
 /**
  * Some utility methods that we can use in different parts of the project.
  */
-public class Methods {
+public class Random {
 
 	/**
 	 * Generates a random integer between min inclusive and max exclusive.

@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.hackerhop.game.core.MainController;
-import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
-import org.lwjgl.input.Controller;
+
+import static com.hackerhop.game.core.utils.GDXUtils.*;
 
 public class GameOverScene extends Scene implements Constants {
 
@@ -25,7 +25,9 @@ public class GameOverScene extends Scene implements Constants {
     private String finalScore;
     //Buttons
     private Sprite restartButton;
+    private Sprite restartButtonHover;
     private Sprite menuButton;
+    private Sprite menuButtonHover;
     //Character
     private Player userPlayer;
     private Sprite playerSprite;
@@ -52,12 +54,18 @@ public class GameOverScene extends Scene implements Constants {
         ui = new SpriteBatch();
 
         restartButton = new Sprite(new Texture("gameOver/Restart.png"));
+        restartButtonHover = new Sprite(new Texture("gameOver/RestartHover.png"));
         restartButton.setSize(125, 45);
         restartButton.setPosition(330, 75);
+        restartButtonHover.setSize(125, 45);
+        restartButtonHover.setPosition(330, 75);
 
         menuButton = new Sprite(new Texture("gameOver/MainMenu.png"));
+        menuButtonHover = new Sprite(new Texture("gameOver/MainMenuHover.png"));
         menuButton.setSize(125, 45);
         menuButton.setPosition(90, 75);
+        menuButtonHover.setSize(125, 45);
+        menuButtonHover.setPosition(90, 75);
 
         playerSprite = userPlayer.getSprite();
         playerSprite.setSize(100, 120);
@@ -73,8 +81,19 @@ public class GameOverScene extends Scene implements Constants {
         batch.begin();
         batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.draw(gameOver, 15, 300, 500, 400);
-        menuButton.draw(batch);
-        restartButton.draw(batch);
+
+        if (menuButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            menuButtonHover.draw(batch);
+        } else {
+            menuButton.draw(batch);
+        }
+
+        if (restartButton.getBoundingRectangle().contains(mouseX(), mouseY())) {
+            restartButtonHover.draw(batch);
+        } else {
+            restartButton.draw(batch);
+        }
+
         playerSprite.draw(batch);
         batch.end();
 
@@ -89,6 +108,7 @@ public class GameOverScene extends Scene implements Constants {
             MainController controller = super.getController();
             controller.setScene(new MainMenu(controller));
         }
+
         return true;
     }
 

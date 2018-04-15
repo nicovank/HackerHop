@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
-import static com.hackerhop.game.core.utils.Methods.randomInt;
+import static com.hackerhop.game.core.utils.Random.randomInt;
 
 public class Obstacle extends PhysicalObject implements GraphicsElement, Constants {
 
