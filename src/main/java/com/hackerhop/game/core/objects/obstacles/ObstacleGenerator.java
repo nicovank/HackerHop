@@ -10,14 +10,13 @@ import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 
-import static com.hackerhop.game.core.utils.Methods.randomFloat;
 import static com.hackerhop.game.core.utils.Methods.randomInt;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
     private static final String TAG = GameScene.class.getName();
 
     // Never more than 5 obstacles (arbitrary)
-    private Obstacle[] obstacles = new Obstacle[5];
+    private Obstacle[] obstacles = new Obstacle[10]; // determined by (SCREEN_HEIGHT / PHYSICS_RATIO) / Obstacle.WIDTH
     private int obstacleCount = 0;
 
     private World world;
@@ -55,32 +54,28 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
             }
         }
 
-        // 2. generate between 1 and 4 obstacles.
-        if (obstacleCount == 0) {
-            for (int i = randomInt(5); i > 0; --i) {
-                generateObstacle();
-            }
-        }
+        // 2. generate obstacles.
+        generateObstacle();
     }
 
     /**
-     * Generates a new obstacle if we have not yet reached the maximum number of obstacles.
+     * Generates up to 5 obstacles
      */
     public void generateObstacle() {
-        ++obstacleCount;
-        float x = randomFloat(5f, (SCREEN_WIDTH / PHYSICS_RATIO) - 5f);
-        x = (x < 0) ? 0 : x;
-        x = (x > 49) ? 49 : x;
-        float y = (camera.position.y / PHYSICS_RATIO) + 500;
-
-        Obstacle obstacle = new Obstacle(x, y, world);
-        obstacle.loadResources();
-
-        for (int i = 0; i < obstacles.length; ++i) {
-            if (obstacles[i] == null) {
-                obstacles[i] = obstacle;
-                break;
+        int count = randomInt(5);
+        if (count > obstacleCount + 1) {
+            for (int i = 0; i < count - (obstacleCount + 1); ++i) {
+                int index = randomInt(10);
+                if (obstacles[index] == null) {
+                    float x = 2 + (index * 5);
+                    float y = (camera.position.y / PHYSICS_RATIO) + 500;
+                    obstacles[index] = new Obstacle(x, y, world);
+                    obstacles[index].loadResources();
+                } else {
+                    --i;
+                }
             }
+            obstacleCount = count;
         }
     }
 
