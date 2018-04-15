@@ -1,6 +1,7 @@
 package com.hackerhop.game.core.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,6 +16,10 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.contacts.ContactEdge;
 
 public class Player implements GraphicsElement, Constants {
+
+	private static final float LATERAL_SPEED = 75f;
+	private static final float JUMP_FORCE = 5000f;
+
 	private Body body;
 	private Direction direction;
 	private Sprite sprite;
@@ -116,20 +121,29 @@ public class Player implements GraphicsElement, Constants {
 
 	public void jump() {
 		 if (canJump()) {
-			body.applyForceToCenter(new Vec2(0f, 5000f));
-			jumpSound.play(Options.sounds() ? 1f : 0f);
+			 body.applyForceToCenter(new Vec2(0f, JUMP_FORCE));
+			 jumpSound.play(Options.sounds() ? 1f : 0f);
 		 }
 	}
 
 	public void update() {
+
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+			body.setLinearVelocity(new Vec2(- LATERAL_SPEED, body.getLinearVelocity().y));
+		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+			body.setLinearVelocity(new Vec2(LATERAL_SPEED, body.getLinearVelocity().y));
+		} else {
+			body.setLinearVelocity(new Vec2(0f, body.getLinearVelocity().y));
+		}
+
 		float x = this.body.getPosition().x;
 		float y = this.body.getPosition().y;
 		float xMax = (SCREEN_WIDTH - getPlayerTexture().getWidth()) / PHYSICS_RATIO;
 
 		if (x < 0) {
-			this.body.setTransform(new Vec2(0, y), 0);
+			body.setTransform(new Vec2(0, y), 0);
 		} else if (x > xMax) {
-			this.body.setTransform(new Vec2(xMax, y), 0);
+			body.setTransform(new Vec2(xMax, y), 0);
 		}
 	}
 

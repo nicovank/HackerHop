@@ -198,13 +198,7 @@ public class GameScene extends Scene implements Constants {
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-			player.getBody().applyForceToCenter(new Vec2(-5000f, 0f));
-			player.setDirection(Direction.LEFT);
-		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-			player.getBody().applyForceToCenter(new Vec2(5000f, 0f));
-			player.setDirection(Direction.RIGHT);
-		} else if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
+		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
 			player.jump();
 		} else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
