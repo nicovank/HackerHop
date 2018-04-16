@@ -102,7 +102,7 @@ public class GameScene extends Scene implements Constants {
 		}
 
 		// go to game over scene if player falls below bounds
-		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 900) {
+		if (player.getBody().getPosition().y * PHYSICS_RATIO < camera.position.y - 450) {
 			playerDeath();
 		}
 
