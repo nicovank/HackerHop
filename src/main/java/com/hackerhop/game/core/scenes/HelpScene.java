@@ -30,7 +30,7 @@ public class HelpScene extends Scene {
     private static final String TAG = GameScene.class.getName();
     private final Character character;
 
-    private Space space = new Space(50, 50);
+    private Space space = new Space(77, 50);
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
