@@ -3,6 +3,7 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,7 @@ import com.hackerhop.game.core.objects.platforms.Platforms;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.player.Player;
+import javafx.scene.layout.Background;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
@@ -29,7 +31,7 @@ import static com.hackerhop.game.core.utils.Constants.SCREEN_WIDTH;
 public class HelpScene extends Scene {
     private static final String TAG = GameScene.class.getName();
     private final Character character;
-
+    private Texture background;
     private Space space = new Space(77, 50);
 
     public HelpScene(MainController controller, Character character) {
@@ -89,6 +91,7 @@ public class HelpScene extends Scene {
     @Override
     public void loadResources() {
         space.loadResources();
+         background = new Texture("HelpScene/HelpScreen.png");
     }
 
     @Override
