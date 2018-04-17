@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.PhysicalObject;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.Options;
 import org.jbox2d.common.Vec2;
@@ -15,26 +16,15 @@ import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.contacts.ContactEdge;
 
-public class Player implements GraphicsElement, Constants {
+public class Player extends PhysicalObject implements GraphicsElement, Constants {
 
 	private static final float LATERAL_SPEED = 75f;
 	private static final float JUMP_FORCE = 5000f;
 
-	private Body body;
 	private Direction direction;
 	private Sprite sprite;
 	private Sound jumpSound;
 	private Character character;
-
-	/**
-	 * Returns the player's physics body.
-	 * Call to add forces or move the player.
-	 *
-	 * @return the player's body.
-	 */
-	public Body getBody() {
-		return body;
-	}
 
 	/**
 	 * Creates a new player in the given world.
@@ -60,15 +50,15 @@ public class Player implements GraphicsElement, Constants {
 		bodyDef.type = BodyType.DYNAMIC;
 		bodyDef.position.set(position);
 
-		body = world.createBody(bodyDef);
-		body.setUserData("player");
+		super.setBody(world.createBody(bodyDef));
+		super.getBody().setUserData("player");
 
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape rectangle = new PolygonShape();
 		rectangle.setAsBox(3, 3);
 		fixtureDef.shape = rectangle;
 		fixtureDef.friction = 0f;
-		body.createFixture(fixtureDef);
+		super.getBody().createFixture(fixtureDef);
 	}
 
 	public Character getCharacter() {
@@ -82,7 +72,12 @@ public class Player implements GraphicsElement, Constants {
 	@Override
 	public void render(SpriteBatch batch) {
 		sprite.setFlip(direction == Direction.LEFT, false);
-		batch.draw(sprite, body.getPosition().x * PHYSICS_RATIO, body.getPosition().y * PHYSICS_RATIO);
+
+		batch.draw(
+				sprite,
+				super.getBody().getPosition().x * PHYSICS_RATIO,
+				super.getBody().getPosition().y * PHYSICS_RATIO
+		);
 	}
 
 	@Override
@@ -111,46 +106,46 @@ public class Player implements GraphicsElement, Constants {
 		jumpSound.dispose();
 	}
 
-	public Texture getPlayerTexture(){
+	public Texture getPlayerTexture() {
 		return sprite.getTexture();
 	}
 
-	public Sprite getSprite(){
+	public Sprite getSprite() {
 		return sprite;
 	}
 
 	public void jump() {
-		 if (canJump()) {
-			 body.applyForceToCenter(new Vec2(0f, JUMP_FORCE));
-			 jumpSound.play(Options.sounds() ? .2f : 0f);
-		 }
+		if (canJump()) {
+			super.getBody().applyForceToCenter(new Vec2(0f, JUMP_FORCE));
+			jumpSound.play(Options.sounds() ? .2f : 0f);
+		}
 	}
 
 	public void update() {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-			body.setLinearVelocity(new Vec2(- LATERAL_SPEED, body.getLinearVelocity().y));
+			super.getBody().setLinearVelocity(new Vec2(-LATERAL_SPEED, super.getBody().getLinearVelocity().y));
 			setDirection(Direction.LEFT);
 		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-			body.setLinearVelocity(new Vec2(LATERAL_SPEED, body.getLinearVelocity().y));
+			super.getBody().setLinearVelocity(new Vec2(LATERAL_SPEED, super.getBody().getLinearVelocity().y));
 			setDirection(Direction.RIGHT);
 		} else {
-			body.setLinearVelocity(new Vec2(0f, body.getLinearVelocity().y));
+			super.getBody().setLinearVelocity(new Vec2(0f, super.getBody().getLinearVelocity().y));
 		}
 
-		float x = this.body.getPosition().x;
-		float y = this.body.getPosition().y;
+		float x = super.getBody().getPosition().x;
+		float y = super.getBody().getPosition().y;
 		float xMax = (SCREEN_WIDTH - getPlayerTexture().getWidth()) / PHYSICS_RATIO;
 
 		if (x < 0) {
-			body.setTransform(new Vec2(0, y), 0);
+			super.getBody().setTransform(new Vec2(0, y), 0);
 		} else if (x > xMax) {
-			body.setTransform(new Vec2(xMax, y), 0);
+			super.getBody().setTransform(new Vec2(xMax, y), 0);
 		}
 	}
 
 	private boolean canJump() {
-		for (ContactEdge edge = body.getContactList(); edge != null; edge = edge.next) {
+		for (ContactEdge edge = super.getBody().getContactList(); edge != null; edge = edge.next) {
 			if (edge.other.getUserData().equals("platform") && edge.contact.isTouching()) {
 				return true;
 			}
