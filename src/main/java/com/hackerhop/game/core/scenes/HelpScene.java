@@ -33,10 +33,12 @@ public class HelpScene extends Scene {
     private final Character character;
     private Texture background;
     private Space space = new Space(77, 50);
+    private Sprite player;
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
         this.character = character;
+
     }
 
     @Override
@@ -91,13 +93,28 @@ public class HelpScene extends Scene {
     @Override
     public void loadResources() {
         space.loadResources();
-         background = new Texture("HelpScene/HelpScreen.png");
+        background = new Texture("HelpScreen/HelpScreen.png");
+        if (character == Character.ROB) {
+            player = new Sprite(new Texture("player/rob.png"));
+        }
+        if (character == Character.KATIE) {
+            player = new Sprite(new Texture("player/Katie.png"));
+        }
+        if (character == Character.NICK) {
+            player = new Sprite(new Texture("player/Nick.png"));
+        }
+        if(character ==Character.YE){
+            player = new Sprite(new Texture("player/Ye.png"));
+        }
+        player.setPosition(405,630);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
         space.render(batch);
+        batch.draw(background, 0, 0);
+        player.draw(batch);
         batch.end();
 
     }
