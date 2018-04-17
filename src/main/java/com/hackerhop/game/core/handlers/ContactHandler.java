@@ -1,6 +1,5 @@
 package com.hackerhop.game.core.handlers;
 
-import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.scenes.GameOverScene;
 import com.hackerhop.game.core.scenes.GameScene;
@@ -59,7 +58,7 @@ public class ContactHandler implements ContactListener {
 
 		//Quit game if player and obstacle collide
 		if (collision.isBetween("player", "obstacle")) {
-			String score = scene.score();
+			String score = scene.getScore();
 			Player player = scene.getPlayer();
 			scene.getController().setScene(new GameOverScene(scene.getController(), score, player));
 		}
