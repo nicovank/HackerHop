@@ -16,9 +16,8 @@ public class Platform extends PhysicalObject implements GraphicsElement, Constan
 	private float x, y;
 	private static final float WIDTH = 60;
 	private static final float HEIGHT = 20;
-	private String path;
 
-	private Texture texture;
+	private static Texture texture;
 
 	public Platform(float x, float y, World world) {
 		this.x = x;
@@ -30,28 +29,6 @@ public class Platform extends PhysicalObject implements GraphicsElement, Constan
 
 		super.setBody(world.createBody(bodyDef));
 		super.getBody().setUserData("platform");
-
-		path = "platform/bricks.png";
-
-		FixtureDef fixtureDef = new FixtureDef();
-		PolygonShape rectangle = new PolygonShape();
-		rectangle.setAsBox(3, -1);
-		fixtureDef.shape = rectangle;
-		super.getBody().createFixture(fixtureDef);
-	}
-
-	public Platform(float x, World world) {
-		this.x = x;
-		this.y = 0;
-
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.STATIC;
-		bodyDef.position.set(new Vec2(x, y));
-
-		super.setBody(world.createBody(bodyDef));
-		super.getBody().setUserData("platform");
-
-		path = "platform/bricks-original.png";
 
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape rectangle = new PolygonShape();
@@ -91,11 +68,13 @@ public class Platform extends PhysicalObject implements GraphicsElement, Constan
 
 	@Override
 	public void dispose() {
-		texture.dispose();
+		// texture.dispose();
 	}
 
 	@Override
 	public void loadResources() {
-		texture = new Texture(path);
+		if (texture == null) {
+			texture = new Texture("platform/bricks.png");
+		}
 	}
 }

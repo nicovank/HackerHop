@@ -65,7 +65,7 @@ public class PlatformGroup implements GraphicsElement, Constants {
         } else {
             h = new Platform[9];
             for (int i = 0; i < 54; i += 6) {
-                h[i / 6] = new Platform(i, w);
+                h[i / 6] = new Platform(i, 0, w);
             }
         }
         return h;
@@ -108,7 +108,6 @@ public class PlatformGroup implements GraphicsElement, Constants {
         for (Platform p : platforms) {
             if (p != null) {
                 p.destroy();
-                p.dispose();
             }
         }
     }
