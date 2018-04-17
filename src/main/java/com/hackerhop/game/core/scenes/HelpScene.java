@@ -17,6 +17,7 @@ import com.hackerhop.game.core.objects.platforms.Platforms;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Direction;
 import com.hackerhop.game.core.player.Player;
+import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import javafx.scene.layout.Background;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
@@ -34,6 +35,12 @@ public class HelpScene extends Scene {
     private Texture background;
     private Space space = new Space(77, 50);
     private Sprite player;
+    private Texture clouds;
+    private SpriteBlinker blinker1;
+    private SpriteBlinker blinker2;
+    private SpriteBlinker blinker3;
+    private SpriteBlinker blinker4;
+    private Sprite arrow;
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
@@ -43,7 +50,8 @@ public class HelpScene extends Scene {
 
     @Override
     public void update() {
-
+        blinker1.update();
+        blinker2.update();
         space.update();
     }
 
@@ -93,6 +101,12 @@ public class HelpScene extends Scene {
     @Override
     public void loadResources() {
         space.loadResources();
+        arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
+        arrow.setPosition(0,0);
+        blinker1 = new SpriteBlinker(arrow, 1f, .5f);
+        blinker2 = new SpriteBlinker(arrow, 1f, .5f);
+
+        clouds = new Texture("background/cloud.png");
         background = new Texture("HelpScreen/HelpScreen.png");
         if (character == Character.ROB) {
             player = new Sprite(new Texture("player/rob.png"));
@@ -112,8 +126,11 @@ public class HelpScene extends Scene {
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
+        batch.draw(clouds,0,0);
         space.render(batch);
         batch.draw(background, 0, 0);
+        blinker1.render(batch, -210,50);
+        blinker2.render(batch,-130,50);
         player.draw(batch);
         batch.end();
 
