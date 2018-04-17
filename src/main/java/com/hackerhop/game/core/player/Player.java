@@ -106,10 +106,6 @@ public class Player extends PhysicalObject implements GraphicsElement, Constants
 		jumpSound.dispose();
 	}
 
-	public Texture getPlayerTexture() {
-		return sprite.getTexture();
-	}
-
 	public Sprite getSprite() {
 		return sprite;
 	}
@@ -135,7 +131,7 @@ public class Player extends PhysicalObject implements GraphicsElement, Constants
 
 		float x = super.getBody().getPosition().x;
 		float y = super.getBody().getPosition().y;
-		float xMax = (SCREEN_WIDTH - getPlayerTexture().getWidth()) / PHYSICS_RATIO;
+		float xMax = (SCREEN_WIDTH - sprite.getWidth()) / PHYSICS_RATIO;
 
 		if (x < 0) {
 			super.getBody().setTransform(new Vec2(0, y), 0);
