@@ -81,7 +81,7 @@ public class GameOverScene extends Scene implements Constants {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(background, 0, 0);
         batch.draw(gameOver, 15, 300, 500, 400);
 
         menuButton.render(batch);

@@ -54,7 +54,6 @@ public class GameScene extends Scene implements Constants {
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
-	private Sprite cloudBackground;
 
 
 	/**
@@ -122,8 +121,12 @@ public class GameScene extends Scene implements Constants {
 
 		batch.begin();
 
-		batch.draw(cloudBackground, 0, camera.position.y - 500);
-		batch.draw(background, 0, -50);
+		if (camera.position.y < 1080){
+			batch.draw(background, 0, -50);
+		} else {
+			batch.draw(background, 0, camera.position.y - 1130);
+		}
+
 		platforms.render(batch);
 		coin.render(batch);
 		obstacleGenerator.render(batch);
@@ -156,7 +159,6 @@ public class GameScene extends Scene implements Constants {
 		coin.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
-		cloudBackground = new Sprite(new Texture("background/cloud.png"));
 		highScoreBorder = new Sprite(new Texture("background/HighScoreBorder.png"));
 		font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
 		font.setScale(0.1f);
@@ -182,7 +184,6 @@ public class GameScene extends Scene implements Constants {
 		coin.dispose();
 
 		highScoreBorder.getTexture().dispose();
-		cloudBackground.getTexture().dispose();
 
 		obstacleGenerator.dispose();
 	}
