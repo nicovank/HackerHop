@@ -11,6 +11,11 @@ public class SpriteBlinker extends Blinker {
         super(showTime, hideTime);
         this.sprite = sprite;
     }
+    //case for starting blinker hidden
+    public SpriteBlinker(Sprite sprite, float showTime, float hideTime, boolean startShown) {
+        super(showTime, hideTime, startShown);
+        this.sprite = sprite;
+    }
 
     @Override
     public void render(SpriteBatch batch) {
@@ -37,8 +42,4 @@ public class SpriteBlinker extends Blinker {
         sprite.getTexture().dispose();
     }
 
-    public Sprite getRotate(Sprite sprite) {
-        sprite.setRotation(30f);
-        return sprite;
-    }
 }

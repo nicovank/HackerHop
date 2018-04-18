@@ -43,6 +43,8 @@ public class HelpScene extends Scene {
     private Sprite arrow;
     private Sprite arrowR;
     private Sprite player2;
+    private SpriteBlinker blinker5;
+    private SpriteBlinker blinker6;
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
@@ -56,6 +58,8 @@ public class HelpScene extends Scene {
         blinker2.update();
         blinker3.update();
         blinker4.update();
+        blinker5.update();
+        blinker6.update();
         space.update();
     }
 
@@ -133,6 +137,9 @@ public class HelpScene extends Scene {
             player2 = new Sprite(new Texture("player/Ye.png"));
         }
         player.setPosition(405, 630);
+        blinker5 = new SpriteBlinker(player2,1f,.5f);
+        blinker6 = new SpriteBlinker(player2,1f,.5f,false);
+
     }
 
     @Override
@@ -145,6 +152,8 @@ public class HelpScene extends Scene {
         blinker2.render(batch, -130, 50);
         blinker3.render(batch, 330, 630);
         blinker4.render(batch, 355, 325);
+        blinker5.render(batch,407,400);
+        blinker6.render(batch,407,352); //This one needs to start hidden, and alternate with blinker 5
         player.draw(batch);
         batch.end();
 
