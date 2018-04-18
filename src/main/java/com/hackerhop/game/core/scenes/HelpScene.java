@@ -41,6 +41,8 @@ public class HelpScene extends Scene {
     private SpriteBlinker blinker3;
     private SpriteBlinker blinker4;
     private Sprite arrow;
+    private Sprite arrowR;
+    private Sprite player2;
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
@@ -52,6 +54,8 @@ public class HelpScene extends Scene {
     public void update() {
         blinker1.update();
         blinker2.update();
+        blinker3.update();
+        blinker4.update();
         space.update();
     }
 
@@ -102,35 +106,45 @@ public class HelpScene extends Scene {
     public void loadResources() {
         space.loadResources();
         arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
-        arrow.setPosition(0,0);
+        arrowR = new Sprite(new Texture("HelpScreen/arrowR.png"));
         blinker1 = new SpriteBlinker(arrow, 1f, .5f);
         blinker2 = new SpriteBlinker(arrow, 1f, .5f);
+        blinker3 = new SpriteBlinker(arrowR, 1f, .5f);
+        blinker4 = new SpriteBlinker(arrowR, 1f, .5f);
+
 
         clouds = new Texture("background/cloud.png");
         background = new Texture("HelpScreen/HelpScreen.png");
         if (character == Character.ROB) {
             player = new Sprite(new Texture("player/rob.png"));
+            player2 = new Sprite(new Texture("player/rob.png"));
+
         }
         if (character == Character.KATIE) {
             player = new Sprite(new Texture("player/Katie.png"));
+            player2 = new Sprite(new Texture("player/Katie.png"));
         }
         if (character == Character.NICK) {
             player = new Sprite(new Texture("player/Nick.png"));
+            player2 = new Sprite(new Texture("player/Nick.png"));
         }
-        if(character ==Character.YE){
+        if (character == Character.YE) {
             player = new Sprite(new Texture("player/Ye.png"));
+            player2 = new Sprite(new Texture("player/Ye.png"));
         }
-        player.setPosition(405,630);
+        player.setPosition(405, 630);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.begin();
-        batch.draw(clouds,0,0);
+        batch.draw(clouds, 0, 0);
         space.render(batch);
         batch.draw(background, 0, 0);
-        blinker1.render(batch, -210,50);
-        blinker2.render(batch,-130,50);
+        blinker1.render(batch, -210, 50);
+        blinker2.render(batch, -130, 50);
+        blinker3.render(batch, 330, 630);
+        blinker4.render(batch, 355, 325);
         player.draw(batch);
         batch.end();
 
@@ -139,5 +153,11 @@ public class HelpScene extends Scene {
     @Override
     public void dispose() {
         space.dispose();
+        blinker4.dispose();
+        blinker3.dispose();
+        blinker2.dispose();
+        blinker1.dispose();
     }
+
+
 }

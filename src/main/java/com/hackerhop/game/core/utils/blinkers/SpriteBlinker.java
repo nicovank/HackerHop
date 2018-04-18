@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SpriteBlinker extends Blinker {
-    
+
     private Sprite sprite;
-    
+
     public SpriteBlinker(Sprite sprite, float showTime, float hideTime) {
         super(showTime, hideTime);
         this.sprite = sprite;
@@ -21,10 +21,10 @@ public class SpriteBlinker extends Blinker {
 
     /**
      * renders the sprite at the given position, overriding the Sprite's position.
-	 *
+     *
      * @param batch The batch where to draw the sprite.
-     * @param x The x-coordinate where to draw the sprite.
-     * @param y The y-coordinate where to draw the sprite.
+     * @param x     The x-coordinate where to draw the sprite.
+     * @param y     The y-coordinate where to draw the sprite.
      */
     public void render(SpriteBatch batch, float x, float y) {
         if (super.shouldBlink()) {
@@ -35,5 +35,10 @@ public class SpriteBlinker extends Blinker {
     @Override
     public void dispose() {
         sprite.getTexture().dispose();
+    }
+
+    public Sprite getRotate(Sprite sprite) {
+        sprite.setRotation(30f);
+        return sprite;
     }
 }
