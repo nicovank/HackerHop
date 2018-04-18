@@ -135,7 +135,7 @@ public class MainMenu extends Scene {
 		batch.begin();
 
 		batch.draw(background, 0, 0);
-		batch.draw(logo, 0, 50);
+		batch.draw(logo, 0, 75);
 
 		rob.render(batch);
 		nick.render(batch);

@@ -1,5 +1,6 @@
 package com.hackerhop.game.core.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -45,6 +46,7 @@ public class HelpScene extends Scene {
     private Sprite player2;
     private SpriteBlinker blinker5;
     private SpriteBlinker blinker6;
+    private Music music;
 
     public HelpScene(MainController controller, Character character) {
         super(controller);
@@ -68,6 +70,9 @@ public class HelpScene extends Scene {
         if (keycode == Input.Keys.SPACE) {
             getController().setScene(new GameScene(getController(), character));
         }
+        if (keycode == Input.Keys.ESCAPE) {
+            getController().setScene(new MainMenu(getController()));
+        }
         return false;
     }
 
@@ -82,7 +87,11 @@ public class HelpScene extends Scene {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        int y = Gdx.graphics.getHeight() - screenY;
+        if(screenX > 77 && screenX < 461 && y >50 && y< 116){
+            getController().setScene(new GameScene(getController(), character));
+        }
         return false;
     }
 
@@ -138,7 +147,7 @@ public class HelpScene extends Scene {
         }
         player.setPosition(405, 630);
         blinker5 = new SpriteBlinker(player2,1f,.5f);
-        blinker6 = new SpriteBlinker(player2,1f,.5f,false);
+        blinker6 = new SpriteBlinker(player2,1f,.5f,false); //blinker 6 with new case
 
     }
 
