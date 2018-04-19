@@ -5,10 +5,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.scenes.MainMenu;
 import com.hackerhop.game.core.scenes.Scene;
-
 
 /**
  * "Main" class, used by DesktopLauncher and AndroidLauncher.
@@ -54,6 +52,7 @@ public class MainController extends ApplicationAdapter {
 		// Clear frame
 		Gdx.gl.glClearColor(1, .5f, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		// Draw next frame (current scene)
 		currentScene.render(batch);
 
@@ -68,10 +67,12 @@ public class MainController extends ApplicationAdapter {
 		currentScene.dispose();
 	}
 
-	// Ye did this
-	// Ye thinks this is probably wrong
-	// Ye will improve this
-	public Scene getCurrentScene(){
+	/**
+	 * Returns the current loaded scene.
+	 *
+	 * @return the current loaded scene.
+	 */
+	public Scene getCurrentScene() {
 		return currentScene;
 	}
 
@@ -88,6 +89,8 @@ public class MainController extends ApplicationAdapter {
 		if (currentScene != null) {
 			currentScene.dispose();
 		}
+
+		System.gc();
 
 		currentScene = scene;
 		currentScene.loadResources();
