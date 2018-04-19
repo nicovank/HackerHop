@@ -95,4 +95,10 @@ public class Platforms implements GraphicsElement, Constants {
             g.render(batch);
         }
     }
+
+//    public Platform[] getPlatforms(){
+//        for (PlatformGroup platformGroup : platformGroups){
+//
+//        }
+//    }
 }

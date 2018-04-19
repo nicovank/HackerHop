@@ -41,7 +41,7 @@ public class PlatformGroup implements GraphicsElement, Constants {
      * </p>
      *
      * @param w the physics world where Platform objects are to be generated
-     * @return
+     * @return array of generated Platform objects
      */
     private Platform[] generatePlatforms(World w) {
         Platform[] h;
@@ -51,9 +51,6 @@ public class PlatformGroup implements GraphicsElement, Constants {
             for (int i = 0; i < xCount; ++i) {
                 if (r.nextBoolean() || r.nextBoolean()) {
                     float offset = wiggleRoom - r.nextInt(2 * wiggleRoom);
-//                    while (((GRID_SEPARATION * i) + offset) < 0 || ((GRID_SEPARATION * i) + offset) > 48){
-//                        offset = wiggleRoom - r.nextInt(2 * wiggleRoom);
-//                    }
                     float x = (((GRID_SEPARATION * i) + offset) < 6) ? 6 : (GRID_SEPARATION * i) + offset;
                     x = (((GRID_SEPARATION * i) + offset) > 42) ? 42 : x;
 

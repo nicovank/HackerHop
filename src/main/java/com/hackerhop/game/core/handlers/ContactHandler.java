@@ -62,6 +62,12 @@ public class ContactHandler implements ContactListener {
 			Player player = scene.getPlayer();
 			scene.getController().setScene(new GameOverScene(scene.getController(), score, player));
 		}
+
+		if (collision.isBetween("player", "coin")){
+			scene.coined();
+
+			collision.getBody("coin").getWorld().destroyBody(collision.getBody("coin"));
+		}
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.Options;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 /**
@@ -107,6 +108,10 @@ public class GameScene extends Scene implements Constants {
 		obstacleGenerator.update();
 
 		coin.update();
+	}
+
+	public void coined(){
+		score += 1000;
 	}
 
 	/**
