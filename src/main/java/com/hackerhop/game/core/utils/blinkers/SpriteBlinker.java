@@ -8,9 +8,9 @@ public class SpriteBlinker extends Blinker {
     private Sprite sprite;
 
     public SpriteBlinker(Sprite sprite, float showTime, float hideTime) {
-        super(showTime, hideTime);
-        this.sprite = sprite;
+        this(sprite, showTime, hideTime, true);
     }
+
     //case for starting blinker hidden
     public SpriteBlinker(Sprite sprite, float showTime, float hideTime, boolean startShown) {
         super(showTime, hideTime, startShown);
