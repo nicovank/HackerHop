@@ -8,7 +8,7 @@ import com.hackerhop.game.core.utils.Constants;
 public class PlayerDeath extends PhysicalObject implements GraphicsElement, Constants {
     @Override
     public void loadResources() {
-        
+
     }
 
     @Override
