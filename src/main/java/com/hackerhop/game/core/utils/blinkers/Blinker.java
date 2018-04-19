@@ -7,19 +7,17 @@ import com.badlogic.gdx.utils.Disposable;
 public abstract class Blinker implements Disposable {
     private float showTime;
     private float hideTime;
-    private boolean isShowed = true; // start displaying the object by default
-    private boolean startShown;
+    private boolean isShowed; // start displaying the object by default
     private float blinkTimer;
 
     public Blinker(float showTime, float hideTime) {
-        this.showTime = showTime;
-        this.hideTime = hideTime;
+        this(showTime, hideTime, true);
     }
-//case for starting blinker hidden
+
     public Blinker(float showTime, float hideTime, boolean startShown) {
         this.showTime = showTime;
         this.hideTime = hideTime;
-        this.startShown = startShown;
+        this.isShowed = startShown;
     }
 
     public void update() {
