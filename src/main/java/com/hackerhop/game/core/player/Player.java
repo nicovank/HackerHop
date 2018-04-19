@@ -117,16 +117,26 @@ public class Player extends PhysicalObject implements GraphicsElement, Constants
 		}
 	}
 
+	public void move(Direction direction) {
+		setDirection(direction);
+
+		if (direction == Direction.LEFT) {
+			super.getBody().setLinearVelocity(new Vec2(-LATERAL_SPEED, super.getBody().getLinearVelocity().y));
+		} else if (direction == Direction.RIGHT) {
+			super.getBody().setLinearVelocity(new Vec2(LATERAL_SPEED, super.getBody().getLinearVelocity().y));
+		} else {
+			super.getBody().setLinearVelocity(new Vec2(0, super.getBody().getLinearVelocity().y));
+		}
+	}
+
 	public void update() {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-			super.getBody().setLinearVelocity(new Vec2(-LATERAL_SPEED, super.getBody().getLinearVelocity().y));
-			setDirection(Direction.LEFT);
+			move(Direction.LEFT);
 		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-			super.getBody().setLinearVelocity(new Vec2(LATERAL_SPEED, super.getBody().getLinearVelocity().y));
-			setDirection(Direction.RIGHT);
+			move(Direction.RIGHT);
 		} else {
-			super.getBody().setLinearVelocity(new Vec2(0f, super.getBody().getLinearVelocity().y));
+			move(null);
 		}
 
 		float x = super.getBody().getPosition().x;
