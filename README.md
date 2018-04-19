@@ -312,3 +312,10 @@ The team developing this project consists of:
 | **MAX PW**    |      | 10     | 10     | 7      | 0      | 8      | 10     |
 | **TOTAL PW**  |      | 29     | 38     | 18     | 0      | 13     | 22     |
 
+
+# UML Diagrams
+
+## Class diagram
+
+![Class diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/diagram.png)
+
