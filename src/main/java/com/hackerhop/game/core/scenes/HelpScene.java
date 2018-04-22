@@ -146,8 +146,8 @@ public class HelpScene extends Scene {
             player2 = new Sprite(new Texture("player/Ye.png"));
         }
         player.setPosition(405, 630);
-        blinker5 = new SpriteBlinker(player2,1f,.5f);
-        blinker6 = new SpriteBlinker(player2,1f,.5f,false); //blinker 6 with new case
+        blinker5 = new SpriteBlinker(player2,.75f,1f);
+        blinker6 = new SpriteBlinker(player2,1f,.75f,false); //blinker 6 with new case
 
     }
 
