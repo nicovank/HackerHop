@@ -12,6 +12,10 @@ import com.hackerhop.game.core.graphics.GraphicsElement;
 public abstract class Scene implements GraphicsElement, InputProcessor {
 	private static final String TAG = Scene.class.getName();
 
+	public String getTAG() {
+		return TAG;
+	}
+
 	private MainController controller;
 
 	public Scene(MainController controller) {

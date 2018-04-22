@@ -11,26 +11,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GameOverSceneTest {
-    Scene current;
+public class GameSceneTest {
     GameOverScene gameOver;
+    GameScene gameScene;
     MainController controller;
-    MainMenu mainMenu;
     Player player;
 
     @BeforeAll
     public void setupMock(){
         controller = mock(MainController.class, withSettings().defaultAnswer(RETURNS_MOCKS));
+        player = mock(Player.class, withSettings().defaultAnswer(RETURNS_MOCKS));
         gameOver = mock(GameOverScene.class, withSettings().defaultAnswer(RETURNS_MOCKS));
-        mainMenu = mock(MainMenu.class, withSettings().defaultAnswer(RETURNS_MOCKS));
+        gameScene = mock(GameScene.class, withSettings().defaultAnswer(RETURNS_MOCKS));
     }
     @Test
-    void escapeKeyTest() {
-        when(gameOver.keyDown(Input.Keys.ESCAPE)).thenReturn(true);
-        controller.setScene(gameOver);
-        gameOver.keyDown(Input.Keys.ESCAPE);
-        if(gameOver.keyDown(Input.Keys.ESCAPE)){
-            assertEquals(mainMenu.getTAG(), controller.getCurrentScene().getTAG());
-        }
+    void playerDeathTest() {
+        controller.setScene(gameScene);
+        gameScene.playerDeath();
+        assertEquals(gameOver.getTAG(), controller.getCurrentScene().getTAG());
     }
 }
