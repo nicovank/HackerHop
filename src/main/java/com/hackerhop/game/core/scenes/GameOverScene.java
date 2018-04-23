@@ -12,8 +12,6 @@ import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.common.Vec2;
 
-import static com.hackerhop.game.core.utils.GDXUtils.*;
-
 public class GameOverScene extends Scene implements Constants {
 
     private static final String TAG = GameScene.class.getName();
