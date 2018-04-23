@@ -16,6 +16,8 @@ import static com.hackerhop.game.core.utils.GDXUtils.*;
 
 public class GameOverScene extends Scene implements Constants {
 
+    private static final String TAG = GameScene.class.getName();
+
     //Background
     private TextureRegion background;
     //Game Over

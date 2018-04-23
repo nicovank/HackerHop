@@ -313,9 +313,19 @@ The team developing this project consists of:
 | **TOTAL PW**  |      | 29     | 38     | 18     | 0      | 13     | 22     |
 
 
-# UML Diagrams
+## UML Diagrams
 
-## Class diagram
+### Class diagram
 
 ![Class diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/diagram.png)
 
+### Sequence diagrams
+
+#### Character Selection
+![Character Selection sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/CharacterSelection.png)
+
+#### Death
+![Death sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Death.png)
+
+#### Movement
+![Movement sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Movement.png)
