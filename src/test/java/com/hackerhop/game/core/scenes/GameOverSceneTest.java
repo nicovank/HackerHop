@@ -12,11 +12,9 @@ import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GameOverSceneTest {
-    Scene current;
     GameOverScene gameOver;
     MainController controller;
     MainMenu mainMenu;
-    Player player;
 
     @BeforeAll
     public void setupMock(){
