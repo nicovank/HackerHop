@@ -13,7 +13,7 @@ import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
 import com.hackerhop.game.core.objects.platforms.Platforms;
-import com.hackerhop.game.core.objects.Coin;
+// import com.hackerhop.game.core.objects.Coin;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
@@ -44,7 +44,7 @@ public class GameScene extends Scene implements Constants {
 	private Player player;
 
 	private Platforms platforms = new Platforms(world);
-	private Coin coin = new Coin(10, 10, world);
+	// private Coin coin = new Coin(10, 10, world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
 	// Resources for the scene
@@ -107,7 +107,7 @@ public class GameScene extends Scene implements Constants {
 		camera.update();
 		obstacleGenerator.update();
 
-		coin.update();
+//		coin.update();
 	}
 
 	public void coined(){
@@ -133,7 +133,7 @@ public class GameScene extends Scene implements Constants {
 		}
 
 		platforms.render(batch);
-		coin.render(batch);
+//		coin.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
 		batch.end();
@@ -161,7 +161,7 @@ public class GameScene extends Scene implements Constants {
 
 		player.loadResources();
 		platforms.loadResources();
-		coin.loadResources();
+//		coin.loadResources();
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
 		highScoreBorder = new Sprite(new Texture("background/HighScoreBorder.png"));
@@ -186,7 +186,7 @@ public class GameScene extends Scene implements Constants {
 		music.dispose();
 		font.dispose();
 		ui.dispose();
-		coin.dispose();
+//		coin.dispose();
 
 		highScoreBorder.getTexture().dispose();
 
