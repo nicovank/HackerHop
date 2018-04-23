@@ -329,3 +329,6 @@ The team developing this project consists of:
 
 #### Movement
 ![Movement sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Movement.png)
+
+#### Obstacles
+![Movement sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Obstacles.png)
