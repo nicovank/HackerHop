@@ -96,9 +96,7 @@ public class Platforms implements GraphicsElement, Constants {
         }
     }
 
-//    public Platform[] getPlatforms(){
-//        for (PlatformGroup platformGroup : platformGroups){
-//
-//        }
-//    }
+    public PlatformGroup[] getPlatformGroups(){
+        return platformGroups;
+    }
 }
