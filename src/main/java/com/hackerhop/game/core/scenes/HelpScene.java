@@ -175,6 +175,14 @@ public class HelpScene extends Scene {
         blinker3.dispose();
         blinker2.dispose();
         blinker1.dispose();
+        blinker5.dispose();
+        blinker6.dispose();
+        clouds.dispose();
+        background.dispose();
+        player.getTexture().dispose();
+        player2.getTexture().dispose();
+        arrow.getTexture().dispose();
+        arrowR.getTexture().dispose();
     }
 
 
