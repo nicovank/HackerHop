@@ -3,32 +3,16 @@ package com.hackerhop.game.core.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
-import com.hackerhop.game.core.handlers.ContactHandler;
-import com.hackerhop.game.core.objects.Coin;
 import com.hackerhop.game.core.objects.Space;
-import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
-import com.hackerhop.game.core.objects.platforms.Platforms;
 import com.hackerhop.game.core.player.Character;
-import com.hackerhop.game.core.player.Direction;
-import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
-import javafx.scene.layout.Background;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.World;
 
-import static com.hackerhop.game.core.utils.Constants.PHYSICS_RATIO;
-import static com.hackerhop.game.core.utils.Constants.SCREEN_HEIGHT;
-import static com.hackerhop.game.core.utils.Constants.SCREEN_WIDTH;
-
-//This will be between MainMenu and GameScene, explaining controlls and other Game Mechanics
-//Will be very simple, The constructor carrys over the Character picked in main menu to GameScene so it should be easily implemented.
+//This will be between MainMenu and GameScene, explaining controls and other Game Mechanics
+//Will be very simple, The constructor carries over the Character picked in main menu to GameScene so it should be easily implemented.
 
 public class HelpScene extends Scene {
     private static final String TAG = GameScene.class.getName();
@@ -175,6 +159,14 @@ public class HelpScene extends Scene {
         blinker3.dispose();
         blinker2.dispose();
         blinker1.dispose();
+        blinker5.dispose();
+        blinker6.dispose();
+        clouds.dispose();
+        background.dispose();
+        player.getTexture().dispose();
+        player2.getTexture().dispose();
+        arrow.getTexture().dispose();
+        arrowR.getTexture().dispose();
     }
 
 
