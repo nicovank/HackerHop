@@ -24,7 +24,7 @@ public class GameOverScene extends Scene implements Constants {
     // Final Score variables
     private BitmapFont font;
     private SpriteBatch ui;
-    private String finalScore;
+    private long finalScore;
 
     //Buttons
     private Button restartButton;
@@ -34,7 +34,7 @@ public class GameOverScene extends Scene implements Constants {
     private Player userPlayer;
     private Sprite playerSprite;
 
-    public GameOverScene(MainController controller, String score, Player player) {
+    public GameOverScene(MainController controller, long score, Player player) {
         super(controller);
         finalScore = score;
         userPlayer = player;
@@ -91,7 +91,7 @@ public class GameOverScene extends Scene implements Constants {
         batch.end();
 
         ui.begin();
-        font.draw(ui, String.format("Final Score: %s", finalScore), 115, 700);
+        font.draw(ui, String.format("Final Score: %d", finalScore), 115, 700);
         ui.end();
     }
 

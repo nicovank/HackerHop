@@ -152,8 +152,8 @@ public class GameScene extends Scene implements Constants {
 	 *
 	 * @return A String representation of the current score.
 	 */
-	public String getScore() {
-		return String.valueOf(score);
+	public long getScore() {
+		return score;
 	}
 
 	@Override
