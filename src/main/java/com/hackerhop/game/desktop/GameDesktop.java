@@ -1,5 +1,6 @@
 package com.hackerhop.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -12,6 +13,8 @@ public class GameDesktop implements Constants {
 		config.height = SCREEN_HEIGHT;
 		config.width = SCREEN_WIDTH;
 		config.resizable = false;
+		config.title = "HackerHop";
+		config.addIcon("icon.png", Files.FileType.Internal);
 		new LwjglApplication(new MainController(), config);
 	}
 }
