@@ -144,12 +144,14 @@ public class GameOverScene extends Scene implements Constants {
 			controller.setScene(new MainMenu(controller));
 		} else if (saveButton.getBoundingRectangle().contains(screenX, y)) {
 			getTextInput("Please enter your name.", "", input -> {
-				finalScore.name = input;
+				if (input != null) {
+					finalScore.name = input;
 
-				try {
-					Leaderboards.saveScore(finalScore);
-				} catch (IOException e) {
-					e.printStackTrace();
+					try {
+						Leaderboards.saveScore(finalScore);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
