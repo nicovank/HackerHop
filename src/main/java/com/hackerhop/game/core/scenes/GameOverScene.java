@@ -85,8 +85,8 @@ public class GameOverScene extends Scene implements Constants {
 		);
 
 		playerSprite = userPlayer.getSprite();
-		playerSprite.setSize(100, 120);
-		playerSprite.setPosition(215, 200);
+		playerSprite.setSize(80, 100);
+		playerSprite.setPosition(220, 130);
 		playerSprite.setOriginCenter();
 	}
 
@@ -97,7 +97,7 @@ public class GameOverScene extends Scene implements Constants {
 
 		batch.begin();
 		batch.draw(background, 0, 0);
-		batch.draw(gameOver, 15, 220, 500, 400);
+		batch.draw(gameOver, 15, 230, 500, 400);
 
 		menuButton.render(batch);
 		restartButton.render(batch);
