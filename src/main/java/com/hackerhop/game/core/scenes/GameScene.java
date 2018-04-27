@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.handlers.ContactHandler;
+import com.hackerhop.game.core.leaderboards.Score;
 import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
 import com.hackerhop.game.core.objects.platforms.Platforms;
 // import com.hackerhop.game.core.objects.Coin;
@@ -33,18 +34,18 @@ public class GameScene extends Scene implements Constants {
 	private static final float TIME_STEP = 1 / 60f;
 	private static final int VELOCITY_ITERATIONS = 2;
 	private static final int POSITION_ITERATIONS = 6;
-	private static final int CAMERA_MOVEMENT_THRESHOLD = - 100;
+	private static final int CAMERA_MOVEMENT_THRESHOLD = -100;
 
 	// General variables for the game scene
 	private World world = new World(new Vec2(0, -50));
 	private OrthographicCamera camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	private long score = 0;
+	private long startTime; // timestamp of start time
 	private Sprite highScoreBorder;
 	private Player player;
 
 	private Platforms platforms = new Platforms(world);
-	// private Coin coin = new Coin(10, 10, world);
 	private ObstacleGenerator obstacleGenerator = new ObstacleGenerator(world, camera);
 
 	// Resources for the scene
@@ -66,6 +67,7 @@ public class GameScene extends Scene implements Constants {
 		super(controller);
 		world.setContactListener(new ContactHandler(this));
 
+		startTime = System.currentTimeMillis();
 		player = new Player(world, new Vec2((SCREEN_WIDTH / (2 * PHYSICS_RATIO)), 10), character);
 
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
@@ -106,12 +108,6 @@ public class GameScene extends Scene implements Constants {
 		player.update();
 		camera.update();
 		obstacleGenerator.update();
-
-//		coin.update();
-	}
-
-	public void coined(){
-		score += 1000;
 	}
 
 	/**
@@ -126,14 +122,13 @@ public class GameScene extends Scene implements Constants {
 
 		batch.begin();
 
-		if (camera.position.y < 1080){
+		if (camera.position.y < 1080) {
 			batch.draw(background, 0, -50);
 		} else {
 			batch.draw(background, 0, camera.position.y - 1130);
 		}
 
 		platforms.render(batch);
-//		coin.render(batch);
 		obstacleGenerator.render(batch);
 		player.render(batch);
 		batch.end();
@@ -141,7 +136,7 @@ public class GameScene extends Scene implements Constants {
 
 		ui.begin();
 
-		ui.draw(highScoreBorder,0, 0);
+		ui.draw(highScoreBorder, 0, 0);
 		font.draw(ui, String.format("Score: %s", getScore()), 10, 25);
 
 		ui.end();
@@ -186,7 +181,6 @@ public class GameScene extends Scene implements Constants {
 		music.dispose();
 		font.dispose();
 		ui.dispose();
-//		coin.dispose();
 
 		highScoreBorder.getTexture().dispose();
 
@@ -206,10 +200,10 @@ public class GameScene extends Scene implements Constants {
 		} else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
 			controller.setScene(new MainMenu(controller));
-		} else if(keycode == Input.Keys.R){
+		} else if (keycode == Input.Keys.R) {
 			Character character = player.getCharacter();
 			MainController controller = super.getController();
-			controller.setScene(new GameScene(controller,character));
+			controller.setScene(new GameScene(controller, character));
 		}
 
 		return true;
@@ -311,8 +305,12 @@ public class GameScene extends Scene implements Constants {
 		return player;
 	}
 
-	public void playerDeath(){
-		getController().setScene(new GameOverScene(getController(), getScore(), player));
+	public void playerDeath() {
+		Score score = new Score();
+		score.character = player.getCharacter();
+		score.duration = (System.currentTimeMillis() - startTime) / 1000;
+		score.score = getScore();
+		getController().setScene(new GameOverScene(getController(), score, player));
 	}
 
 }

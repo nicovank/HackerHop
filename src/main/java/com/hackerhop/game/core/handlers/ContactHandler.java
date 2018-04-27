@@ -60,12 +60,6 @@ public class ContactHandler implements ContactListener {
 		if (collision.isBetween("player", "obstacle")) {
 			scene.playerDeath();
 		}
-
-		if (collision.isBetween("player", "coin")){
-			scene.coined();
-
-			collision.getBody("coin").getWorld().destroyBody(collision.getBody("coin"));
-		}
 	}
 
 	@Override

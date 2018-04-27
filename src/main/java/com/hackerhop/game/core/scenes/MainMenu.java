@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hackerhop.game.core.leaderboards.Leaderboards;
 import com.hackerhop.game.core.objects.ui.Button;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.MainController;
@@ -39,7 +40,7 @@ public class MainMenu extends Scene {
 	private ToggleableSprite kate;
 	private ToggleableSprite ye;
 
-	private Button highScoreButton;
+	private Button leaderboardsButton;
 	private Button gitHubButton;
 
 	private Sprite textDisplay;
@@ -98,7 +99,7 @@ public class MainMenu extends Scene {
 
 		);
 
-		this.highScoreButton = new Button(
+		this.leaderboardsButton = new Button(
 				"mainScreen/HighScoreButton.png",
 				"mainScreen/UnderConstruction.png",
 				new Vec2(75, 325)
@@ -143,7 +144,7 @@ public class MainMenu extends Scene {
 		ye.render(batch);
 
 		gitHubButton.render(batch);
-		highScoreButton.render(batch);
+		leaderboardsButton.render(batch);
 		soundButton.render(batch);
 
 		blinker.render(batch);
@@ -200,6 +201,12 @@ public class MainMenu extends Scene {
 			} catch (MalformedURLException ignored) {
 
 			}
+		} else if (leaderboardsButton.getBoundingRectangle().contains(screenX, y)) {
+			try {
+				openWebpage(new URL(Leaderboards.LIST_URL));
+			} catch (MalformedURLException ignored) {
+
+			}
 		}
 
 		return true;
@@ -235,7 +242,7 @@ public class MainMenu extends Scene {
 		kate.dispose();
 		ye.dispose();
 
-		highScoreButton.dispose();
+		leaderboardsButton.dispose();
 		gitHubButton.dispose();
 
 		blinker.dispose();
