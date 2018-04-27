@@ -14,7 +14,10 @@ public class Platforms implements GraphicsElement, Constants {
     // only 4 PlatformGroup objects, cycled through as player advances
     private PlatformGroup[] platformGroups = new PlatformGroup[GROUP_COUNT];
 
+    private World world;
+
     public Platforms(World world) {
+        this.world = world;
         platformGroups[0] = new PlatformGroup(world, 0, WIGGLE_ROOM);
         for (int i = 1; i < 5; ++i) {
             platformGroups[i] = new PlatformGroup(world, i, WIGGLE_ROOM);
@@ -34,14 +37,13 @@ public class Platforms implements GraphicsElement, Constants {
      *
      * @param cameraPositionY the y-value of the camera used to check against the y-value
      *                        of PlatformGroup objects
-     * @param world           the physics world from where Platform objects reside
      */
-    public void update(float cameraPositionY, World world) {
+    public void update(float cameraPositionY) {
         if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / 10) {
             float tmpY = platformGroups[tracker].getY() / 20 + GROUP_COUNT;
             platformGroups[tracker].destroy();
             PlatformGroup p = new PlatformGroup(world, tmpY, WIGGLE_ROOM);
-            p.loadResources();
+            loadPlatformGroup(p);
             platformGroups[tracker] = p;
 
 
@@ -73,6 +75,10 @@ public class Platforms implements GraphicsElement, Constants {
             count += g.getCount();
         }
         return count;
+    }
+
+    public void loadPlatformGroup(PlatformGroup platformGroup){
+        platformGroup.loadResources();
     }
 
     @Override

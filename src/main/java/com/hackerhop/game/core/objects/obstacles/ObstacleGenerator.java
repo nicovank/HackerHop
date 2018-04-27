@@ -36,7 +36,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
      */
     public void update() {
 
-        blinker.update();
+        updateBlinker();
 
         // 1. Check if obstacles need deletion
         for (int i = 0; i < obstacles.length; ++i) {
@@ -78,9 +78,17 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         float y = (camera.position.y / PHYSICS_RATIO) + 500;
 
         obstacles[index] = new Obstacle(x, y, world);
-        obstacles[index].loadResources();
+        loadObstacle(obstacles[index]);
         ++obstacleCount;
 
+    }
+
+    public void updateBlinker(){
+        blinker.update();
+    }
+
+    public void loadObstacle(Obstacle obstacle){
+        obstacle.loadResources();
     }
 
 
