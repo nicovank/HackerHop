@@ -118,7 +118,9 @@ public class Player extends PhysicalObject implements GraphicsElement, Constants
 	}
 
 	public void move(Direction direction) {
-		setDirection(direction);
+		if (direction != null) {
+			setDirection(direction);
+		}
 
 		if (direction == Direction.LEFT) {
 			super.getBody().setLinearVelocity(new Vec2(-LATERAL_SPEED, super.getBody().getLinearVelocity().y));
