@@ -22,6 +22,14 @@ public class Platforms implements GraphicsElement, Constants {
         for (int i = 1; i < 5; ++i) {
             platformGroups[i] = new PlatformGroup(world, i, WIGGLE_ROOM);
         }
+
+        // regenerate the third highest PlatformGroup if it is empty
+        // used later to make sure Platform objects are not spawned too far apart
+        while (platformGroups[2].isEmpty()){
+            destroyPlatformGroup(platformGroups[2]);
+            platformGroups[2] = new PlatformGroup(world, 2, WIGGLE_ROOM);
+            loadPlatformGroup(platformGroups[2]);
+        }
         tracker = 0;
     }
 
@@ -44,8 +52,27 @@ public class Platforms implements GraphicsElement, Constants {
             destroyPlatformGroup(platformGroups[tracker]);
             PlatformGroup p = new PlatformGroup(world, tmpY, WIGGLE_ROOM);
             loadPlatformGroup(p);
-            platformGroups[tracker] = p;
+            platformGroups[tracker] = p; // potential new highest PlatformGroup
 
+            // indexes of PlatformGroups in platformGroups array
+            int g1, g2, g3, g4;
+            g1 = ((tracker + 1 > 4)) ? tracker - 4 : tracker + 1; // new lowest PlatformGroup
+            g2 = ((g1 + 1 > 4)) ? g1 - 4 : g1 + 1;
+            g3 = ((g2 + 1 > 4)) ? g2 - 4 : g2 + 1;
+            g4 = ((g3 + 1 > 4)) ? g3 - 4 : g3 + 1;
+
+            // regenerate the new PlatformGroup if the 3 highest PlatformGroups are empty
+            // ensures that there is no more than 2 empty PlatformGroups between each non-empty PlatformGroup
+            if (!platformGroups[g2].isEmpty()){
+                if (platformGroups[g3].isEmpty() && platformGroups[g4].isEmpty()){
+                    // regenerate new highest PlatformGroup while top 3 PlatformGroups are empty
+                    while(platformGroups[tracker].isEmpty()){
+                        destroyPlatformGroup(platformGroups[tracker]);
+                        platformGroups[tracker] = new PlatformGroup(world, tmpY, WIGGLE_ROOM); // new highest PlatformGroup
+                        loadPlatformGroup(platformGroups[tracker]);
+                    }
+                }
+            }
 
             tracker = (tracker < GROUP_COUNT - 1) ? ++tracker : 0;
         }
@@ -82,7 +109,7 @@ public class Platforms implements GraphicsElement, Constants {
     }
 
     public void destroyPlatformGroup(PlatformGroup platformGroup){
-        platformGroup.dispose();
+//        platformGroup.dispose();
         platformGroup.destroy();
     }
 
@@ -98,6 +125,7 @@ public class Platforms implements GraphicsElement, Constants {
         for (PlatformGroup g : platformGroups) {
             g.dispose();
         }
+        destroyAll();
     }
 
     @Override

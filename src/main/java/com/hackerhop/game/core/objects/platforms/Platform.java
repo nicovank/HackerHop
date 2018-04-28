@@ -68,13 +68,13 @@ public class Platform extends PhysicalObject implements GraphicsElement, Constan
 
 	@Override
 	public void dispose() {
-		// texture.dispose();
+		 texture.dispose();
 	}
 
 	@Override
 	public void loadResources() {
-		if (texture == null) {
+//		if (texture == null) {
 			texture = new Texture("platform/bricks.png");
-		}
+//		}
 	}
 }

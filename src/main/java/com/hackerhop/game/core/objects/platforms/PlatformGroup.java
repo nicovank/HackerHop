@@ -11,8 +11,8 @@ public class PlatformGroup implements GraphicsElement, Constants {
 
     private static final String TAG = PlatformGroup.class.getName();
 
-    // Set of platforms
-    private Platform[] platforms;
+
+    private Platform[] platforms;   // Set of platforms
     private float y;
     private int xCount, wiggleRoom;
 
@@ -25,7 +25,6 @@ public class PlatformGroup implements GraphicsElement, Constants {
     public PlatformGroup(World world, float y, int wiggleRoom) {
         this.wiggleRoom = wiggleRoom;
         this.y = y;
-        this.xCount = 3;
 
         platforms = generatePlatforms(world);
     }
@@ -47,9 +46,9 @@ public class PlatformGroup implements GraphicsElement, Constants {
         Platform[] h;
         Random r = new Random();
         if (y != 0) {
-            h = new Platform[xCount];
-            for (int i = 0; i < xCount; ++i) {
-                if (r.nextBoolean() || r.nextBoolean()) {
+            h = new Platform[PLATFORMS_PER_ROW];
+            for (int i = 0; i < h.length; ++i) {
+                if (r.nextInt(10) < 7) {
                     float offset = wiggleRoom - r.nextInt(2 * wiggleRoom);
                     float x = (((GRID_SEPARATION * i) + offset) < 6) ? 6 : (GRID_SEPARATION * i) + offset;
                     x = (((GRID_SEPARATION * i) + offset) > 42) ? 42 : x;
@@ -57,12 +56,14 @@ public class PlatformGroup implements GraphicsElement, Constants {
 
                     h[i] = new Platform(x,
                             (y * GRID_SEPARATION) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
+                    ++xCount;
                 }
             }
         } else {
             h = new Platform[9];
             for (int i = 0; i < 54; i += 6) {
                 h[i / 6] = new Platform(i, 0, w);
+                ++xCount;
             }
         }
         return h;
@@ -82,7 +83,11 @@ public class PlatformGroup implements GraphicsElement, Constants {
     }
 
     public int getCount() {
-        return platforms.length;
+        return xCount;
+    }
+
+    public boolean isEmpty(){
+        return getCount() == 0;
     }
 
     @Override

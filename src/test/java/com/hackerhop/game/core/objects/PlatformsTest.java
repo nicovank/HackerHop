@@ -7,7 +7,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
@@ -30,7 +30,7 @@ public class PlatformsTest {
     }
 
     @Test
-    void Should_GeneratePlatformsInsideBoundary_When_AtAllTimes() {
+    void Should_GeneratePlatformsInsideBoundary_When_PlatformsIsInstantiated() {
         for (PlatformGroup platformGroup : platforms.getPlatformGroups()) {
             for (Platform platform : platformGroup.getPlatforms()) {
                 if (platform != null) {
@@ -44,18 +44,52 @@ public class PlatformsTest {
     }
 
     @Test
-    void Should_ReplaceLowestPlatformGroup_When_CameraMovesUp(){
+    void Should_ReplaceBasePlatformGroup_When_CameraMovesUp() {
         Platforms spy = spy(new Platforms(world));
         doNothing().when(spy).loadPlatformGroup(any(PlatformGroup.class));
         doNothing().when(spy).destroyPlatformGroup(any(PlatformGroup.class));
 
-        spy.update(505);    // float value high enough to delete base PlatformGroup
+        spy.update(500);    // high enough value to delete base PlatformGroup
 
         assertTrue(spy.getLowestY() > 0, "Base PlatformGroup must no longer exist");
 
         PlatformGroup[] platformGroups = spy.getPlatformGroups();
 
         assertTrue(platformGroups[0].getY() >= 5, "Highest PlatformGroup must replace Base PlatformGroup");
+    }
+
+    //
+    @Test
+    void Should_GeneratePlatformsThatAreCloseEnough_When_CameraPosition360To500000() {
+
+        int cameraPosition = 360;
+        int tracker = 0;
+        int g1, g2, g3;
+        Platforms spy = spy(new Platforms(world));
+        doNothing().when(spy).loadPlatformGroup(any(PlatformGroup.class));
+        doNothing().when(spy).destroyPlatformGroup(any(PlatformGroup.class));
+        PlatformGroup[] platformGroups = spy.getPlatformGroups();
+
+        do {
+            g1 = ((tracker + 1 > 4)) ? tracker - 4 : tracker + 1;
+            g2 = ((g1 + 1 > 4)) ? g1 - 4 : g1 + 1;
+            g3 = ((g2 + 1 > 4)) ? g2 - 4 : g2 + 1;
+
+            if ((cameraPosition - 500) % 200 == 0) {
+                if (!platformGroups[tracker].isEmpty()) {
+                    assertTrue(!(platformGroups[g1].isEmpty()
+                                    && platformGroups[g2].isEmpty()
+                                    && platformGroups[g3].isEmpty()),
+                            "Platform objects must not generate too far apart");
+                }
+            }
+            spy.update(cameraPosition);
+            ++cameraPosition;
+            tracker = (tracker < 4) ? ++tracker : 0;
+            platformGroups = spy.getPlatformGroups();
+
+        } while (cameraPosition <= 500000);
+
     }
 
 }

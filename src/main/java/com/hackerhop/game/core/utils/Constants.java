@@ -16,4 +16,5 @@ public interface Constants {
 	int GROUP_COUNT = 5;    // number of PlatformGroups in Platforms object
 	int GRID_SEPARATION = 20;    // distance between each PlatformGroup
 	int WIGGLE_ROOM = 7;    // maximum distance between a Platform's grid position and actual position
+	int PLATFORMS_PER_ROW = 3;
 }
