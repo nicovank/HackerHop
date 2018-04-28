@@ -96,7 +96,7 @@ public class GameScene extends Scene implements Constants {
 		if (player.getBody().getPosition().y * PHYSICS_RATIO > oldY + CAMERA_MOVEMENT_THRESHOLD) {
 			float newY = (player.getBody().getPosition().y * PHYSICS_RATIO) - CAMERA_MOVEMENT_THRESHOLD;
 			camera.position.set(camera.position.x, newY, camera.position.z);
-			platforms.update(camera.position.y, world);
+			platforms.update(camera.position.y);
 			score += newY - oldY;
 		}
 

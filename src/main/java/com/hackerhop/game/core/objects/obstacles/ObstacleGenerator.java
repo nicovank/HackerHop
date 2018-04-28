@@ -36,7 +36,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
      */
     public void update() {
 
-        blinker.update();
+        updateBlinker();
 
         // 1. Check if obstacles need deletion
         for (int i = 0; i < obstacles.length; ++i) {
@@ -47,8 +47,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
                 float boundary = camera.position.y - SCREEN_HEIGHT;
 
                 if (obstacleY < boundary) {
-                    obstacle.dispose();
-                    obstacle.destroy();
+                    destroyObstacle(obstacle);
                     obstacles[i] = null;
                     --obstacleCount;
                 }
@@ -57,10 +56,15 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
         // 2. generate between 1 and 4 obstacles.
         if (obstacleCount == 0) {
-            for (int i = randomInt(5); i > 0; --i) {
+            for (int i = randomInt(4) + 1; i > 0; --i) {
                 generateObstacle();
             }
         }
+    }
+
+    public void destroyObstacle(Obstacle obstacle){
+        obstacle.dispose();
+        obstacle.destroy();
     }
 
     /**
@@ -74,13 +78,31 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
             index = randomInt(obstacles.length);
         }
 
+        // There are 10 vertical lanes where Obstacles can be generated,
+        // with a 2-unit-wide boundary on the left and right extremes of the screen, i.e.:
+        //                     |                 |    ||||||||||    |                 |
+        // (Left screen edge)->|[2-unit boundary]| ...[10 lanes]... |[2-unit boundary]|<-(Right screen edge)
+        //                     |                 |    ||||||||||    |                 |
+
         float x = 2 + (5 * index);
         float y = (camera.position.y / PHYSICS_RATIO) + 500;
 
         obstacles[index] = new Obstacle(x, y, world);
-        obstacles[index].loadResources();
+        loadObstacle(obstacles[index]);
         ++obstacleCount;
 
+    }
+
+    public Obstacle[] getObstacles(){
+        return obstacles;
+    }
+
+    public void updateBlinker(){
+        blinker.update();
+    }
+
+    public void loadObstacle(Obstacle obstacle){
+        obstacle.loadResources();
     }
 
 

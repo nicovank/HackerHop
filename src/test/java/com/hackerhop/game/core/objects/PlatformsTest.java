@@ -7,7 +7,10 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.spy;
 
 public class PlatformsTest {
 
@@ -15,19 +18,19 @@ public class PlatformsTest {
     private Platforms platforms = new Platforms(world);
 
     @Test
-    void platformsShouldGenerateAtMost21Platforms() {
+    void Should_GenerateAtMost21Platforms_When_PlatformsIsInstantiated() {
         int count = platforms.getCount();
-        assertTrue(count <= 21, "at most 21 Platform objects must be generated");
+        assertTrue(count <= 21, "at most 21 Platform objects must be generated at Platforms instantiation");
     }
 
     @Test
-    void platformsShouldGenerateAtLeast10Platforms() {
+    void Should_GenerateAtLeast15Platforms_When_PlatformsIsInstantiated() {
         int count = platforms.getCount();
-        assertTrue(count >= 15, "at least 15 Platform objects must be generated");
+        assertTrue(count >= 15, "at least 15 Platform objects must be generated at Platforms instantiation");
     }
 
     @Test
-    void platformsShouldStayInsideBoundary() {
+    void Should_GeneratePlatformsInsideBoundary_When_AtAllTimes() {
         for (PlatformGroup platformGroup : platforms.getPlatformGroups()) {
             for (Platform platform : platformGroup.getPlatforms()) {
                 if (platform != null) {
@@ -38,6 +41,21 @@ public class PlatformsTest {
                 }
             }
         }
+    }
+
+    @Test
+    void Should_ReplaceLowestPlatformGroup_When_CameraMovesUp(){
+        Platforms spy = spy(new Platforms(world));
+        doNothing().when(spy).loadPlatformGroup(any(PlatformGroup.class));
+        doNothing().when(spy).destroyPlatformGroup(any(PlatformGroup.class));
+
+        spy.update(505);    // float value high enough to delete base PlatformGroup
+
+        assertTrue(spy.getLowestY() > 0, "Base PlatformGroup must no longer exist");
+
+        PlatformGroup[] platformGroups = spy.getPlatformGroups();
+
+        assertTrue(platformGroups[0].getY() >= 5, "Highest PlatformGroup must replace Base PlatformGroup");
     }
 
 }
