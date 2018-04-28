@@ -39,9 +39,9 @@ public class Platforms implements GraphicsElement, Constants {
      *                        of PlatformGroup objects
      */
     public void update(float cameraPositionY) {
-        if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / 10) {
+        if (platformGroups[tracker].getY() <= (cameraPositionY - THRESHOLD) / PHYSICS_RATIO) {
             float tmpY = platformGroups[tracker].getY() / 20 + GROUP_COUNT;
-            platformGroups[tracker].destroy();
+            destroyPlatformGroup(platformGroups[tracker]);
             PlatformGroup p = new PlatformGroup(world, tmpY, WIGGLE_ROOM);
             loadPlatformGroup(p);
             platformGroups[tracker] = p;
@@ -79,6 +79,11 @@ public class Platforms implements GraphicsElement, Constants {
 
     public void loadPlatformGroup(PlatformGroup platformGroup){
         platformGroup.loadResources();
+    }
+
+    public void destroyPlatformGroup(PlatformGroup platformGroup){
+        platformGroup.dispose();
+        platformGroup.destroy();
     }
 
     @Override
