@@ -19,9 +19,12 @@ import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.Options;
+import com.hackerhop.game.core.utils.toggleable.ToggleableSprite;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+
+import java.io.IOException;
 
 /**
  * This scene is the "main" game, with the scrolling platforms and the player.
@@ -53,6 +56,7 @@ public class GameScene extends Scene implements Constants {
 	private TextureRegion background;
 	private BitmapFont font;
 	private SpriteBatch ui;
+	private ToggleableSprite soundButton;
 
 	// Frame time accumulator
 	private float accumulator = 0.0f;
@@ -135,17 +139,14 @@ public class GameScene extends Scene implements Constants {
 
 
 		ui.begin();
-
-		ui.draw(highScoreBorder, 0, 0);
-		font.draw(ui, String.format("Score: %s", getScore()), 10, 25);
-
+		soundButton.render(ui);
+		ui.draw(highScoreBorder, 375, 0);
+		font.draw(ui, String.format("Score: %s", getScore()), 380, 25);
 		ui.end();
 	}
 
 	/**
-	 * Transforms the current score into a nice displayable String.
-	 *
-	 * @return A String representation of the current score.
+	 * @return the current score.
 	 */
 	public long getScore() {
 		return score;
@@ -164,6 +165,12 @@ public class GameScene extends Scene implements Constants {
 		font.setScale(0.1f);
 		ui = new SpriteBatch();
 
+		this.soundButton = new ToggleableSprite(
+				Options::sounds,
+				new Sprite(new Texture("mainScreen/soundButton.png")),
+				new Sprite(new Texture("mainScreen/soundButtonOff.png"))
+		);
+
 		music.setLooping(true);
 		music.setVolume(Options.sounds() ? 1f : 0f);
 		music.play();
@@ -181,6 +188,7 @@ public class GameScene extends Scene implements Constants {
 		music.dispose();
 		font.dispose();
 		ui.dispose();
+		soundButton.dispose();
 
 		highScoreBorder.getTexture().dispose();
 
@@ -248,7 +256,17 @@ public class GameScene extends Scene implements Constants {
 	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		int y = Gdx.graphics.getHeight() - screenY;
+		if (soundButton.getBoundingRectangle().contains(screenX, y)) {
+			try {
+				Options.toggleSounds();
+			} catch (IOException ignored) {
+
+			}
+
+			music.setVolume(Options.sounds() ? 1f : 0f);
+		}
+		return true;
 	}
 
 	/**
