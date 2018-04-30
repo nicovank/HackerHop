@@ -14,14 +14,12 @@ import com.hackerhop.game.core.handlers.ContactHandler;
 import com.hackerhop.game.core.leaderboards.Score;
 import com.hackerhop.game.core.objects.obstacles.ObstacleGenerator;
 import com.hackerhop.game.core.objects.platforms.Platforms;
-// import com.hackerhop.game.core.objects.Coin;
 import com.hackerhop.game.core.player.Character;
 import com.hackerhop.game.core.player.Player;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.Options;
 import com.hackerhop.game.core.utils.toggleable.ToggleableSprite;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 import java.io.IOException;
@@ -137,10 +135,9 @@ public class GameScene extends Scene implements Constants {
 		player.render(batch);
 		batch.end();
 
-
 		ui.begin();
 		soundButton.render(ui);
-		ui.draw(highScoreBorder, 375, 0);
+		ui.draw(highScoreBorder, 355, 0);
 		font.draw(ui, String.format("Score: %s", getScore()), 380, 25);
 		ui.end();
 	}
@@ -157,7 +154,7 @@ public class GameScene extends Scene implements Constants {
 
 		player.loadResources();
 		platforms.loadResources();
-//		coin.loadResources();
+
 		background = new TextureRegion(new Texture("background/ShinemanPixel.png"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/DkIslandSwing.mp3"));
 		highScoreBorder = new Sprite(new Texture("background/HighScoreBorder.png"));
