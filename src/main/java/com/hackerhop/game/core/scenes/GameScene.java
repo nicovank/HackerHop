@@ -164,8 +164,8 @@ public class GameScene extends Scene implements Constants {
 
 		this.soundButton = new ToggleableSprite(
 				Options::sounds,
-				new Sprite(new Texture("mainScreen/soundButton.png")),
-				new Sprite(new Texture("mainScreen/soundButtonOff.png"))
+				new Sprite(new Texture("mainMenuScene/soundButton.png")),
+				new Sprite(new Texture("mainMenuScene/soundButtonOff.png"))
 		);
 
 		music.setLooping(true);

@@ -60,7 +60,7 @@ public class MainMenu extends Scene {
 
 	@Override
 	public void loadResources() {
-		logo = new Texture("mainScreen/Logo.png");
+		logo = new Texture("mainMenuScene/Logo.png");
 		background = new Texture("background/ShinemanPixel.png");
 
 		final Sprite robSprite = new Sprite(new Texture("player/rob.png"));
@@ -100,24 +100,24 @@ public class MainMenu extends Scene {
 		);
 
 		this.leaderboardsButton = new Button(
-				"mainScreen/HighScoreButton.png",
-				"mainScreen/UnderConstruction.png",
+				"mainMenuScene/HighScoreButton.png",
+				"mainMenuScene/HighScoreButtonHover.png",
 				new Vec2(75, 325)
 		);
 
 		this.gitHubButton = new Button(
-				"mainScreen/GitHubButton.png",
-				"mainScreen/GitHubButtonHover.png",
+				"mainMenuScene/GitHubButton.png",
+				"mainMenuScene/GitHubButtonHover.png",
 				new Vec2(285, 325)
 		);
 
-		blinker = new SpriteBlinker(new Sprite(new Texture("mainScreen/Arrow.png")), 1f, .5f);
-		textDisplay = new Sprite(new Texture("mainScreen/textDisplay.png"));
+		blinker = new SpriteBlinker(new Sprite(new Texture("mainMenuScene/Arrow.png")), 1f, .5f);
+		textDisplay = new Sprite(new Texture("mainMenuScene/textDisplay.png"));
 
 		this.soundButton = new ToggleableSprite(
 				Options::sounds,
-				new Sprite(new Texture("mainScreen/soundButton.png")),
-				new Sprite(new Texture("mainScreen/soundButtonOff.png"))
+				new Sprite(new Texture("mainMenuScene/soundButton.png")),
+				new Sprite(new Texture("mainMenuScene/soundButtonOff.png"))
 		);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/waves.mp3"));

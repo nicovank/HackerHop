@@ -102,8 +102,8 @@ public class HelpScene extends Scene {
     @Override
     public void loadResources() {
         space.loadResources();
-        arrow = new Sprite(new Texture("mainScreen/Arrow.png"));
-        arrowR = new Sprite(new Texture("HelpScreen/arrowR.png"));
+        arrow = new Sprite(new Texture("mainMenuScene/Arrow.png"));
+        arrowR = new Sprite(new Texture("helpScene/arrowR.png"));
         blinker1 = new SpriteBlinker(arrow, 1f, .5f);
         blinker2 = new SpriteBlinker(arrow, 1f, .5f);
         blinker3 = new SpriteBlinker(arrowR, 1f, .5f);
@@ -111,7 +111,7 @@ public class HelpScene extends Scene {
 
 
         clouds = new Texture("background/cloud.png");
-        background = new Texture("HelpScreen/HelpScreen.png");
+        background = new Texture("helpScene/HelpScreen.png");
         if (character == Character.ROB) {
             player = new Sprite(new Texture("player/rob.png"));
             player2 = new Sprite(new Texture("player/rob.png"));

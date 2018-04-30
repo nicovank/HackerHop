@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.hackerhop.game.core.MainController;
 import com.hackerhop.game.core.leaderboards.Leaderboards;
 import com.hackerhop.game.core.leaderboards.Score;
@@ -57,29 +56,29 @@ public class GameOverScene extends Scene implements Constants {
 	public void loadResources() {
 		userPlayer.loadResources();
 		background = new TextureRegion((new Texture("background/ShinemanPixel.png")));
-		gameOver = new TextureRegion(new Texture("gameOver/GameOver.png"));
+		gameOver = new TextureRegion(new Texture("gameOverScene/GameOver.png"));
 		font = new BitmapFont(Gdx.files.internal("fonts/pixels/pixels.fnt"));
 		font.setScale(0.15f);
 		font.setColor(0, 0, 0, 1);
 		ui = new SpriteBatch();
 
 		restartButton = new Button(
-				"gameOver/Restart.png",
-				"gameOver/RestartHover.png",
+				"gameOverScene/Restart.png",
+				"gameOverScene/RestartHover.png",
 				new Vec2(330, 75),
 				new Vec2(125, 45)
 		);
 
 		menuButton = new Button(
-				"gameOver/MainMenu.png",
-				"gameOver/MainMenuHover.png",
+				"gameOverScene/MainMenu.png",
+				"gameOverScene/MainMenuHover.png",
 				new Vec2(90, 75),
 				new Vec2(125, 45)
 		);
 
 		saveButton = new Button(
-				"gameOver/Save.png",
-				"gameOver/SaveHover.png",
+				"gameOverScene/Save.png",
+				"gameOverScene/SaveHover.png",
 				new Vec2(207, 610),
 				new Vec2(125, 45)
 		);

@@ -30,7 +30,7 @@ public class Space implements GraphicsElement, Constants {
 
     @Override
     public void loadResources() {
-        texture = new Texture("HelpScreen/PressToStart.png");
+        texture = new Texture("helpScene/PressToStart.png");
         TextureRegion[] frames = TextureRegion.split(texture, 384, 66)[0];
 
         animation = new Animation(ANIMATION_DURATION, frames);
