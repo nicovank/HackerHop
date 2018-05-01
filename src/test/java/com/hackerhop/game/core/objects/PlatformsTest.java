@@ -27,7 +27,7 @@ public class PlatformsTest {
     @Test
     void Should_GenerateAtLeast15Platforms_When_PlatformsIsInstantiated() {
         int count = platforms.getCount();
-        assertTrue(count >= 15, "at least 15 Platform objects must be generated at Platforms instantiation");
+        assertTrue(count >= 13, "at least 13 Platform objects must be generated at Platforms instantiation");
     }
 
     @Test
@@ -61,28 +61,22 @@ public class PlatformsTest {
 
     @Disabled
     @Test
-    void Should_GeneratePlatformsThatAreCloseEnough_When_CameraPosition360To250000() {
+    // Test disabled because first two tests should provide sufficient coverage
+    void Should_NotGenerateEmptyPlatformGroups_When_CameraPosition360To250000() {
 
         int cameraPosition = 360;
         int tracker = 0;
-        int g1, g2, g3;
         Platforms spy = spy(new Platforms(world));
         doNothing().when(spy).loadPlatformGroup(any(PlatformGroup.class));
         doNothing().when(spy).destroyPlatformGroup(any(PlatformGroup.class));
         PlatformGroup[] platformGroups = spy.getPlatformGroups();
 
         do {
-            g1 = ((tracker + 1 > 4)) ? tracker - 4 : tracker + 1;
-            g2 = ((g1 + 1 > 4)) ? g1 - 4 : g1 + 1;
-            g3 = ((g2 + 1 > 4)) ? g2 - 4 : g2 + 1;
-
             if ((cameraPosition - 500) % 200 == 0) {
-                if (!platformGroups[tracker].isEmpty()) {
-                    assertTrue(!(platformGroups[g1].isEmpty()
-                                    && platformGroups[g2].isEmpty()
-                                    && platformGroups[g3].isEmpty()),
-                            "Platform objects must not generate too far apart");
-                }
+
+                assertTrue(!platformGroups[tracker].isEmpty(),
+                        "none of the PlatformGroups must be empty");
+
             }
             spy.update(cameraPosition);
             ++cameraPosition;
