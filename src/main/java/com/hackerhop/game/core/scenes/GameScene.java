@@ -200,7 +200,7 @@ public class GameScene extends Scene implements Constants {
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP) {
+		if (keycode == Input.Keys.SPACE || keycode == Input.Keys.UP || keycode == Input.Keys.W) {
 			player.jump();
 		} else if (keycode == Input.Keys.ESCAPE) {
 			MainController controller = super.getController();
