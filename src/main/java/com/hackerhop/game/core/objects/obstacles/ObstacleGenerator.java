@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hackerhop.game.core.graphics.GraphicsElement;
+import com.hackerhop.game.core.objects.Coin;
 import com.hackerhop.game.core.scenes.GameScene;
 import com.hackerhop.game.core.utils.Constants;
 import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.ContactEdge;
 
 import static com.hackerhop.game.core.utils.Random.*;
 
@@ -26,6 +28,9 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
     private SpriteBlinker blinker;
     private Sprite arrow;
 
+    private boolean coinSpawned = false;
+    private Coin coin;
+
     public ObstacleGenerator(World world, Camera camera) {
         this.world = world;
         this.camera = camera;
@@ -34,7 +39,8 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
     /**
      * Will check if obstacles need deletion, and spawn new ones.
      */
-    public void update() {
+    public int update() {
+        int score = 0;
 
         updateBlinker();
 
@@ -54,12 +60,24 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
             }
         }
 
+        if (coinSpawned){
+            for (ContactEdge edge = coin.getBody().getContactList(); edge != null; edge = edge.next) {
+                if (edge.other.getUserData().equals("player") && edge.contact.isTouching()) {
+                    coin.destroy();
+                    coin.dispose();
+                    coinSpawned = false;
+                    score = 2000;
+                }
+            }
+        }
+
         // 2. generate between 1 and 4 obstacles.
         if (obstacleCount == 0) {
             for (int i = randomInt(4) + 1; i > 0; --i) {
                 generateObstacle();
             }
         }
+        return score;
     }
 
     public void destroyObstacle(Obstacle obstacle){
@@ -90,6 +108,12 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         obstacles[index] = new Obstacle(x, y, world);
         loadObstacle(obstacles[index]);
         ++obstacleCount;
+
+        if (!coinSpawned) {
+            coin = new Coin(x, y, world);
+            coinSpawned = true;
+            coin.loadResources();
+        }
 
     }
 
@@ -125,6 +149,10 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
                     obstacle.render(batch);
                 }
             }
+        }
+        if (coinSpawned){
+            coin.update();
+            coin.render(batch);
         }
     }
 

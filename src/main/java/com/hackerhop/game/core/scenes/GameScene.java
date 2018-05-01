@@ -109,7 +109,7 @@ public class GameScene extends Scene implements Constants {
 
 		player.update();
 		camera.update();
-		obstacleGenerator.update();
+		score += obstacleGenerator.update();
 	}
 
 	/**
