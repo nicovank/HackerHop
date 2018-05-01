@@ -5,7 +5,7 @@ import com.hackerhop.game.core.graphics.GraphicsElement;
 import com.hackerhop.game.core.utils.Constants;
 import org.jbox2d.dynamics.World;
 
-import java.util.Random;
+import static com.hackerhop.game.core.utils.Random.randomInt;
 
 public class PlatformGroup implements GraphicsElement, Constants {
 
@@ -15,6 +15,7 @@ public class PlatformGroup implements GraphicsElement, Constants {
     private Platform[] platforms;   // Set of platforms
     private float y;
     private int xCount, wiggleRoom;
+    private float offset;
 
 
     /**
@@ -25,7 +26,7 @@ public class PlatformGroup implements GraphicsElement, Constants {
     public PlatformGroup(World world, float y, int wiggleRoom) {
         this.wiggleRoom = wiggleRoom;
         this.y = y;
-
+        offset = wiggleRoom - randomInt(2 * wiggleRoom);
         platforms = generatePlatforms(world);
     }
 
@@ -44,19 +45,32 @@ public class PlatformGroup implements GraphicsElement, Constants {
      */
     private Platform[] generatePlatforms(World w) {
         Platform[] h;
-        Random r = new Random();
         if (y != 0) {
             h = new Platform[PLATFORMS_PER_ROW];
             for (int i = 0; i < h.length; ++i) {
-                if (r.nextInt(10) < 7) {
-                    float offset = wiggleRoom - r.nextInt(2 * wiggleRoom);
+
+                // Generate Platform at index if randomInt > 7
+                if (randomInt(10) < 7) {
+
                     float x = (((GRID_SEPARATION * i) + offset) < 6) ? 6 : (GRID_SEPARATION * i) + offset;
                     x = (((GRID_SEPARATION * i) + offset) > 42) ? 42 : x;
 
-
                     h[i] = new Platform(x,
-                            (y * GRID_SEPARATION) + (wiggleRoom - r.nextInt(2 * wiggleRoom)), w);
+                            (y * GRID_SEPARATION) + (wiggleRoom - randomInt(2 * wiggleRoom)), w);
                     ++xCount;
+                }
+
+                // If no Platforms generated, generate one Platform at random index
+                if (i == 2 && xCount == 0) {
+                    int index = randomInt(h.length);
+
+                    float x = (((GRID_SEPARATION * index) + offset) < 6) ? 6 : (GRID_SEPARATION * index) + offset;
+                    x = (((GRID_SEPARATION * index) + offset) > 42) ? 42 : x;
+
+                    h[index] = new Platform(x,
+                            (y * GRID_SEPARATION) + (wiggleRoom - randomInt(2 * wiggleRoom)), w);
+                    ++xCount;
+                    break;
                 }
             }
         } else {
@@ -86,7 +100,7 @@ public class PlatformGroup implements GraphicsElement, Constants {
         return xCount;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return getCount() == 0;
     }
 
