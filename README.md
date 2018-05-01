@@ -332,3 +332,6 @@ The team developing this project consists of:
 
 #### Obstacles
 ![Obstacles sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Obstacles.png)
+
+#### Leaderboards
+![Leaderboards sequence diagram](https://raw.githubusercontent.com/nicovank/HackerHop/master/uml/diagrams/sequence/Leaderboard.png)
