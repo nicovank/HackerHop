@@ -12,7 +12,7 @@ import com.hackerhop.game.core.utils.blinkers.SpriteBlinker;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.ContactEdge;
 
-import static com.hackerhop.game.core.utils.Random.*;
+import static com.hackerhop.game.core.utils.Random.randomInt;
 
 public class ObstacleGenerator implements GraphicsElement, Constants {
     private static final String TAG = GameScene.class.getName();
@@ -60,7 +60,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
             }
         }
 
-        if (coinSpawned){
+        if (coinSpawned) {
             for (ContactEdge edge = coin.getBody().getContactList(); edge != null; edge = edge.next) {
                 if (edge.other.getUserData().equals("player") && edge.contact.isTouching()) {
                     coin.destroy();
@@ -80,7 +80,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         return score;
     }
 
-    public void destroyObstacle(Obstacle obstacle){
+    public void destroyObstacle(Obstacle obstacle) {
         obstacle.dispose();
         obstacle.destroy();
     }
@@ -110,22 +110,26 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         ++obstacleCount;
 
         if (!coinSpawned) {
-            coin = new Coin(x, y, world);
-            coinSpawned = true;
-            coin.loadResources();
+            spawnCoin(x, y - 400);
         }
 
     }
 
-    public Obstacle[] getObstacles(){
+    public void spawnCoin(float x, float y) {
+        coin = new Coin(x, y , world);
+        coinSpawned = true;
+        coin.loadResources();
+    }
+
+    public Obstacle[] getObstacles() {
         return obstacles;
     }
 
-    public void updateBlinker(){
+    public void updateBlinker() {
         blinker.update();
     }
 
-    public void loadObstacle(Obstacle obstacle){
+    public void loadObstacle(Obstacle obstacle) {
         obstacle.loadResources();
     }
 
@@ -138,6 +142,10 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
     @Override
     public void render(SpriteBatch batch) {
+        if (coinSpawned) {
+            coin.update();
+            coin.render(batch);
+        }
         for (Obstacle obstacle : obstacles) {
             if (obstacle != null) {
                 if (obstacle.getBody().getPosition().y > ((camera.position.y + (SCREEN_HEIGHT / 2)) / PHYSICS_RATIO)) {
@@ -150,10 +158,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
                 }
             }
         }
-        if (coinSpawned){
-            coin.update();
-            coin.render(batch);
-        }
+
     }
 
     @Override
