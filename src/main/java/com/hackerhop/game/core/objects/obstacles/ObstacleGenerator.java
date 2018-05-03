@@ -41,6 +41,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
      */
     public int update() {
         int score = 0;
+        float boundary = camera.position.y - SCREEN_HEIGHT;
 
         updateBlinker();
 
@@ -50,7 +51,6 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
             if (obstacles[i] != null) {
                 float obstacleY = obstacle.getBody().getPosition().y * PHYSICS_RATIO;
-                float boundary = camera.position.y - SCREEN_HEIGHT;
 
                 if (obstacleY < boundary) {
                     destroyObstacle(obstacle);
@@ -60,6 +60,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
             }
         }
 
+        // Coin spawning
         if (coinSpawned) {
             for (ContactEdge edge = coin.getBody().getContactList(); edge != null; edge = edge.next) {
                 if (edge.other.getUserData().equals("player") && edge.contact.isTouching()) {
@@ -68,6 +69,15 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
                     coinSpawned = false;
                     score = 2000;
                 }
+            }
+
+
+            float coinY = coin.getBody().getPosition().y * PHYSICS_RATIO;
+
+            if (coinY < boundary) {
+                coin.destroy();
+                coin.dispose();
+                coinSpawned = false;
             }
         }
 
@@ -132,7 +142,6 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
     public void loadObstacle(Obstacle obstacle) {
         obstacle.loadResources();
     }
-
 
     @Override
     public void loadResources() {

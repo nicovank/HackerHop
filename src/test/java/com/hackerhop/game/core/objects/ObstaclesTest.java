@@ -33,6 +33,7 @@ public class ObstaclesTest {
         spy = spy(new ObstacleGenerator(world, camera));
         doNothing().when(spy).updateBlinker();
         doNothing().when(spy).loadObstacle(any(Obstacle.class));
+        doNothing().when(spy).spawnCoin(anyFloat(), anyFloat());
     }
 
 //    @Disabled
