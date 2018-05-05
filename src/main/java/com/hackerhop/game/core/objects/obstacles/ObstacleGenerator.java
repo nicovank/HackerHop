@@ -74,7 +74,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
 
             float coinY = coin.getBody().getPosition().y * PHYSICS_RATIO;
 
-            if (coinY < boundary) {
+            if (coinY < camera.position.y - 400) {
                 coin.destroy();
                 coin.dispose();
                 coinSpawned = false;
@@ -119,7 +119,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         loadObstacle(obstacles[index]);
         ++obstacleCount;
 
-        if (!coinSpawned || coin.getBody().getPosition().y < camera.position.y) {
+        if (!coinSpawned) {
             spawnCoin(x, y - 400);
         }
 
