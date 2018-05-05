@@ -119,7 +119,7 @@ public class ObstacleGenerator implements GraphicsElement, Constants {
         loadObstacle(obstacles[index]);
         ++obstacleCount;
 
-        if (!coinSpawned) {
+        if (!coinSpawned || coin.getBody().getPosition().y < camera.position.y) {
             spawnCoin(x, y - 400);
         }
 
